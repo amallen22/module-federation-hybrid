@@ -16,7 +16,7 @@ cv-hibrid/
 ```
 
 
-🛠️ Stack Tecnológico
+### 🛠️ Stack Tecnológico
 
 Core
 •  ⚛️ React
@@ -31,16 +31,14 @@ Herramientas
 •  🔗 Dynamic Imports
 
 
-
-
-🚀 Inicio Rápido
+# 🚀 Inicio Rápido
 
 ```bash
 # Instalar pnpm
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 # Clonar e instalar
-git clone [repo-url] cv-hibrid
+git clone git@github.com:amallen22/module-federation-hybrid.git cv-hibrid
 cd cv-hibrid
 pnpm install
 
@@ -49,7 +47,7 @@ pnpm run dev
 ```
 
 
-🔌 Module Federation
+### 🔌 Module Federation
 
 ```typescript
 // Shell Config
@@ -63,36 +61,36 @@ federation({
 ```
 
 
-🎯 Puertos y Servicios
+### 🎯 Puertos y Servicios
 
-Development
+**Development**
 •  🏠 Shell: :5000
 •  🛍️ Product: :5001
 •  🎨 UI Kit: :5002
 
-Características
+**Características**
 •  🔄 Hot Reload
 •  🔍 Source Maps
 •  📱 Responsive
 •  🔒 Type Safe
 
 
-💡 Características Clave
+### 💡 Características Clave
 
-Arquitectura
+**Arquitectura**
 •  🏗️ Micro-Frontends
 •  🔌 Module Federation
 •  📦 Componentes Compartidos (UI-kit)
 •  🔄 Lazy Loading
 
-Desarrollo
+**Desarrollo**
 •  👥 Multi-equipo
 •  🚀 Despliegue Independiente
 •  🔍 Código tipado
 •  🎨 UI Consistente
 
 
-📱 Ejemplo de Uso
+### 📱 Ejemplo de Uso
 
 ```typescript
 // En Shell App.tsx
@@ -109,7 +107,7 @@ function App() {
 }
 ```
 
-🔄 Flujo de Desarrollo
+### 🔄 Flujo de Desarrollo
 
 1. 📝 Desarrollo en módulos independientes
 2. 🔄 Build automático con watch
@@ -118,24 +116,25 @@ function App() {
 
 
 
-📈 Escalabilidad
+### 📈 Escalabilidad
 
-Actual
+**Actual**
 •  🏠 Shell App
 •  🛍️ Product Module
 •  🎨 UI Kit
 
-Futuro
+**Futuro**
 •  👤 User Module
 •  🛒 Payment Module
 •  📊 Analytics
 •  🔐 Auth Module
 •  🏪​ Store Module
+•  🧲 Error logs Module
 
 
-🎯 Próximos Pasos
+### 🎯 Próximos Pasos
 
+1. 🧩 Integrar app de CV
 1. 🔍 Testing E2E
-2. 📊 Monitoring
+2. 📊 Monitorización
 3. 🚀 CI/CD Pipeline
-4. 📱 Mobile Support
