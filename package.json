@@ -1,0 +1,9 @@
+{
+  "name": "cv-hibrid",
+  "private": true,
+  "scripts": {
+    "build:all": "pnpm --filter ui-kit build && pnpm --filter product build && pnpm --filter shell build",
+    "preview:all": "pnpm --parallel --filter shell --filter product --filter ui-kit preview",
+    "dev": "pnpm run build:all && pnpm run preview:all"
+  }
+}

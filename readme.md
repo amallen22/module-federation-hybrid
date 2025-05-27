@@ -1,0 +1,166 @@
+---
+marp: true
+theme: default
+class: invert
+paginate: true
+---
+
+<style>
+section {
+  background: linear-gradient(to bottom right, #1a1a1a, #2a2a2a);
+  color: #ffffff;
+}
+h1 {
+  color: #61dafb;
+  font-size: 2.5em;
+}
+h2 {
+  color: #4ec9b0;
+}
+code {
+  background: #2d2d2d;
+  color: #61dafb;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}
+
+# 🚀 Micro-Frontend Architecture
+## Con Module Federation y Vite
+
+---
+
+# 📦 Estructura del Proyecto
+
+```ascii
+cv-hibrid/
+├── 📱 apps/
+│   ├── 🏠 shell/
+│   └── 🛍️ product/
+├── 📚 packages/
+│   └── 🎨 ui-kit/
+└── 📝 pnpm-workspace.yaml
+
+
+🛠️ Stack Tecnológico
+
+Core
+•  ⚛️ React
+•  📦 Module Federation
+•  🔷 TypeScript
+•  🔧 Vite
+
+Herramientas
+•  📦 pnpm Workspaces
+•  🔄 Hot Module Replacement
+•  🎨 UI Kit compartido
+•  🔗 Dynamic Imports
+
+
+
+
+🚀 Inicio Rápido
+
+```bash
+# Instalar pnpm
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+
+# Clonar e instalar
+git clone [repo-url] cv-hibrid
+cd cv-hibrid
+pnpm install
+
+# Desarrollo
+pnpm run dev
+
+
+🔌 Module Federation
+
+```typescript
+// Shell Config
+federation({
+  name: 'shell',
+  remotes: {
+    product: 'http://localhost:5001/assets/remoteEntry.js',
+    ui: 'http://localhost:5002/assets/remoteEntry.js'
+  }
+})
+
+
+🎯 Puertos y Servicios
+
+Development
+•  🏠 Shell: :5000
+•  🛍️ Product: :5001
+•  🎨 UI Kit: :5002
+
+Características
+•  🔄 Hot Reload
+•  🔍 Source Maps
+•  📱 Responsive
+•  🔒 Type Safe
+
+
+💡 Características Clave
+
+Arquitectura
+•  🏗️ Micro-Frontends
+•  🔌 Module Federation
+•  📦 Componentes Compartidos (UI-kit)
+•  🔄 Lazy Loading
+
+Desarrollo
+•  👥 Multi-equipo
+•  🚀 Despliegue Independiente
+•  🔍 Código tipado
+•  🎨 UI Consistente
+
+
+📱 Ejemplo de Uso
+
+```typescript
+// En Shell App.tsx
+import React, { Suspense } from 'react';
+
+const RemoteButton = React.lazy(() => import('ui/Button'));
+const RemoteProduct = React.lazy(() => import('product/App'));
+
+function App() {
+  return (
+    <Suspense fallback="Loading...">
+      <RemoteProduct />
+  );
+}
+
+🔄 Flujo de Desarrollo
+
+1. 📝 Desarrollo en módulos independientes
+2. 🔄 Build automático con watch
+3. 🔌 Integración dinámica de módulos
+4. 🚀 Despliegues independientes
+
+
+
+📈 Escalabilidad
+
+Actual
+•  🏠 Shell App
+•  🛍️ Product Module
+•  🎨 UI Kit
+
+Futuro
+•  👤 User Module
+•  🛒 Payment Module
+•  📊 Analytics
+•  🔐 Auth Module
+•  🏪​ Store Module
+
+
+🎯 Próximos Pasos
+
+1. 🔍 Testing E2E
+2. 📊 Monitoring
+3. 🚀 CI/CD Pipeline
+4. 📱 Mobile Support
