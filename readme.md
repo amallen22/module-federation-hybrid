@@ -1,32 +1,3 @@
----
-marp: true
-theme: default
-class: invert
-paginate: true
----
-
-<style>
-section {
-  background: linear-gradient(to bottom right, #1a1a1a, #2a2a2a);
-  color: #ffffff;
-}
-h1 {
-  color: #61dafb;
-  font-size: 2.5em;
-}
-h2 {
-  color: #4ec9b0;
-}
-code {
-  background: #2d2d2d;
-  color: #61dafb;
-}
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2em;
-}
-
 # 🚀 Micro-Frontend Architecture
 ## Con Module Federation y Vite
 
