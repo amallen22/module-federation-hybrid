@@ -13,6 +13,7 @@ cv-hibrid/
 ├── 📚 packages/
 │   └── 🎨 ui-kit/
 └── 📝 pnpm-workspace.yaml
+```
 
 
 🛠️ Stack Tecnológico
@@ -45,6 +46,7 @@ pnpm install
 
 # Desarrollo
 pnpm run dev
+```
 
 
 🔌 Module Federation
@@ -58,6 +60,7 @@ federation({
     ui: 'http://localhost:5002/assets/remoteEntry.js'
   }
 })
+```
 
 
 🎯 Puertos y Servicios
@@ -104,6 +107,7 @@ function App() {
       <RemoteProduct />
   );
 }
+```
 
 🔄 Flujo de Desarrollo
 
