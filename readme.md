@@ -18,17 +18,17 @@ cv-hibrid/
 
 ### 🛠️ Stack Tecnológico
 
-Core
-•  ⚛️ React
-•  📦 Module Federation
-•  🔷 TypeScript
-•  🔧 Vite
+**Core**
+- ⚛️ React
+- 📦 Module Federation
+- 🔷 TypeScript
+- 🔧 Vite
 
-Herramientas
-•  📦 pnpm Workspaces
-•  🔄 Hot Module Replacement
-•  🎨 UI Kit compartido
-•  🔗 Dynamic Imports
+**Herramientas**
+- 📦 pnpm Workspaces
+- 🔄 Hot Module Replacement
+- 🎨 UI Kit compartido
+- 🔗 Dynamic Imports
 
 
 # 🚀 Inicio Rápido
@@ -64,30 +64,30 @@ federation({
 ### 🎯 Puertos y Servicios
 
 **Development**
-•  🏠 Shell: :5000
-•  🛍️ Product: :5001
-•  🎨 UI Kit: :5002
+- 🏠 Shell: :5000
+- 🛍️ Product: :5001
+- 🎨 UI Kit: :5002
 
 **Características**
-•  🔄 Hot Reload
-•  🔍 Source Maps
-•  📱 Responsive
-•  🔒 Type Safe
+- 🔄 Hot Reload
+- 🔍 Source Maps
+- 📱 Responsive
+- 🔒 Type Safe
 
 
 ### 💡 Características Clave
 
 **Arquitectura**
-•  🏗️ Micro-Frontends
-•  🔌 Module Federation
-•  📦 Componentes Compartidos (UI-kit)
-•  🔄 Lazy Loading
+- 🏗️ Micro-Frontends
+- 🔌 Module Federation
+- 📦 Componentes Compartidos (UI-kit)
+- 🔄 Lazy Loading
 
 **Desarrollo**
-•  👥 Multi-equipo
-•  🚀 Despliegue Independiente
-•  🔍 Código tipado
-•  🎨 UI Consistente
+- 👥 Multi-equipo
+- 🚀 Despliegue Independiente
+- 🔍 Código tipado
+- 🎨 UI Consistente
 
 
 ### 📱 Ejemplo de Uso
@@ -119,17 +119,17 @@ function App() {
 ### 📈 Escalabilidad
 
 **Actual**
-•  🏠 Shell App
-•  🛍️ Product Module
-•  🎨 UI Kit
+- 🏠 Shell App
+- 🛍️ Product Module
+- 🎨 UI Kit
 
 **Futuro**
-•  👤 User Module
-•  🛒 Payment Module
-•  📊 Analytics
-•  🔐 Auth Module
-•  🏪​ Store Module
-•  🧲 Error logs Module
+- 👤 User Module
+- 🛒 Payment Module
+- 📊 Analytics
+- 🔐 Auth Module
+- 🏪​ Store Module
+- 🧲 Error logs Module
 
 
 ### 🎯 Próximos Pasos
