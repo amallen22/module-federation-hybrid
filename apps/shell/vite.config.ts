@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import federation from '@originjs/vite-plugin-federation'
 
-const isProduction = process.env.NODE_ENV === 'production'
+// const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = false
 
 console.log('isProduction ==> ', isProduction)
 // Reemplaza esta URL con la URL base de tu despliegue en S3/CloudFront
