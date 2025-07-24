@@ -10,8 +10,8 @@ export default defineConfig({
       name: "ui",
       filename: "remoteEntry.js",
       exposes: {
-        "./Button": "./src/components/Button.tsx",
-        "./ErrorBoundary": "./src/components/ErrorBoundary.tsx",
+        "./Button": "./src/components/Button",
+        "./ErrorBoundary": "./src/components/ErrorBoundary",
         "./theme": "./src/theme/theme.ts"
       },
       shared: {
@@ -34,6 +34,7 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
     rollupOptions: {
+      external: ['react', 'react-dom'],
       input: {
         main: resolve(__dirname, "src/index.ts")
       },

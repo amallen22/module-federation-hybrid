@@ -1,11 +1,17 @@
 // TypeScript declarations for remote modules
 declare module 'ui/Button' {
-  export interface ButtonProps {
-    children: React.ReactNode;
+  // export interface ButtonProps {
+  //   children: React.ReactNode;
+  //   variant?: 'primary' | 'secondary';
+  //   onClick?: () => void;
+  // }
+  // const Button: React.FC<ButtonProps>;
+  // export default Button;
+  const Button: React.FC<{
+    text: string;
     variant?: 'primary' | 'secondary';
     onClick?: () => void;
-  }
-  const Button: React.FC<ButtonProps>;
+  }>;
   export default Button;
 }
 

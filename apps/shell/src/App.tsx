@@ -4,35 +4,41 @@ import './App.css';
 
 
 // Lazy load remote components con logs de debug
-const RemoteButton = React.lazy(async () => {
-  console.log('🔄 Shell: Cargando RemoteButton desde ui/Button');
-  try {
-    return await import('ui/Button');
-  } catch (err) {
-    console.error('❌ Shell: Error cargando ui/Button:', err);
-    throw err;    
-  }
-});
+// const RemoteButton = React.lazy(async () => {
+//   console.log('🔄 Shell: Cargando RemoteButton desde ui/Button');
+//   try {
+//     return await import('ui/Button');
+//   } catch (err) {
+//     console.error('❌ Shell: Error cargando ui/Button:', err);
+//     throw err;    
+//   }
+// });
 
-const RemoteProduct = React.lazy(async () => {
-  console.log('🔄 Shell: Cargando RemoteProduct desde product/App');
-  try {
-    return await import('../../product/src/App.tsx');
-  } catch (err) {
-    console.error('❌ Shell: Error cargando product/App:', err);
-    throw err;
-  }
-});
+// const RemoteProduct = React.lazy(async () => {
+  //   console.log('🔄 Shell: Cargando RemoteProduct desde product/App');
+  //   try {
+//     return await import('../../product/src/App.tsx');
+//   } catch (err) {
+  //     console.error('❌ Shell: Error cargando product/App:', err);
+  //     throw err;
+//   }
+// });
 
-const RemoteLogin = React.lazy(async () => {
-  console.log('🔄 Shell: Cargando RemoteLogin desde login/App');
-  try {
-    return await import('../../login/src/app/App.jsx');
-  } catch (err) {
-    console.error('❌ Shell: Error cargando login/App:', err);
-    throw err;
-  }
-});
+// const RemoteLogin = React.lazy(async () => {
+//   console.log('🔄 Shell: Cargando RemoteLogin desde login/App');
+//   try {
+//     return await import('../../login/src/app/App.jsx');
+//   } catch (err) {
+  //     console.error('❌ Shell: Error cargando login/App:', err);
+//     throw err;
+//   }
+// });
+
+const RemoteButton = React.lazy(() => import('ui/Button'));
+
+const RemoteProduct = React.lazy(() => import('../../product/src/App.tsx'));
+
+const RemoteLogin = React.lazy(() => import('../../login/src/app/App.jsx'));
 
 // Components for each route
 const HomePage = () => (
@@ -67,6 +73,13 @@ const HomePage = () => (
         <li>✅ Login: Disponible en puerto 5003</li>
       </ul>
     </div>
+    {/* <Suspense fallback={<div>Loading Button...</div>}>
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        <RemoteButton variant="primary" onClick={() => alert('Primary clicked!')}>
+          Button from remote UI Kit
+        </RemoteButton>
+      </div>
+    </Suspense> */}
   </div>
 );
 
