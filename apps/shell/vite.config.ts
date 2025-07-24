@@ -28,10 +28,10 @@ export default defineConfig({
       }
       : process.env.NODE_ENV === 'development'
       ? {
-        // En modo desarrollo, desde /dist/assets/
-        product: 'http://localhost:5001/dist/assets/remoteEntry.js',
-        ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
-        login: 'http://localhost:5003/dist/assets/remoteEntry.js'
+        // En modo desarrollo, directamente desde la raíz
+        product: 'http://localhost:5001/remoteEntry.js',
+        ui: 'http://localhost:5002/remoteEntry.js',
+        login: 'http://localhost:5003/remoteEntry.js'
       }
       : {
         // En modo preview (producción local), con /dist/
@@ -73,7 +73,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@packages/ui': resolve(__dirname, '../../packages/ui-kit/src/index.ts'),
+      '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
+      '@apps/product': resolve(__dirname, '../../apps/product/src'),
+      '@apps/login': resolve(__dirname, '../../apps/login/src'),
     }
   },
   server: {

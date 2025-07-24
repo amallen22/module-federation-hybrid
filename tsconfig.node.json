@@ -7,7 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "paths": {
-      "@packages/ui-kit/*": ["packages/ui-kit/*"],
+      "@packages/ui/*": ["packages/ui/*"],
       "@packages/state/*": ["packages/state/*"],
       "@packages/services/*": ["packages/services/*"],
       "@apps/product/*": ["apps/product/*"],

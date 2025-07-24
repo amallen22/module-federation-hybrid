@@ -42,14 +42,14 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          '@packages/ui-kit': 'ui-kit'
+          '@packages/ui': 'ui'
         }
       }
     }
   },
   resolve: {
     alias: {
-      '@packages/ui': resolve(__dirname, '../../packages/ui-kit/src'),
+      '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
     }
   },
   server: {

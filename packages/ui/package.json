@@ -1,9 +1,9 @@
 {
-  "name": "ui-kit",
+  "name": "ui",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview --port 5002"
   },

@@ -261,7 +261,7 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.16.5)(sass@1.89.2)
 
-  packages/ui-kit:
+  packages/ui:
     dependencies:
       react:
         specifier: ^18.3.1

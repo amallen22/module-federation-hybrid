@@ -11,7 +11,7 @@ cv-hibrid/
 │   ├── 🏠 shell/
 │   └── 🛍️ product/
 ├── 📚 packages/
-│   └── 🎨 ui-kit/
+│   └── 🎨 ui/
 └── 📝 pnpm-workspace.yaml
 ```
 
@@ -80,7 +80,7 @@ federation({
 **Arquitectura**
 - 🏗️ Micro-Frontends
 - 🔌 Module Federation
-- 📦 Componentes Compartidos (UI-kit)
+- 📦 Componentes Compartidos (ui)
 - 🔄 Lazy Loading
 
 **Desarrollo**

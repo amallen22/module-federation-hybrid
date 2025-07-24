@@ -34,11 +34,11 @@ import './App.css';
 //   }
 // });
 
-const RemoteButton = React.lazy(() => import('ui/Button'));
+const RemoteButton = React.lazy(() => import('@packages/ui/components/Button'));
 
-const RemoteProduct = React.lazy(() => import('../../product/src/App.tsx'));
+const RemoteProduct = React.lazy(() => import('@apps/product/App.tsx'));
 
-const RemoteLogin = React.lazy(() => import('../../login/src/app/App.jsx'));
+const RemoteLogin = React.lazy(() => import('@apps/login/app/App.jsx'));
 
 // Components for each route
 const HomePage = () => (
@@ -108,12 +108,8 @@ const UIKitPage = () => (
       <p>Here are some components from the UI Kit:</p>
       <Suspense fallback={<div>Loading Button...</div>}>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          <RemoteButton variant="primary" onClick={() => alert('Primary clicked!')}>
-            Primary Button
-          </RemoteButton>
-          <RemoteButton variant="secondary" onClick={() => alert('Secondary clicked!')}>
-            Secondary Button
-          </RemoteButton>
+          <RemoteButton variant="primary" onClick={() => alert('Primary clicked!')}>Primary Button</RemoteButton>
+          <RemoteButton variant="secondary" onClick={() => alert('Secondary clicked!')}>Secondary Button</RemoteButton>
         </div>
       </Suspense>
     </div>
@@ -179,11 +175,11 @@ const Navigation = () => {
           📦 Product
         </Link>
         <Link 
-          to="/ui-kit"
+          to="/ui"
           style={{
             padding: '10px 20px',
-            backgroundColor: isActive('/ui-kit') ? '#007bff' : '#f8f9fa',
-            color: isActive('/ui-kit') ? 'white' : '#333',
+            backgroundColor: isActive('/ui') ? '#007bff' : '#f8f9fa',
+            color: isActive('/ui') ? 'white' : '#333',
             border: '1px solid #ccc',
             borderRadius: '5px',
             textDecoration: 'none',
@@ -216,7 +212,7 @@ function App() {
           <Route path="/signin" element={<LoginPage />} />
           <Route path="/signup" element={<LoginPage />} />
           <Route path="/product" element={<ProductPage />} />
-          <Route path="/ui-kit" element={<UIKitPage />} />
+          <Route path="/ui" element={<UIKitPage />} />
         </Routes>
       </main>
     </div>
