@@ -338,3 +338,4 @@ const RemoteLogin = React.lazy(() => import('@apps/login/app/App.jsx'));
 - **17 de Julio de 2025**: React 18 migración completada exitosamente con todas las funcionalidades operativas.
 - **18 de Julio de 2025**: Build de producción completado exitosamente con internacionalización y optimizaciones.
 - **21 de Julio de 2025**: Migración a pnpm completada con mejoras significativas en rendimiento.
+- **24 de Julio de 2025**: Cambio en importación de módulos vía Module Federation a importación vía relativa usando @alias.
