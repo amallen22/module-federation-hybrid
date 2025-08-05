@@ -5,7 +5,15 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@packages/ui/*": ["packages/ui/*"],
+      "@packages/state/*": ["packages/state/*"],
+      "@packages/services/*": ["packages/services/*"],
+      "@apps/product/*": ["apps/product/*"],
+      "@apps/shell/*": ["apps/shell/*"],
+      "@apps/login/*": ["apps/login/*"],
+    }
   },
   "include": ["vite.config.ts"]
 }

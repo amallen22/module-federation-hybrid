@@ -10,10 +10,22 @@ export default defineConfig({
       name: "ui",
       filename: "remoteEntry.js",
       exposes: {
-        "./Button": "./src/components/Button.tsx",
+        "./Button": "./src/components/Button",
+        "./ErrorBoundary": "./src/components/ErrorBoundary",
         "./theme": "./src/theme/theme.ts"
       },
-      shared: ["react", "react-dom"]
+      shared: {
+        react: {
+          requiredVersion: '^18.3.1',
+          import: false,
+          shareScope: 'default'
+        },
+        'react-dom': {
+          requiredVersion: '^18.3.1',
+          import: false,
+          shareScope: 'default'
+        }
+      }
     })
   ],
   build: {
@@ -22,6 +34,7 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
     rollupOptions: {
+      external: ['react', 'react-dom'],
       input: {
         main: resolve(__dirname, "src/index.ts")
       },

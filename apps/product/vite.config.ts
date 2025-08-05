@@ -13,7 +13,18 @@ export default defineConfig({
         "./App": "./src/App.tsx",
         "./ProductList": "./src/components/ProductList.tsx"
       },
-      shared: ["react", "react-dom"]
+      shared: {
+        'react': {
+          requiredVersion: '^18.3.1',
+          import: false,
+          shareScope: 'default'
+        },
+        'react-dom': {
+          requiredVersion: '^18.3.1',
+          import: false,
+          shareScope: 'default'
+        }
+      }
     })
   ],
   build: {
@@ -22,12 +33,23 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
     rollupOptions: {
+      external: ['react', 'react-dom', '@packages/ui'],
       input: {
         main: resolve(__dirname, "index.html")
       },
       output: {
-        format: "esm"
+        format: "esm",
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          '@packages/ui': 'ui'
+        }
       }
+    }
+  },
+  resolve: {
+    alias: {
+      '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
     }
   },
   server: {

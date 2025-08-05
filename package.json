@@ -1,9 +1,13 @@
 {
   "name": "cv-hibrid",
   "private": true,
+  "dependencies": {
+    "vitest": "^3.1.3"
+  },
   "scripts": {
-    "build:all": "pnpm --filter ui-kit build && pnpm --filter product build && pnpm --filter shell build",
-    "preview:all": "pnpm --parallel --filter shell --filter product --filter ui-kit preview",
-    "dev": "pnpm run build:all && pnpm run preview:all"
+    "build:all": "pnpm --filter ui build && pnpm --filter product build && pnpm --filter shell build && pnpm --filter login build",
+    "preview:all": "pnpm --parallel --filter shell --filter product --filter ui --filter login preview",
+    "dev": "pnpm --parallel --filter shell --filter product --filter ui --filter login dev",
+    "dev:build-preview": "pnpm run build:all && pnpm run preview:all"
   }
 }
