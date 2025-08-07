@@ -34,16 +34,14 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
     rollupOptions: {
-      external: ['react', 'react-dom'],
-      input: {
-        main: resolve(__dirname, "src/index.ts")
-      },
-      output: {
-        format: "esm"
-      }
+      external: ['react', 'react-dom']
     }
   },
   server: {
-    port: 5002
+    port: 5002,
+    cors: {
+      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'],
+      credentials: true
+    }
   }
 })
