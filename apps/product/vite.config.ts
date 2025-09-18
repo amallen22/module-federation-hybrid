@@ -53,6 +53,10 @@ export default defineConfig({
     }
   },
   server: {
-    port: 5001
+    port: 5001,
+    cors: {
+      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'],
+      credentials: true
+    }
   }
 })

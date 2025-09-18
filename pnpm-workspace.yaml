@@ -3,3 +3,9 @@ packages:
   - packages/*
 ignoredBuiltDependencies:
   - uglifyjs-webpack-plugin
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - core-js-pure
+  - es5-ext
+  - esbuild
