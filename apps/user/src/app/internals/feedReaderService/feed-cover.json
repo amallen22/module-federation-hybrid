@@ -1,0 +1,42 @@
+{
+  "en-US": {
+    "How to write an effective cover letter": "/cover-letter/",
+    "HR-approved cover letter examples": "/cover-letter-examples/",
+    "How to format a cover letter": "/cover-letter/format/"
+  },
+  "en-GB": {
+    "How to write an effective cover letter": "/cover-letter/",
+    "HR-approved cover letter examples": "/cover-letter-examples/",
+    "How to format a cover letter": "/cover-letter/format/"
+  },
+  "es-ES": {
+    "How to write an effective cover letter": "/la-carta-de-presentacion/",
+    "HR-approved cover letter examples": "/la-carta-de-presentacion/autocandidatura/",
+    "How to format a cover letter": "/la-carta-de-presentacion/sin-experiencia/"
+  },
+  "pt-BR": {
+    "How to write an effective cover letter": "/carta-de-apresentacao/",
+    "HR-approved cover letter examples": "/modelos-de-carta-de-apresentacao/",
+    "How to format a cover letter": "/carta-de-apresentacao/partes/"
+  },
+  "fr": {
+    "How to write an effective cover letter": "/lettre-de-motivation/",
+    "HR-approved cover letter examples": "/exemple-lettre-de-motivation/",
+    "How to format a cover letter": "/lettre-de-motivation/format/"
+  },
+  "fr-FR": {
+    "How to write an effective cover letter": "/lettre-de-motivation/",
+    "HR-approved cover letter examples": "/exemple-lettre-de-motivation/",
+    "How to format a cover letter": "/lettre-de-motivation/format/"
+  },
+  "it": {
+    "How to write an effective cover letter": "/lettera-di-presentazione/",
+    "HR-approved cover letter examples": "/esempio-di-lettera-di-presentazione/",
+    "How to format a cover letter": "/europass/formato/"
+  },
+  "it-IT": {
+    "How to write an effective cover letter": "/lettera-di-presentazione/",
+    "HR-approved cover letter examples": "/esempio-di-lettera-di-presentazione/",
+    "How to format a cover letter": "/europass/formato/"
+  }
+}

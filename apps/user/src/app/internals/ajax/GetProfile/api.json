@@ -1,0 +1,16 @@
+{
+    "method": "GET",
+    "path": "/profile",
+    "params": {
+    },
+    "logOutOnCodeRanges": [
+        {
+            "min": 400,
+            "max": 499
+        }
+    ],
+    "mockResponse": {
+        "email": "user@imbernes.com",
+        "groupPermission": "free"
+    }
+}

@@ -1,0 +1,30 @@
+{
+	"method": "POST",
+	"path": "/question/unsubscribe",
+	"params": {
+		"questionId": {
+			"description": "The id of the question to asnwer",
+			"type": "string",
+			"allowEmpty": false,
+			"required": true
+		},
+		"optionId": {
+			"description": "The id of the selected answer",
+			"type": "string",
+			"allowEmpty": false,
+			"required": true
+		},
+		"content": {
+			"description": "The additional content of the answer can be empty if the accept_additional_data flag is equal to false",
+			"type": "string",
+			"allowEmpty": true,
+			"required": false
+		},
+		"subscriptionId": {
+			"description": "The id of the subscription related to this answer",
+			"type": "string",
+			"allowEmpty": false,
+			"required": true
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+    "method": "GET",
+    "path": "/product/$1/related",
+    "params": {
+      "currency": {
+        "type": "string",
+        "allowEmpty": false,
+        "required": true,
+        "description": "Product currency"
+      },
+      "tags": {
+        "type": "string",
+        "allowEmpty": false,
+        "required": true,
+        "description": "product tag"
+      }
+    },
+    "urlParams": {
+        "$1": "productId"
+    }
+  }
+  

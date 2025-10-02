@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "path": "/product",
+  "params": {
+    "currency": {
+        "description": "The unique string identifier, if present, of the currency that is forced to be used regardless of user location",
+        "type": "string",
+        "allowEmpty": false,
+        "required": false
+    }
+  },
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ]
+}

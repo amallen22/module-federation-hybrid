@@ -1,0 +1,59 @@
+{
+    "method": "GET",
+    "path": "/question/unsubscribe",
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ],
+    "mockResponse": {
+        "questionId": "asdasdasd-mock",
+        "title": "Let us know why you’ve decided to unsubscribe, so we can improve our services for the future.",
+        "type" : "checkbox",
+        "key_name": "unsubscribe",
+        "options": [
+            {
+                "uuid": "23213123",
+                "title": "I’ve had technical problems using the online resume builder.",
+                "key_name": "unsubscribe_reason",
+                "icon_name": null,
+                "selected_by_default": false,
+                "accept_additional_data": false
+            },
+            {
+                "uuid": "23213124",
+                "title": "I’ve got a job! I no longer need to use the service, but thanks.",
+                "key_name": "unsubscribe_reason",
+                "icon_name": null,
+                "selected_by_default": false,
+                "accept_additional_data": false
+            },
+            {
+                "uuid": "23213125",
+                "title": "ResumeCoach isn’t what I expected.",
+                "key_name": "unsubscribe_reason",
+                "icon_name": null,
+                "selected_by_default": false,
+                "accept_additional_data": false
+            },
+            {
+                "uuid": "23213126",
+                "title": "I’m dissatisfied with the services.",
+                "key_name": "unsubscribe_reason",
+                "icon_name": null,
+                "selected_by_default": false,
+                "accept_additional_data": false
+            },
+            {
+                "uuid": "23213127",
+                "title": "Other - Please specify...",
+                "key_name": "unsubscribe_reason",
+                "icon_name": null,
+                "selected_by_default": false,
+                "accept_additional_data": true
+            }
+
+        ]
+    }
+}

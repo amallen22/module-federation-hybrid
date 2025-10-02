@@ -1,0 +1,247 @@
+[
+    {
+        "domain": "resumecoach.com",
+        "articles": [
+            {
+                "name": "Most Common Interview Questions",
+                "time": "9",
+                "url": "https://www.resumecoach.com/how-to-answer-job-interview-questions/",
+                "id": 1
+            },
+            {
+                "name": "How to Write a Resume in 2024 That Gets Results",
+                "time": "4",
+                "url": "https://www.resumecoach.com/how-to-write-a-resume-that-gets-results/",
+                "id": 2
+            },
+            {
+                "name": "Are Cover Letters Still Useful in 2024?",
+                "time": "5",
+                "url": "https://www.resumecoach.com/are-cover-letters-still-useful/",
+                "id": 3
+            },
+            {
+                "name": "How to Get a Job Fast",
+                "time": "6",
+                "url": "https://www.resumecoach.com/how-to-get-a-job-fast/",
+                "id": 4
+            },
+            {
+                "name": "Level Up Your Resume Using AI",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "onlinecv.es",
+        "articles": [
+            {
+                "name": "Cómo prepararse para una entrevista de trabajo en línea",
+                "time": "7",
+                "url": "https://www.onlinecv.es/como-preparar-entrevista-trabajo-virtual/",
+                "id": 1
+            },
+            {
+                "name": "Cómo optimizar tu CV para sistemas ATS",
+                "time": "4",
+                "url": "https://www.onlinecv.es/optimizar-curriculum-ats/",
+                "id": 2
+            },
+            {
+                "name": "Las aptitudes mejor valoradas en el curriculum vitae",
+                "time": "6",
+                "url": "https://www.onlinecv.es/aptitudes-en-el-curriculum-vitae/",
+                "id": 3
+            },
+            {
+                "name": "Cómo escribir el email para enviar el curriculum vitae",
+                "time": "9",
+                "url": "https://www.onlinecv.es/como-redactar-el-email-para-enviar-el-curriculum/",
+                "id": 4
+            },
+            {
+                "name": "Sube de nivel tu currículum usando IA",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "onlinecv.fr",
+        "articles": [
+            {
+                "name": "Quelles qualités mettre dans une lettre de motivation?",
+                "time": "5",
+                "url": "https://www.onlinecv.fr/qualites-dans-une-lettre-de-motivation/",
+                "id": 1
+            },
+            {
+                "name": "Comment préparer un entretien d’embauche",
+                "time": "4",
+                "url": "https://www.onlinecv.fr/comment-preparer-un-entretien-dembauche/",
+                "id": 2
+            },
+            {
+                "name": "Les meilleures qualités à mettre sur son CV en 2024",
+                "time": "5",
+                "url": "https://www.onlinecv.fr/qualites-cv/",
+                "id": 3
+            },
+            {
+                "name": "Exemples de mails d’accompagnement de candidature efficaces",
+                "time": "6",
+                "url": "https://www.onlinecv.fr/mail-daccompagnement-de-candidature/",
+                "id": 4
+            },
+            {
+                "name": "Améliorez votre CV grâce à l'IA",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "onlinecv.it",
+        "articles": [
+            {
+                "name": "Il colloquio di lavoro online: 8 consigli per affrontarlo al meglio",
+                "time": "6",
+                "url": "https://www.onlinecv.it/il-colloquio-di-lavoro-online-8-consigli-per-affrontarlo-al-meglio/",
+                "id": 1
+            },
+            {
+                "name": "La lettera di motivazione nel 2024",
+                "time": "4",
+                "url": "https://www.onlinecv.it/la-lettera-motivazionale/",
+                "id": 2
+            },
+            {
+                "name": "Hard skill e soft skill nel curriculum: come trovare il giusto equilibrio",
+                "time": "8",
+                "url": "https://www.onlinecv.it/hard-skill-soft-skill-curriculum/",
+                "id": 3
+            },
+            {
+                "name": "Cosa scrivere nella mail per inviare un curriculum",
+                "time": "4",
+                "url": "https://www.onlinecv.it/cosa-scrivere-mail-inviare-curriculum/",
+                "id": 4
+            },
+            {
+                "name": "Aumenta il livello del tuo curriculum utilizzando l'intelligenza artificiale",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "cvwhizz.co.uk",
+        "articles": [
+            {
+                "name": "How to prepare for your next Zoom interview : 10 essential tips",
+                "time": "7",
+                "url": "https://www.cvwhizz.co.uk/job-interviews/",
+                "id": 1
+            },
+            {
+                "name": "A simple guide to the perfect cover letter structure",
+                "time": "6",
+                "url": "https://www.cvwhizz.co.uk/cover-letter-structure/",
+                "id": 2
+            },
+            {
+                "name": "How to choose the best skills for a CV",
+                "time": "7",
+                "url": "https://www.cvwhizz.co.uk/best-skills-for-cv/",
+                "id": 3
+            },
+            {
+                "name": "Action verbs for CVs: Power words that make you stand out",
+                "time": "6",
+                "url": "https://www.cvwhizz.co.uk/cv-action-verbs/",
+                "id": 4
+            },
+            {
+                "name": "Level Up Your Resume Using AI",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "resumegiants.com",
+        "articles": [
+            {
+                "name": "How to Email a Resume to Get a Job",
+                "time": "7",
+                "url": "https://www.resumegiants.com/blog/email-resume/",
+                "id": 1
+            },
+            {
+                "name": "What Recruiters Look For: How to Quantify Your Resume",
+                "time": "10",
+                "url": "https://www.resumegiants.com/blog/quantify-your-resume/",
+                "id": 2
+            },
+            {
+                "name": "Hard Skills vs Soft Skills: Difference & Examples for Your Resume",
+                "time": "8",
+                "url": "https://www.resumegiants.com/blog/hard-skills-vs-soft-skills/",
+                "id": 3
+            },
+            {
+                "name": "Common Resume Mistakes That Will Sink Your Job Application",
+                "time": "6",
+                "url": "https://www.resumegiants.com/blog/common-resume-mistakes/",
+                "id": 4
+            },
+            {
+                "name": "Level Up Your Resume Using AI",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    },
+    {
+        "domain": "onlinecv.fr",
+        "articles": [
+            {
+                "name": "5 dicas para a entrevista de primeiro emprego",
+                "time": "6",
+                "url": "https://www.onlinecurriculo.com/entrevista-de-primeiro-emprego/",
+                "id": 1
+            },
+            {
+                "name": "Sua carta de apresentação comete algum destes erros?",
+                "time": "4",
+                "url": "https://www.onlinecurriculo.com/erros-na-carta-de-apresentacao/",
+                "id": 2
+            },
+            {
+                "name": "Competências organizacionais e características mais procuradas",
+                "time": "4",
+                "url": "https://www.onlinecurriculo.com/competencias-organizacionais/",
+                "id": 3
+            },
+            {
+                "name": "Como enviar currículo por email",
+                "time": "5",
+                "url": "https://www.onlinecurriculo.com/como-enviar-curriculo-por-email/",
+                "id": 4
+            },
+            {
+                "name": "Aumente o nível do seu currículo usando IA",
+                "time": "5",
+                "url": "",
+                "id": 5
+            }
+        ]
+    }
+]

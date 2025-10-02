@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "path": "/document/$1/share",
+  "params": {
+    "accessLevel": {
+      "description": "Access level type",
+      "type": "string",
+      "allowEmpty": false,
+      "required": true
+    }
+  },
+  "urlParams": {
+    "$1": "documentId"
+  },
+  "activeRequestConfig": {
+    "start": 5000,
+    "interval": 1000,
+    "maxAttempts": 100,
+    "waitCodes": [202]
+  }
+}

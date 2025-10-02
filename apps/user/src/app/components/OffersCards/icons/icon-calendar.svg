@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+    <defs>
+        <filter id="qtnoyosvna" width="138.9%" height="142.4%" x="-19.4%" y="-15.2%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.17325 0 0 0 0 0.42 0 0 0 0.149147727 0"/>
+        </filter>
+        <path id="mzslg5bk6b" d="M14 47.938c0 1.139.7 2.062 1.565 2.062h32.87C49.3 50 50 49.077 50 47.937V19c0-1.105-.895-2-2-2H16c-1.105 0-2 .895-2 2v28.938z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <path fill="#E1F1FD" d="M32 64C14.326 64 0 49.673 0 32 0 14.327 14.326 0 32 0c17.672 0 32 14.327 32 32 0 17.673-14.328 32-32 32z" transform="translate(-949 -367) translate(155 324) translate(770 13) translate(24 30)"/>
+                        <g fill-rule="nonzero" transform="translate(-949 -367) translate(155 324) translate(770 13) translate(24 30)">
+                            <use fill="#000" filter="url(#qtnoyosvna)" xlink:href="#mzslg5bk6b"/>
+                            <use fill="#FFF" xlink:href="#mzslg5bk6b"/>
+                        </g>
+                        <path fill="#FF514E" fill-rule="nonzero" d="M48.435 17.13h-32.87c-.865 0-1.565.7-1.565 1.566v6.26h36v-6.26c0-.865-.7-1.566-1.565-1.566z" transform="translate(-949 -367) translate(155 324) translate(770 13) translate(24 30)"/>
+                        <path fill="#AD0109" fill-rule="nonzero" d="M21.043 21.043v-6.26c0-.432.351-.783.783-.783h1.565c.432 0 .783.35.783.783v6.26c0 .432-.35.783-.783.783h-1.565c-.432 0-.783-.35-.783-.783zM39.826 21.043v-6.26c0-.432.35-.783.783-.783h1.565c.432 0 .783.35.783.783v6.26c0 .432-.351.783-.783.783h-1.565c-.432 0-.783-.35-.783-.783z" transform="translate(-949 -367) translate(155 324) translate(770 13) translate(24 30)"/>
+                        <path fill="#B5BABD" fill-rule="nonzero" d="M36.696 35.913h-3.913V32c0-.432-.35-.783-.783-.783-.433 0-.783.351-.783.783v3.913h-3.913c-.432 0-.782.35-.782.783 0 .432.35.782.782.782h3.913v3.913c0 .432.35.783.783.783.433 0 .783-.35.783-.783v-3.913h3.913c.432 0 .782-.35.782-.782 0-.432-.35-.783-.782-.783z" transform="translate(-949 -367) translate(155 324) translate(770 13) translate(24 30)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

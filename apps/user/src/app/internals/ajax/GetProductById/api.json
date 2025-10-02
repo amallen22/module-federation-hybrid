@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/product/$1",
+  "urlParams": {
+    "$1": "productId"
+  }
+}

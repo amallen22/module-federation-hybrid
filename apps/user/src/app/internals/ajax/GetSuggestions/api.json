@@ -1,0 +1,24 @@
+{
+    "method": "GET",
+    "path": "/content/search",
+    "params": {
+        "occupation": {
+            "description": "profession id (suggestions content) or profession value (professions filtered or empty for all)",
+            "type": "string",
+            "allowEmpty": true,
+            "required": false
+        },
+        "language": {
+            "description": "Document language 2 chars",
+            "type": "string",
+            "allowEmpty": false,
+            "required": true
+        },
+        "sectionTemplateTag": {
+            "description": "predefinedSectionId_templateTag",
+            "type": "string",
+            "allowEmpty": true,
+            "required": false
+        }
+    }
+}

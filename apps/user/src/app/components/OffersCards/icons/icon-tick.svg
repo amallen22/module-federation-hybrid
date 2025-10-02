@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+    <defs>
+        <filter id="7nsoj4ymza" width="145.8%" height="141.2%" x="-22.9%" y="-14.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.17325 0 0 0 0 0.42 0 0 0 0.149147727 0"/>
+        </filter>
+        <filter id="cusfbvd1uc" width="167.1%" height="166.8%" x="-33.5%" y="-23.9%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.17325 0 0 0 0 0.42 0 0 0 0.149147727 0"/>
+        </filter>
+        <path id="52o3kssccb" d="M44.07 15.111H16.92c-.938 0-1.698.76-1.698 1.699v30.578c0 .938.76 1.698 1.697 1.698h27.152c.937 0 1.697-.76 1.697-1.698V16.81c0-.938-.76-1.699-1.697-1.699z"/>
+        <path id="rvuvifgbwd" d="M43 52.667c-5.754 0-10.435-4.7-10.435-10.477 0-5.776 4.681-10.476 10.435-10.476 5.754 0 10.435 4.7 10.435 10.476 0 5.777-4.681 10.477-10.435 10.477z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <path fill="#E1F1FD" d="M64 32c0 17.673-14.328 32-32 32C14.326 64 0 49.673 0 32 0 14.327 14.326 0 32 0c17.672 0 32 14.327 32 32" transform="translate(-179 -367) translate(155 324) translate(0 13) translate(24 30)"/>
+                        <g fill-rule="nonzero" transform="translate(-179 -367) translate(155 324) translate(0 13) translate(24 30)">
+                            <use fill="#000" filter="url(#7nsoj4ymza)" xlink:href="#52o3kssccb"/>
+                            <use fill="#FFF" xlink:href="#52o3kssccb"/>
+                        </g>
+                        <path fill="#B5BABD" fill-rule="nonzero" d="M38.131 26.232H22.86c-.47 0-.849-.398-.849-.889 0-.49.38-.889.849-.889H38.13c.47 0 .849.398.849.89 0 .49-.38.888-.849.888zM33.04 33.027H22.86c-.47 0-.849-.398-.849-.889 0-.49.38-.889.849-.889H33.04c.47 0 .849.398.849.89 0 .49-.38.888-.849.888zM33.04 39.822H22.86c-.47 0-.849-.398-.849-.889 0-.49.38-.889.849-.889H33.04c.47 0 .849.398.849.89 0 .49-.38.888-.849.888z" transform="translate(-179 -367) translate(155 324) translate(0 13) translate(24 30)"/>
+                        <g fill-rule="nonzero" transform="translate(-179 -367) translate(155 324) translate(0 13) translate(24 30)">
+                            <use fill="#000" filter="url(#cusfbvd1uc)" xlink:href="#rvuvifgbwd"/>
+                            <use fill="#00B786" xlink:href="#rvuvifgbwd"/>
+                        </g>
+                        <path fill="#FFF" fill-rule="nonzero" d="M40.913 47.429c-.267 0-.534-.103-.738-.307l-3.13-3.143c-.408-.41-.408-1.072 0-1.482.408-.41 1.067-.41 1.475 0l2.393 2.403 6.567-6.593c.408-.41 1.067-.41 1.475 0 .408.41.408 1.072 0 1.481l-7.304 7.334c-.204.204-.47.307-.738.307z" transform="translate(-179 -367) translate(155 324) translate(0 13) translate(24 30)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

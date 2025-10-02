@@ -1,0 +1,24 @@
+{
+    "method": "POST",
+    "path": "/unsubscribe/technical-issue",
+    "params": {
+        "fullName": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "User full name"
+        },
+        "email": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "User email"
+        },
+        "message": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "User message"
+        }
+    }
+}

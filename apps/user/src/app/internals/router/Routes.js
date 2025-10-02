@@ -1,0 +1,18 @@
+export const Routes = Object.freeze({
+    signout: '/#/signout',
+    editor: '/editor/',
+    product: '/product/',
+    dashboard: '/user/',
+    review: '/user/review/',
+    documents: '/user/documents/',
+    resumes: '/user/resumes',
+    covers: '/user/cover-letters/',
+    profile: '/user/profile/',
+    subscription: '/user/subscription',
+    unsubscribe: '/user/unsubscribe/',
+    support: '/user/support/',
+    cancelled: '/user/cancelled/',
+    jobs: '/user/jobs/',
+    feedback: '/user/feedback/',
+    share: '/share',
+});

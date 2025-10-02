@@ -1,0 +1,19 @@
+@import "../vendors/variables.scss";
+
+.m-mobile{
+  &-container{
+    height: auto;
+    &-editor{
+      overflow-y: scroll;
+      box-sizing: border-box;
+      margin-top: 0;
+      height: auto;
+    }
+    &-editSection{
+      >div{
+        height: 100%;
+        position: relative;
+      }
+    }
+  }
+}

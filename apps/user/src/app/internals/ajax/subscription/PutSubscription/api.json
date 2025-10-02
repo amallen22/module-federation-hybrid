@@ -1,0 +1,21 @@
+{
+    "method": "PUT",
+    "path": "/subscription/$1/replan",
+    "params": {
+        "productId": {
+          "description": "productId",
+          "type": "string",
+          "allowEmpty": false,
+          "required": true
+        }
+    },
+    "urlParams": {
+      "$1": "subscriptionId"
+    },
+    "logOutOnCodeRanges": [
+        {
+            "min": 400,
+            "max": 499
+        }
+    ]
+}

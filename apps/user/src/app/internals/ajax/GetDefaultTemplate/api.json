@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "path": "/template/default",
+  "params": {
+    "type": {
+      "description": "Default template type",
+      "type": "string",
+      "allowEmpty": true,
+      "required": false
+    },
+    "templateId": {
+      "description": "Template Id",
+      "type": "string",
+      "allowEmpty": true,
+      "required": false
+    }
+  }
+}

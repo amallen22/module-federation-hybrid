@@ -1,0 +1,50 @@
+{
+  "en-US": {
+    "How to Write a Resume": "/write-a-resume/",
+    "The Professional Resume": "/resume-templates/professional/",
+    "Entry-Level Resume Writing": "/resume-templates/entry-level/",
+    "Resume Format and Layout Guide": "/resume-format/"
+  },
+  "en-GB": {
+    "How to Write a Resume": "/write-a-cv/",
+    "The Professional Resume": "/professional-cv/",
+    "Entry-Level Resume Writing": "/basic-cv/",
+    "Resume Format and Layout Guide": "/cv-layout/"
+  },
+  "es-ES": {
+    "How to Write a Resume": "/hacer-cv/",
+    "The Professional Resume": "/cv-profesional/",
+    "Entry-Level Resume Writing": "/curriculum-basico/",
+    "Resume Format and Layout Guide": "/formato-cv/"
+  },
+  "pt-BR": {
+    "How to Write a Resume": "/como-fazer-um-curriculo/",
+    "The Professional Resume": "/modelo-de-curriculo-profissional/",
+    "Entry-Level Resume Writing": "/modelo-de-curriculo-basico/",
+    "Resume Format and Layout Guide": "/formato-de-curriculo/"
+  },
+  "fr": {
+    "How to Write a Resume": "/comment-faire-un-cv/",
+    "The Professional Resume": "/cv-professionnel/",
+    "Entry-Level Resume Writing": "/cv-etudiant/",
+    "Resume Format and Layout Guide": "/design-de-cv/"
+  },
+  "fr-FR": {
+    "How to Write a Resume": "/comment-faire-un-cv/",
+    "The Professional Resume": "/cv-professionnel/",
+    "Entry-Level Resume Writing": "/cv-etudiant/",
+    "Resume Format and Layout Guide": "/design-de-cv/"
+  },
+  "it": {
+    "How to Write a Resume": "/fare-un-curriculum-vitae/",
+    "The Professional Resume": "/curriculum-professionale/",
+    "Entry-Level Resume Writing": "/curriculum-studenti/",
+    "Resume Format and Layout Guide": "/formato-cv/"
+  },
+  "it-IT": {
+    "How to Write a Resume": "/fare-un-curriculum-vitae/",
+    "The Professional Resume": "/curriculum-professionale/",
+    "Entry-Level Resume Writing": "/curriculum-studenti/",
+    "Resume Format and Layout Guide": "/formato-cv/"
+  }
+}

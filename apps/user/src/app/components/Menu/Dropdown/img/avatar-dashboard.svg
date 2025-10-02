@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Foto 2</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="36" height="36" rx="18"></rect>
+        <path d="M34.639312,37.5538108 C32.5880344,36.8513514 31.5342015,35.3181351 30.99914,34.0821622 C33.9538821,32.286 35.4914005,28.022973 35.4914005,24.7837838 C35.4914005,20.5741081 32.1256511,17.1621622 27.972973,17.1621622 C23.8202948,17.1621622 20.4545455,20.5741081 20.4545455,24.7837838 C20.4545455,28.0255135 21.993317,32.2910811 24.9518182,34.0847027 C24.4192629,35.3308378 23.3679361,36.8754865 21.3216708,37.5487297 C17.7128256,38.7338919 14.1891892,39.1213243 14.1891892,45.1081081 C14.1891892,46.5112099 15.3266279,47.6486486 16.7297297,47.6486486 L39.2162162,47.6486486 C40.619318,47.6486486 41.7567568,46.5112099 41.7567568,45.1081081 L41.7567568,45.1081081 L41.7567568,45.1081081 C41.7567568,39.2102432 38.3897543,38.8380541 34.639312,37.5538108 Z" id="path-3"></path>
+        <rect id="path-5" x="0" y="0" width="36" height="36" rx="18"></rect>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-20" transform="translate(-1237.000000, -22.000000)">
+            <g id="Foto" transform="translate(1237.000000, 22.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-Copy" opacity="0.200000003"></g>
+                <g id="Rectangle-Copy" mask="url(#mask-2)">
+                    <g transform="translate(-9.972973, -11.351351)">
+                        <rect id="Rectangle-Copy" stroke="none" fill="#E1F1FD" fill-rule="evenodd" x="0.702702703" y="0.162162162" width="55" height="58.3783784" rx="18"></rect>
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="Mask" stroke="none" fill="#B7DCFA" fill-rule="nonzero" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <rect stroke="#B7DCFA" x="0.5" y="0.5" width="35" height="35" rx="17.5"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

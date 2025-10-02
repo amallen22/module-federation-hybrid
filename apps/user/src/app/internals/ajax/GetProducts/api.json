@@ -1,0 +1,10 @@
+{
+  "method": "GET",
+  "path": "/product_history",
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ]
+}
