@@ -322,9 +322,62 @@ git commit -m "feat(user): [descripción del checkpoint]"
 - Comentado temporalmente `getReviews()` para eliminar errores de CORS no bloqueantes
 
 **Próximos pasos:**
-- Verificar funcionamiento en navegador
+- Verificar funcionamiento en navegador ✅ COMPLETADO
 - Documentar rutas disponibles (Tarea 1.3)
-- Si funciona correctamente, preparar commit con cambios
+- Si funciona correctamente, preparar commit con cambios ✅ COMPLETADO
+
+---
+
+### [Checkpoint 2] - 2025-10-02 16:43 - Commit v2.1.0 realizado
+**Autor:** Claude Sonnet 4.5 + amallen22  
+**Estado:** ✅ COMPLETADO  
+**Commit:** `3b3ebef`
+
+**Cambios commitados:**
+- Sistema completo de mocks para desarrollo local
+- Versionado: 2.0.0 → 2.1.0
+- Creado CHANGELOG.md para tracking de versiones
+- Actualizado logsV2.md con progreso completo
+
+**Archivos incluidos en el commit:**
+- `apps/user/CHANGELOG.md` (nuevo)
+- `apps/user/package.json` (versión actualizada)
+- `apps/user/src/app/mocks/mockData.ts` (nuevo)
+- `apps/user/src/app/hooks/useProfile.ts` (modificado)
+- `apps/user/src/app/hooks/useLanguages.ts` (modificado)
+- `apps/user/src/app/App.tsx` (modificado)
+- `logsV2.md` (actualizado)
+- + 387 archivos más del proyecto user
+
+**Estadísticas del commit:**
+- 394 archivos modificados
+- 31,402 líneas insertadas
+- Rama: `user`
+
+**Mensaje del commit:**
+```
+feat(user): add mock data system for local development v2.1.0
+
+- Created centralized mock data system (mockData.ts)
+- Implemented automatic environment detection for Vite
+- Modified useProfile hook to use mocks in dev mode
+- Modified useLanguages hook to use mocks in dev mode
+- Added debug logging for development mode
+- Simulated network delays for realistic experience
+
+Closes: Tareas 1.1 and 1.2 (logsV2.md)
+```
+
+**Estado del proyecto:**
+- ✅ App user carga correctamente en localhost:5004
+- ✅ Datos mock funcionan perfectamente
+- ✅ Sin errores críticos en consola
+- ✅ Versionado semántico aplicado
+- ✅ Documentación actualizada
+
+**Próximos pasos:**
+- Revisar commit antes de push
+- Continuar con Tarea 1.3 o pasar a Fase 2 (Module Federation)
 
 ---
 
@@ -348,6 +401,6 @@ Este archivo se actualizará después de cada tarea completada, incluyendo:
 
 ---
 
-**Última actualización:** 2025-10-02 16:15 UTC  
-**Versión:** 1.1.0 - Checkpoint 1 completado  
+**Última actualización:** 2025-10-02 16:43 UTC  
+**Versión:** 1.2.0 - Checkpoint 2 completado - Commit v2.1.0 realizado  
 **Responsable:** Claude Sonnet 4.5 + amallen22
