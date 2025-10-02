@@ -1,0 +1,17 @@
+**/node_modules
+app.yaml
+.idea
+dev
+**/dist/*
+npm-debug.log
+**/remote_modules
+src/app/config/config.json
+src/app/config/buildConfig.json
+src/app/config/templatesConfig.json
+src/public_*
+**/coverage/*
+.DS_Store
+.yalc
+yalc-lock
+yalc.lock
+.vscode
