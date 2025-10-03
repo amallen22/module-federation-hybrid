@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { federation } from '@module-federation/vite'
+import federation from '@originjs/vite-plugin-federation'
 import { resolve } from 'path'
 
 // Detectar si estamos en un entorno que debe usar URLs de producción reales
@@ -43,24 +43,21 @@ export default defineConfig({
     react(),
     federation({
       name: 'shell',
-      manifest: true,
       remotes: {
-        user: {
-          type: 'module',
-          name: 'user',
-          entry: process.env.NODE_ENV === 'development' 
-            ? 'http://localhost:5004/mf-manifest.json'
-            : 'http://localhost:5004/mf-manifest.json'
-        }
+        user: 'http://localhost:5004/assets/remoteEntry.js'
+      },
+      exposes: {
+        './App': './src/App.tsx',
       },
       shared: {
         react: {
-          singleton: true,
-          requiredVersion: '^18.3.1',
+          singleton: true
         },
         'react-dom': {
-          singleton: true,
-          requiredVersion: '^18.3.1',
+          singleton: true
+        },
+        '@mui/material': {
+          singleton: true
         }
       }
     })
