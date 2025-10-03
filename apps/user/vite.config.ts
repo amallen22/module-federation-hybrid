@@ -1,5 +1,5 @@
 import BUILD_GLOBALS from '@npm_leadtech/cv-lib-app-config/src/scripts/globals';
-import federation from '@originjs/vite-plugin-federation';
+import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
@@ -21,12 +21,12 @@ export default defineConfig({
         }),
         federation({
             name: 'user',
-            filename: 'remoteEntry.js',
+            manifest: true,
             exposes: {
                 './App': './src/app/main-mui-simple.tsx'
             },
             shared: {
-                'react': {
+                react: {
                     singleton: true,
                     requiredVersion: '^18.3.1'
                 },

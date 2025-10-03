@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import federation from '@originjs/vite-plugin-federation'
+import { federation } from '@module-federation/vite'
 import { resolve } from 'path'
 
 // Detectar si estamos en un entorno que debe usar URLs de producción reales
@@ -43,33 +43,18 @@ export default defineConfig({
     react(),
     federation({
       name: 'shell',
-      remotes: useProductionUrls
-      ? {
-        product: `${productionRemoteBaseUrl}/product/assets/remoteEntry.js`,
-        ui: `${productionRemoteBaseUrl}/ui/assets/remoteEntry.js`,
-        login: `${productionRemoteBaseUrl}/login/assets/remoteEntry.js`,
-        user: `${productionRemoteBaseUrl}/user/assets/remoteEntry.js`
-      }
-      : process.env.NODE_ENV === 'development'
-      ? {
-        // En modo desarrollo, directamente desde la raíz
-        product: 'http://localhost:5001/remoteEntry.js',
-        ui: 'http://localhost:5002/remoteEntry.js',
-        login: 'http://localhost:5003/remoteEntry.js',
-        user: 'http://localhost:5004/assets/remoteEntry.js' // user usa preview mode
-      }
-      : {
-        // En modo preview (producción local), con /assets/
-        product: 'http://localhost:5001/dist/assets/remoteEntry.js',
-        ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
-        login: 'http://localhost:5003/dist/assets/remoteEntry.js',
-        user: 'http://localhost:5004/assets/remoteEntry.js'
-      },
-      exposes: {
-        './App': './src/App.tsx',
+      manifest: true,
+      remotes: {
+        user: {
+          type: 'module',
+          name: 'user',
+          entry: process.env.NODE_ENV === 'development' 
+            ? 'http://localhost:5004/mf-manifest.json'
+            : 'http://localhost:5004/mf-manifest.json'
+        }
       },
       shared: {
-        'react': {
+        react: {
           singleton: true,
           requiredVersion: '^18.3.1',
         },

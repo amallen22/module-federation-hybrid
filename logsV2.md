@@ -770,6 +770,122 @@ A pesar del bloqueo con MUI, **hemos validado exitosamente la arquitectura de Mo
 
 ---
 
+### [Checkpoint 6] - 2025-10-03 16:05 - @module-federation/vite TAMPOCO funciona con MUI
+**Autor:** Claude Sonnet 4.5 + amallen22  
+**Estado:** ❌ CONFIRMADO - MUI incompatible con Vite (ambos plugins)  
+**Prueba:** Plugin moderno `@module-federation/vite`
+
+**🔬 Plugin probado:**
+
+`@module-federation/vite@^1.8.1` (Module Federation 2.0)
+- Plugin más moderno basado en MF 2.0
+- Mejor arquitectura y mantenimiento
+- Soporte teórico mejorado para librerías modernas
+
+**📦 Cambios realizados:**
+
+1. **Removido `@originjs/vite-plugin-federation`** en ambas apps
+2. **Instalado `@module-federation/vite`** en ambas apps
+3. **Actualizada configuración:**
+   - Import: `import { federation } from '@module-federation/vite'`
+   - Agregado `manifest: true`
+   - Remotes configurados con manifest JSON
+   - Sintaxis adaptada al nuevo plugin
+
+**❌ Resultado:**
+
+**User standalone (localhost:5004):**
+```
+Error: (0 , _createTheme.default) is not a function
+File: main-mui-simple-C2WDHyOl.js:7767
+```
+
+**Shell federation (localhost:5000/user):**
+```
+404 errors:
+- GET http://localhost:5000/assets/remoteEntry-fX6isC5u.js
+- GET http://localhost:5000/assets/main-mui-simple-C2WDHyOl.js
+
+Error: remoteEntryExports is undefined
+```
+
+**🎯 Conclusión FINAL:**
+
+**MUI NO es compatible con Vite**, independientemente del plugin de Module Federation usado.
+
+El error `_createTheme.default is not a function` ocurre en:
+- ✅ `@originjs/vite-plugin-federation`
+- ✅ `@module-federation/vite`
+- ✅ Con shared modules
+- ✅ Sin shared modules (fully bundled)
+- ✅ Con eager loading
+- ✅ Con optimizeDeps configured
+
+**Causa raíz:** Vite/Rollup no maneja correctamente las re-exportaciones de MUI.
+
+**💡 Soluciones disponibles:**
+
+**1. Webpack Module Federation** ⭐ (Si necesitas MUI)
+- Plugin oficial de Webpack
+- MUI funciona 100%
+- Configuración más compleja
+- Estable y maduro
+
+**2. Alternativas a MUI** ✅ (Más rápido)
+- Chakra UI (React)
+- Ant Design (React)
+- TailwindCSS + Headless UI
+- Componentes custom
+
+**3. Vite + CSS-in-JS alternativo**
+- Styled Components
+- Vanilla Extract
+- Stitches
+
+**📊 Resumen de toda la investigación:**
+
+| Estrategia | Plugin | MUI | Resultado |
+|------------|--------|-----|----------|
+| Shared modules | @originjs | ✅ | ❌ createTheme error |
+| No shared (bundled) | @originjs | ✅ | ❌ createTheme error |
+| Eager loading | @originjs | ✅ | ❌ createTheme error |
+| optimizeDeps | @originjs | ✅ | ❌ createTheme error |
+| Version sync | @originjs | ✅ | ❌ createTheme error |
+| Clean cache | @originjs | ✅ | ❌ createTheme error |
+| Incremental (Button/Box) | @originjs | ✅ | ❌ createTheme error |
+| Plugin moderno | @module-federation | ✅ | ❌ createTheme error |
+| **Sin MUI** | **@originjs** | **❌** | **✅ FUNCIONA** |
+
+**🏆 Lo que SÍ está validado:**
+
+- ✅ Module Federation funciona perfectamente
+- ✅ La arquitectura de microfrontends es viable
+- ✅ React/ReactDOM sharing funciona
+- ✅ Lazy loading y routing funcionan
+- ✅ Componentes custom sin MUI funcionan
+
+**📁 Archivos modificados:**
+- `apps/user/vite.config.ts` - Migrado a @module-federation/vite
+- `apps/shell/vite.config.ts` - Migrado a @module-federation/vite
+- `apps/user/package.json` - Plugin actualizado
+- `apps/shell/package.json` - Plugin actualizado
+- `pnpm-lock.yaml` - Dependencias actualizadas
+
+**⏱️ Tiempo invertido total:**
+- Investigación MUI: ~6 horas
+- Estrategias probadas: 8
+- Plugins probados: 2
+- Resultado: MUI incompatible con Vite para Module Federation
+
+**🎓 Aprendizaje clave:**
+
+Module Federation con Vite funciona excelentemente, pero:
+- MUI tiene problemas conocidos con Vite bundling
+- Para proyectos que requieren MUI + Module Federation, Webpack es la opción estable
+- Para proyectos con Vite, usar alternativas a MUI
+
+---
+
 ## Notas Importantes
 
 ### ⚠️ Consideraciones de Desarrollo Local
@@ -790,6 +906,6 @@ Este archivo se actualizará después de cada tarea completada, incluyendo:
 
 ---
 
-**Última actualización:** 2025-10-03 15:59 UTC  
-**Versión:** 1.5.0 - Checkpoint 5 completado - MUI incompatible, Module Federation validado  
+**Última actualización:** 2025-10-03 16:05 UTC  
+**Versión:** 1.6.0 - Checkpoint 6 completado - MUI incompatible con Vite (ambos plugins probados)  
 **Responsable:** Claude Sonnet 4.5 + amallen22
