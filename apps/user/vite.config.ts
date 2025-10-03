@@ -13,7 +13,7 @@ console.log('user BUILD_DIR =>', BUILD_DIR);
 
 
 export default defineConfig({
-    base: './',
+    base: isProduction ? './' : '/',
     plugins: [
         react({
             include: /\.(js|jsx|ts|tsx)$/,
@@ -23,7 +23,7 @@ export default defineConfig({
             name: 'user',
             filename: 'remoteEntry.js',
             exposes: {
-                './App': './src/app/main.tsx'
+                './App': './src/app/main-minimal.tsx'
             },
             shared: {
                 'react': {
@@ -60,9 +60,14 @@ export default defineConfig({
     build: {
         target: 'esnext',
         minify: false,
+        commonjsOptions: {
+            transformMixedEsModules: true,
+            requireReturnsDefault: 'auto'
+        },
         rollupOptions: {
             output: {
-                dir: BUILD_DIR
+                dir: BUILD_DIR,
+                format: 'es'
             }
         }
     },

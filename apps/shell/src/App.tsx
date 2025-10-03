@@ -8,6 +8,8 @@ const RemoteProduct = React.lazy(() => import('@apps/product/App.tsx'));
 
 const RemoteLogin = React.lazy(() => import('@apps/login/app/App.jsx'));
 
+const RemoteUser = React.lazy(() => import('user/App'));
+
 // Components for each route
 const HomePage = () => (
   <div>
@@ -21,10 +23,11 @@ const HomePage = () => (
       <p><strong>Esta es la aplicación shell que orquesta los diferentes micro frontends:</strong></p>
       <ul style={{ marginLeft: '20px' }}>
         <li><strong>🔐 Login:</strong> Módulo de autenticación y login</li>
+        <li><strong>👤 User:</strong> Dashboard y perfil de usuario</li>
         <li><strong>📦 Product:</strong> Módulo de gestión de productos</li>
         <li><strong>🎨 UI Kit:</strong> Componentes compartidos y librería de diseño</li>
       </ul>
-      <p>Navega a /login, /signin, /signup o /product para acceder a los módulos.</p>
+      <p>Navega a /user, /login, /product o /ui para acceder a los módulos.</p>
     </div>
     <div style={{ backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px 0' }}>
       <Suspense fallback={<div>Loading Button...</div>}>
@@ -48,6 +51,7 @@ const HomePage = () => (
         <li>✅ UI Kit: Disponible en puerto 5002</li>
         <li>✅ Product: Disponible en puerto 5001</li>
         <li>✅ Login: Disponible en puerto 5003</li>
+        <li>✅ User: Disponible en puerto 5004</li>
       </ul>
     </div>
   </div>
@@ -64,6 +68,15 @@ const ProductPage = () => (
     <h2>📦 Product Module</h2>
     <Suspense fallback={<div>Loading Product Module...</div>}>
       <RemoteProduct />
+    </Suspense>
+  </div>
+);
+
+const UserPage = () => (
+  <div>
+    <h2>👤 User Dashboard</h2>
+    <Suspense fallback={<div>Loading User Module...</div>}>
+      <RemoteUser />
     </Suspense>
   </div>
 );
@@ -155,6 +168,20 @@ const Navigation = () => {
         >
           🎨 UI Kit
         </Link>
+        <Link 
+          to="/user"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: isActive('/user') ? '#007bff' : '#f8f9fa',
+            color: isActive('/user') ? 'white' : '#333',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            display: 'inline-block'
+          }}
+        >
+          👤 User
+        </Link>
       </div>
     </nav>
   );
@@ -180,6 +207,7 @@ function App() {
           <Route path="/signup" element={<LoginPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route path="/ui" element={<UIKitPage />} />
+          <Route path="/user" element={<UserPage />} />
         </Routes>
       </main>
     </div>

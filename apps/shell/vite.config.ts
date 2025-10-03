@@ -47,39 +47,35 @@ export default defineConfig({
       ? {
         product: `${productionRemoteBaseUrl}/product/assets/remoteEntry.js`,
         ui: `${productionRemoteBaseUrl}/ui/assets/remoteEntry.js`,
-        login: `${productionRemoteBaseUrl}/login/assets/remoteEntry.js`
+        login: `${productionRemoteBaseUrl}/login/assets/remoteEntry.js`,
+        user: `${productionRemoteBaseUrl}/user/assets/remoteEntry.js`
       }
       : process.env.NODE_ENV === 'development'
       ? {
         // En modo desarrollo, directamente desde la raíz
         product: 'http://localhost:5001/remoteEntry.js',
         ui: 'http://localhost:5002/remoteEntry.js',
-        login: 'http://localhost:5003/remoteEntry.js'
+        login: 'http://localhost:5003/remoteEntry.js',
+        user: 'http://localhost:5004/assets/remoteEntry.js' // user usa preview mode
       }
       : {
-        // En modo preview (producción local), con /dist/
+        // En modo preview (producción local), con /assets/
         product: 'http://localhost:5001/dist/assets/remoteEntry.js',
         ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
-        login: 'http://localhost:5003/dist/assets/remoteEntry.js'
+        login: 'http://localhost:5003/dist/assets/remoteEntry.js',
+        user: 'http://localhost:5004/assets/remoteEntry.js'
       },
       exposes: {
         './App': './src/App.tsx',
       },
       shared: {
         'react': {
-          import: false,
-          shareScope: 'default',
+          singleton: true,
           requiredVersion: '^18.3.1',
         },
         'react-dom': {
-          import: false,
-          shareScope: 'default', 
+          singleton: true,
           requiredVersion: '^18.3.1',
-        },
-        'react-router-dom': {
-          import: false,
-          shareScope: 'default',
-          requiredVersion: '^6.30.0',
         }
       }
     })
@@ -137,7 +133,7 @@ export default defineConfig({
     strictPort: true,
     host: true,
     cors: {
-      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'],
+      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003', 'http://localhost:5004'],
       credentials: true
     }
   }
