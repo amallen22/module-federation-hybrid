@@ -68,7 +68,8 @@
         "react-script-tag": "^1.1.2",
         "react-swipeable-views": "0.13.3",
         "redux": "^4.2.1",
-        "sanitize-html": "^2.13.0"
+        "sanitize-html": "^2.13.0",
+        "@mui/system": "^5.18.0"
     },
     "devDependencies": {
         "@babel/core": "^7.23.9",

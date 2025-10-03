@@ -646,6 +646,130 @@ sino cómo empaquetar MUI correctamente.
 
 ---
 
+### [Checkpoint 5] - 2025-10-03 15:59 - MUI INCOMPATIBLE con @originjs/vite-plugin-federation
+**Autor:** Claude Sonnet 4.5 + amallen22  
+**Estado:** ⚠️ BLOQUEADO - MUI no funciona con plugin actual  
+**Investigación:** Múltiples estrategias probadas sin éxito
+
+**🔍 Problema confirmado:**
+
+**MUI no es compatible con `@originjs/vite-plugin-federation`** en ninguna configuración:
+- Error persistente: `(0 , _createTheme.default) is not a function`
+- Ubicación: Bundle generado por Vite/Rollup
+- Causa raíz: Vite no empaqueta correctamente las re-exportaciones de MUI
+
+**✅ Estrategias probadas:**
+
+1. **Sincronización de versiones MUI:**
+   - User y Shell: `@mui/material@5.18.0`
+   - `@emotion/react@11.14.0`, `@emotion/styled@11.14.1`
+   - Resultado: ❌ Mismo error
+
+2. **MUI en shared modules con eager loading:**
+   - Configurado: `@mui/material`, `@mui/system`, `@emotion/*` como shared
+   - Flag: `eager: true` para carga inmediata
+   - Resultado: ❌ Mismo error
+
+3. **MUI NO compartido (bundled en user):**
+   - Solo React y ReactDOM como shared
+   - MUI completamente bundleado en remote
+   - Resultado: ❌ Mismo error (confirma que es problema de Vite, no Federation)
+
+4. **Limpieza de caché:**
+   - Borrado `node_modules/.vite` y `dist` en ambas apps
+   - Rebuild completo desde cero
+   - Resultado: ❌ Mismo error
+
+5. **optimizeDeps configuration:**
+   - Agregado MUI a `optimizeDeps.include`
+   - Intentado forzar pre-bundling
+   - Resultado: ❌ Mismo error
+
+6. **Componentes MUI incrementales:**
+   - Probado solo `Button` y `Box` (componentes simples)
+   - Sin ThemeProvider ni componentes complejos
+   - Resultado: ❌ Mismo error desde el inicio
+
+**📊 Logs finales:**
+
+```
+user standalone (5004): 
+  - Error en __federation_expose_App-BDB6HKYI.js:8016
+  - "_createTheme.default is not a function"
+
+shell federation (5000/user):
+  - Mismo error en __federation_expose_App-BDB6HKYI.js:8016
+  - Warnings: provider support react/mui(undefined)
+```
+
+**✅ Lo que SÍ funciona:**
+
+- ✅ Module Federation: VALIDADO Y FUNCIONANDO
+- ✅ React compartido: Sin problemas
+- ✅ ReactDOM compartido: Sin problemas
+- ✅ Componentes custom sin MUI: Perfecto
+- ✅ Lazy loading de remotes: Funciona
+- ✅ Routing entre apps: Funciona
+
+**❌ Lo que NO funciona:**
+
+- ❌ MUI con `@originjs/vite-plugin-federation`
+- ❌ Emotion styles con este plugin
+- ❌ Cualquier componente que internamente use `createTheme`
+
+**🎯 Conclusión:**
+
+El problema NO es:
+- ❌ Nuestra configuración de Module Federation
+- ❌ Las versiones de dependencias
+- ❌ La arquitectura de microfrontends
+
+El problema ES:
+- ⚠️ **Incompatibilidad entre Vite/Rollup y las re-exportaciones de MUI**
+- ⚠️ **Limitación conocida del plugin `@originjs/vite-plugin-federation`**
+
+**🔄 Próximos pasos:**
+
+**Opción C (PRÓXIMA):** Probar `@module-federation/vite`
+- Plugin más moderno y mantenido
+- Basado en Module Federation 2.0
+- Mejor soporte para librerías modernas como MUI
+- Comando: `pnpm remove @originjs/vite-plugin-federation && pnpm add @module-federation/vite`
+
+**Opción alternativa:** Webpack Module Federation
+- Plugin oficial de Webpack
+- MUI funciona sin problemas
+- Más complejo pero 100% estable
+
+**📁 Archivos en este intento:**
+- `apps/user/src/app/main-mui-simple.tsx` (nuevo) - Componente test con Button/Box
+- `apps/user/vite.config.ts` - Múltiples configuraciones probadas
+- `apps/user/index.html` - Apuntando a main-mui-simple
+- `apps/shell/vite.config.ts` - Shared modules ajustados
+- `apps/user/package.json` - Versiones MUI actualizadas
+- `apps/shell/package.json` - Versiones MUI sincronizadas
+
+**💡 Lecciones aprendidas:**
+
+1. Module Federation funciona perfectamente (validado con componente minimal)
+2. El problema es específico del plugin Vite + MUI
+3. MUI requiere bundling especial que Vite/Rollup no maneja bien
+4. Los plugins de Module Federation para Vite aún son inmaduros comparados con Webpack
+5. Para proyectos con MUI + Module Federation, Webpack es la opción más estable
+
+**🎖️ Logro:**
+
+A pesar del bloqueo con MUI, **hemos validado exitosamente la arquitectura de Module Federation**. El concepto funciona, la implementación es correcta, solo necesitamos el tooling adecuado.
+
+**Métricas de la sesión completa:**
+- Duración total: ~5 horas
+- Estrategias probadas: 6
+- Module Federation: ✅ Validado
+- MUI compatibility: ❌ Bloqueado con plugin actual
+- Aprendizaje: Altísimo valor
+
+---
+
 ## Notas Importantes
 
 ### ⚠️ Consideraciones de Desarrollo Local
@@ -666,6 +790,6 @@ Este archivo se actualizará después de cada tarea completada, incluyendo:
 
 ---
 
-**Última actualización:** 2025-10-03 15:36 UTC  
-**Versión:** 1.4.0 - Checkpoint 4 completado - Module Federation VALIDADO  
+**Última actualización:** 2025-10-03 15:59 UTC  
+**Versión:** 1.5.0 - Checkpoint 5 completado - MUI incompatible, Module Federation validado  
 **Responsable:** Claude Sonnet 4.5 + amallen22

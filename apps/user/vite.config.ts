@@ -23,7 +23,7 @@ export default defineConfig({
             name: 'user',
             filename: 'remoteEntry.js',
             exposes: {
-                './App': './src/app/main-minimal.tsx'
+                './App': './src/app/main-mui-simple.tsx'
             },
             shared: {
                 'react': {
@@ -51,6 +51,12 @@ export default defineConfig({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     },
     optimizeDeps: {
+        include: [
+            '@mui/material',
+            '@mui/system',
+            '@emotion/react',
+            '@emotion/styled'
+        ],
         exclude: ['@npm_leadtech/cv-lib-auth']
     },
     esbuild: {
