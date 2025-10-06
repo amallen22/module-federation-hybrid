@@ -47,8 +47,8 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'shell',
       remotes: {
-        // Remote apps will be added in Task 1.6
-        // Example: login: 'login@http://localhost:3001/remoteEntry.js',
+        loginApp: 'loginApp@http://localhost:3001/dist/remoteEntry.js',
+        userApp: 'userApp@http://localhost:3003/dist/remoteEntry.js',
       },
       shared: {
         react: { 

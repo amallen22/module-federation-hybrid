@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { useGlobalStore } from './stores/globalStore';
 
-// Temporary welcome pages (will be replaced with lazy-loaded remotes in Task 1.6)
+// Lazy load remote apps
+const LoginApp = lazy(() => import('loginApp/App').catch(err => {
+  console.error('Failed to load Login remote:', err);
+  return { default: () => <LoginPlaceholder error={err.message} /> };
+}));
+
+const UserApp = lazy(() => import('userApp/App').catch(err => {
+  console.error('Failed to load User remote:', err);
+  return { default: () => <UserPlaceholder error={err.message} /> };
+}));
+
+// Loading component
+const RemoteLoading: React.FC = () => (
+  <div style={{ textAlign: 'center', padding: '2rem' }}>
+    <div style={{ fontSize: '2rem' }}>⏳</div>
+    <p style={{ color: '#666', marginTop: '1rem' }}>Loading remote app...</p>
+  </div>
+);
+
+// Temporary welcome pages
 const WelcomePage: React.FC = () => {
   const { isAuthenticated, setUser } = useGlobalStore();
   
@@ -84,10 +103,18 @@ const WelcomePage: React.FC = () => {
   );
 };
 
-const LoginPlaceholder: React.FC = () => (
+const LoginPlaceholder: React.FC<{ error?: string }> = ({ error }) => (
   <div style={{ textAlign: 'center', padding: '2rem' }}>
     <h2>🔑 Login App (Remote)</h2>
-    <p style={{ color: '#666' }}>Will be loaded from localhost:3001</p>
+    {error ? (
+      <div style={{ color: '#e74c3c', marginTop: '1rem' }}>
+        <p>❌ Failed to load from localhost:3001</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>Error: {error}</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>Make sure login app is running: npm run serve</p>
+      </div>
+    ) : (
+      <p style={{ color: '#666' }}>Will be loaded from localhost:3001</p>
+    )}
   </div>
 );
 
@@ -98,10 +125,18 @@ const EditorPlaceholder: React.FC = () => (
   </div>
 );
 
-const UserPlaceholder: React.FC = () => (
+const UserPlaceholder: React.FC<{ error?: string }> = ({ error }) => (
   <div style={{ textAlign: 'center', padding: '2rem' }}>
     <h2>👤 User App (Remote)</h2>
-    <p style={{ color: '#666' }}>Will be loaded from localhost:3003</p>
+    {error ? (
+      <div style={{ color: '#e74c3c', marginTop: '1rem' }}>
+        <p>❌ Failed to load from localhost:3003</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>Error: {error}</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>Make sure user app is running: npm run serve</p>
+      </div>
+    ) : (
+      <p style={{ color: '#666' }}>Will be loaded from localhost:3003</p>
+    )}
   </div>
 );
 
@@ -134,13 +169,21 @@ const App: React.FC = () => {
           <Route index element={<WelcomePage />} />
           
           {/* Public route */}
-          <Route path="login/*" element={<LoginPlaceholder />} />
+          <Route path="login/*" element={
+            <Suspense fallback={<RemoteLoading />}>
+              <LoginApp />
+            </Suspense>
+          } />
           
           {/* Protected routes */}
           {isAuthenticated ? (
             <>
               <Route path="editor/*" element={<EditorPlaceholder />} />
-              <Route path="user/*" element={<UserPlaceholder />} />
+              <Route path="user/*" element={
+                <Suspense fallback={<RemoteLoading />}>
+                  <UserApp />
+                </Suspense>
+              } />
               <Route path="payment/*" element={<PaymentPlaceholder />} />
               <Route path="shop/*" element={<ShopPlaceholder />} />
               <Route path="thankyou/*" element={<WelcomePage />} />
