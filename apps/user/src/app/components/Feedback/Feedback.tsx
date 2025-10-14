@@ -124,7 +124,7 @@ const Feedback = () => {
 
     if (loadingReasons || loadingSubscription || loading) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );

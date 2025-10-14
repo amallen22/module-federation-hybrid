@@ -1,30 +1,34 @@
-/* eslint-disable camelcase */
 import { AnalyticsLocationChange } from '@npm_leadtech/cv-lib-app-analytics';
-import { InitialLoading } from '@npm_leadtech/cv-lib-app-components';
 import React from 'react';
 
 import { Footer } from '../../components/Footer/Footer';
+import { PreviewSnackbar } from '../../components/PreviewSnackbar/PreviewSnackbar';
 import { useAppSelector } from '../../internals/redux/hooks';
 import { ReviewStatusEnum } from '../../models/review';
 import { ReviewDone } from './ReviewDone/ReviewDone';
-import { ReviewPending } from './ReviewPending/ReviewPending';
 import { ReviewToDo } from './ReviewToDo/ReviewToDo';
 import { PageContainer, PageWrapper } from './styles';
 
 export const Review = () => {
-    const { reviewStatus, loadingResponse } = useAppSelector((state) => state.documentReview);
-    const customProp = [{ name: 'review_status', value: reviewStatus }];
+    const { response, reviewStatus } = useAppSelector((state) => state.documentReview);
+    const documents = useAppSelector((state) => state.documents.resumes);
 
-    if (loadingResponse) return <InitialLoading />;
+    const customProp = [{ name: 'review_status', value: reviewStatus }];
+    const document = documents.find(({ documentId }) => documentId === response?.document_id);
+
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+
+    const isOlderThanOneYear = document?.modifiedAt
+        ? Date.now() - new Date(document.modifiedAt).getTime() > ONE_YEAR_MS
+        : false;
+
+    const hasEmptyPreview = Boolean(document && !document.previewThumbnail && isOlderThanOneYear);
 
     const reviewContent = () => {
-        if (reviewStatus === ReviewStatusEnum.PENDING_REVIEW) {
-            return <ReviewPending />;
-        }
         if (reviewStatus === ReviewStatusEnum.REVIEWED) {
             return <ReviewDone />;
         }
-        if (reviewStatus === ReviewStatusEnum.NOT_REVIEWED) {
+        else {
             return <ReviewToDo />;
         }
     };
@@ -32,6 +36,7 @@ export const Review = () => {
     return (
         <PageWrapper>
             <AnalyticsLocationChange analyticsViewEvent='view_review' customProps={customProp} />
+            {hasEmptyPreview && <PreviewSnackbar />}
             <PageContainer className='pageContainer'>{reviewContent()}</PageContainer>
             <Footer />
         </PageWrapper>

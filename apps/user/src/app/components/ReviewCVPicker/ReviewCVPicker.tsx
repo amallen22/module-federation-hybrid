@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
-import { Spinner } from '@npm_leadtech/cv-lib-app-components';
-// import { TextfieldWithSuggestions } from '@npm_leadtech/cv-lib-app-components';
+import { Spinner, TextfieldWithSuggestions } from '@npm_leadtech/cv-lib-app-components';
 import translate from 'counterpart';
 import parse from 'html-react-parser';
 import React, { useEffect, useRef, useState } from 'react';
@@ -111,7 +110,7 @@ export const ReviewCVPicker = () => {
     const renderCvPreview = () => {
         if (!userLanguage || loadingResumes)
             return (
-                <LoaderContainer>
+                <LoaderContainer data-qa="cv-preview-loader">
                     <Spinner style={{ alignSelf: 'center', justifySelf: 'center' }} color='gray' />
                 </LoaderContainer>
             );
@@ -177,13 +176,12 @@ export const ReviewCVPicker = () => {
         return (
             <PreviewActions>
                 <DesiredJob>{translate('What is your desired job position?')}</DesiredJob>
-                {/* TODO: Replace with TextfieldWithSuggestions when import is fixed */}
-                <input
-                    type="text"
-                    value={jobPosition || ''}
-                    onChange={(e) => setJobPosition(e.target.value)}
-                    placeholder={translate('Job position')}
-                    style={{ padding: '8px', marginBottom: '16px', border: '1px solid #ccc', borderRadius: '4px' }}
+                <TextfieldWithSuggestions
+                    value={jobPosition}
+                    label={translate('Job position')}
+                    handleChange={(e: Event, value: string) => setJobPosition(value)}
+                    options={suggestions}
+                    dataQa='review-picker-textfield-with-suggestions'
                 />
                 <StyledGradientButton
                     onClick={() => requestDocumentReview()}
@@ -198,7 +196,7 @@ export const ReviewCVPicker = () => {
                     )}
                 </StyledGradientButton>
                 <BottomText>
-                    {parse(translate("<span>Ready in 48h.</span> Ensure it's correct, one chance only."))}
+                    {parse(translate('<span>Ready in seconds.</span> Ensure it´s correct, one chance only'))}
                 </BottomText>
             </PreviewActions>
         );

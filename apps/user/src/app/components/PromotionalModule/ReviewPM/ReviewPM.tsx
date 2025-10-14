@@ -42,7 +42,7 @@ export const ReviewPM = ({ language }: Props) => {
                 <PrimaryChip>{translate('Next step')}</PrimaryChip>
                 <CardTitle>{translate('Get your resume reviewed by experts')}</CardTitle>
                 <CardBody>
-                    {translate('Receive professional feedback within 48h, then apply to your dream job.')}
+                    {translate('Receive professional feedback in seconds, then apply to your dream job.')}
                 </CardBody>
                 {language !== 'de-DE' && (
                     <ActionButton isHovered={isHovered} handleClick={onSubmit}>

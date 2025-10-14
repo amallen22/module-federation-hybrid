@@ -1,7 +1,7 @@
 import { analyticsClient, AnalyticsClientEnum, AnalyticsEvent } from '@npm_leadtech/cv-lib-app-analytics';
 import { Modal } from '@npm_leadtech/cv-lib-app-components';
 import { useMobile } from '@npm_leadtech/cv-lib-app-components';
-import { StorageManager } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import translate from 'counterpart';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,14 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../internals/redux/hooks';
 import { Routes } from '../../internals/router';
 import { ReviewCookieEnum, ReviewStatusEnum } from '../../models/review';
-import { Clock } from '../../pages/Review/ReviewPending/styles';
-import { calculateIfTwoWeeksPassed } from '../ReviewSnackbar/ReviewSnackbar';
 import ModalHeaderImage from './Icon.svg';
 import ResumeReviewNew from './resume-review.png';
 import {
     BodyText,
     ButtonContainer,
-    ClockContainer,
     HeaderTitle,
     MainButton,
     ModalContainer,
@@ -33,7 +30,7 @@ interface Props {
     onConfirmHandle: () => void;
 }
 
-const cookiesStorage = StorageManager();
+const cookiesStorage = StorePackage.StorageManager();
 
 function calculateTimeRemaining(dueDate?: string) {
     if (!dueDate) return 0;
@@ -49,17 +46,12 @@ export const ReviewUnsubscribeDialog = ({ open, closeModal, onConfirmHandle }: P
     const { reviewStatus, response } = useAppSelector((state) => state.documentReview);
     const navigate = useNavigate();
     const { isMobile } = useMobile();
-    const twoWeeksPassed = calculateIfTwoWeeksPassed(response?.timeline.past_due_event);
-    const isReviewAlreadyViewed = cookiesStorage.getCookie(ReviewCookieEnum.REVIEWED_COOKIE);
+    const isReviewAlreadyViewed: boolean = cookiesStorage.getCookie(ReviewCookieEnum.REVIEWED_COOKIE);
 
     const isNotReviewed = reviewStatus === ReviewStatusEnum.NOT_REVIEWED;
-    const title = isNotReviewed
-        ? 'You’re missing the final step! Your resume review'
-        : 'Don’t miss out on your resume review!';
-    const body = isNotReviewed
-        ? 'Enhance your resume with expert feedback and boost your job opportunities. Stand out from the crowd!'
-        : 'If you have a pending Resume Review, it will be cancelled.';
-    const button = isNotReviewed ? 'ASK FOR RESUME REVIEW' : 'Go to resume review';
+    const title = 'You’re missing the final step! Your resume review';
+    const body = 'Enhance your resume with expert feedback and boost your job opportunities. Stand out from the crowd!';
+    const button = 'ASK FOR RESUME REVIEW';
 
     const [timeRemaining, setTimeRemaining] = useState<number | null>();
 
@@ -83,7 +75,7 @@ export const ReviewUnsubscribeDialog = ({ open, closeModal, onConfirmHandle }: P
 
     useEffect(() => {
         if (!open) return;
-        if (reviewStatus === ReviewStatusEnum.REVIEWED && (twoWeeksPassed || isReviewAlreadyViewed)) return;
+        if (reviewStatus === ReviewStatusEnum.REVIEWED && isReviewAlreadyViewed) return;
         else {
             const amplitudeProps = {
                 'review_status': isNotReviewed ? 'unsolicited' : 'pending',
@@ -112,36 +104,17 @@ export const ReviewUnsubscribeDialog = ({ open, closeModal, onConfirmHandle }: P
         );
     };
 
-    const renderClock = () => {
-        if (isNotReviewed) return;
-        return (
-            <ClockContainer isMobile={isMobile}>
-                <span>{translate('Time remaining')}</span>
-                <Clock data-qa='review-pending-clock'>
-                    {!!timeRemaining
-                        ? [
-                            Math.trunc(timeRemaining / 60 / 60),
-                            Math.trunc((timeRemaining / 60) % 60),
-                            Math.trunc(timeRemaining % 60),
-                        ]
-                        .join(':')
-                        .replace(/\b(\d)\b/g, '0$1')
-                        : '00:00:00'}
-                </Clock>
-            </ClockContainer>
-        );
-    };
 
     const renderCursor = () => {
         if (!isNotReviewed) return;
         return <StyledCustomCursor isMobile={isMobile}> {translate('Your expert coach')} </StyledCustomCursor>;
     };
 
-    /*if (open && reviewStatus === ReviewStatusEnum.REVIEWED && (twoWeeksPassed || isReviewAlreadyViewed)) {
+    if (open && reviewStatus === ReviewStatusEnum.REVIEWED && isReviewAlreadyViewed) {
         onConfirmHandle();
         return;
     }
-*/
+
     if (isMobile)
         return (
             <ModalContainer className='modal-container'>
@@ -160,7 +133,6 @@ export const ReviewUnsubscribeDialog = ({ open, closeModal, onConfirmHandle }: P
                             <HeaderTitle isMobile={isMobile}> {translate(title)} </HeaderTitle>
                             <BodyText isMobile={isMobile}> {translate(body)}</BodyText>
                             <StyledImg src={ResumeReviewNew} />
-                            {renderClock()}
                             {renderCursor()}
                         </StyledBody>
                         {renderButtons()}
@@ -188,7 +160,6 @@ export const ReviewUnsubscribeDialog = ({ open, closeModal, onConfirmHandle }: P
                 </StyledColumn>
                 <StyledColumn>
                     <BodyText> {translate(body)}</BodyText>
-                    {renderClock()}
                 </StyledColumn>
                 {renderCursor()}
             </StyledBody>

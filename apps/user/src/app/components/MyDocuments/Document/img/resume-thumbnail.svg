@@ -1,28 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="229px" height="295px" viewBox="0 0 229 295" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
-    <g id="CV-295X229" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect fill="#FFFFFF" x="0" y="0" width="229" height="295"></rect>
-        <polygon id="Fill-2" fill="#969696" points="22.8555756 98.5822145 79.452766 98.5822145 79.452766 91 22.8555756 91"></polygon>
-        <polygon id="Fill-3" fill="#969696" points="22.8555756 33.2698962 121.210388 33.2698962 121.210388 20 22.8555756 20"></polygon>
-        <polygon id="Fill-3-Copy" fill="#CDCDCD" points="127.771377 33.2698962 205.19052 33.2698962 205.19052 20 127.771377 20"></polygon>
-        <polygon id="Fill-4" fill="#CDCDCD" points="94.9189546 98.5822145 205.326669 98.5822145 205.326669 91 94.9189546 91"></polygon>
-        <polygon id="Fill-5" fill="#CDCDCD" points="22.8555756 54.5822145 194.81796 54.5822145 194.81796 47 22.8555756 47"></polygon>
-        <polygon id="Fill-6" fill="#CDCDCD" points="22.8555756 70.5822145 147.671748 70.5822145 147.671748 63 22.8555756 63"></polygon>
-        <polygon id="Fill-7" fill="#CDCDCD" points="94.9189546 116.582215 205.326669 116.582215 205.326669 109 94.9189546 109"></polygon>
-        <polygon id="Fill-8" fill="#969696" points="22.8555756 191.582215 79.452766 191.582215 79.452766 184 22.8555756 184"></polygon>
-        <polygon id="Fill-9" fill="#CDCDCD" points="94.9189546 191.582215 205.326669 191.582215 205.326669 184 94.9189546 184"></polygon>
-        <polygon id="Fill-10" fill="#CDCDCD" points="94.9189546 208.582215 205.326669 208.582215 205.326669 201 94.9189546 201"></polygon>
-        <polygon id="Fill-11" fill="#969696" points="22.8555756 261.582215 79.452766 261.582215 79.452766 254 22.8555756 254"></polygon>
-        <polygon id="Fill-12" fill="#CDCDCD" points="94.9189546 224.582215 205.326669 224.582215 205.326669 217 94.9189546 217"></polygon>
-        <polygon id="Fill-13" fill="#CDCDCD" points="94.9189546 241.582215 205.326669 241.582215 205.326669 234 94.9189546 234"></polygon>
-        <polygon id="Fill-13-Copy" fill="#CDCDCD" points="22.8555756 275.582215 205.172763 275.582215 205.172763 268 22.8555756 268"></polygon>
-        <polygon id="Fill-14" fill="#969696" points="22.8555756 136.582215 79.452766 136.582215 79.452766 129 22.8555756 129"></polygon>
-        <polygon id="Fill-15" fill="#CDCDCD" points="94.9189546 136.582215 205.326669 136.582215 205.326669 129 94.9189546 129"></polygon>
-        <polygon id="Fill-16" fill="#CDCDCD" points="94.9189546 153.582215 205.326669 153.582215 205.326669 146 94.9189546 146"></polygon>
-        <path d="M23.066151,41.5 L204.142466,41.5" id="Line-Copy-8" stroke="#969696" stroke-linecap="square"></path>
-        <path d="M23.066151,82.5 L204.142466,82.5" id="Line-Copy-12" stroke="#969696" stroke-linecap="square"></path>
-        <path d="M23.066151,172.5 L204.142466,172.5" id="Line-Copy-13" stroke="#969696" stroke-linecap="square"></path>
-        <path d="M23.066151,249.5 L204.142466,249.5" id="Line-Copy-14" stroke="#969696" stroke-linecap="square"></path>
-    </g>
+<svg width="255" height="362" viewBox="0 0 255 362" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 4.00001C0 1.79087 1.79086 0 4 0H251C253.209 0 255 1.79086 255 4V357.837C255 360.136 253.136 362 250.837 362H4.16331C1.86398 362 0 360.136 0 357.837V4.00001Z" fill="white"/>
+<g opacity="0.8" clip-path="url(#clip0_112_171)">
+<g clip-path="url(#clip1_112_171)">
+<rect x="32.1758" y="32.1758" width="97" height="8" rx="4" fill="#DEE1E3"/>
+<rect x="32.1758" y="44.1978" width="65" height="8" rx="4" fill="#DEE1E3"/>
+</g>
+<g clip-path="url(#clip2_112_171)">
+<rect x="171.249" y="32.1758" width="48.2637" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="171.249" y="40.3611" width="48.2637" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="171.249" y="48.5464" width="48.2637" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+</g>
+<rect x="32.1758" y="68.6562" width="189" height="2" rx="1" fill="#DEE1E3"/>
+<rect x="32.1758" y="86.7441" width="100" height="8" rx="4" fill="#DEE1E3"/>
+<g clip-path="url(#clip3_112_171)">
+<rect x="32.1758" y="110.832" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="119.017" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="127.203" width="87" height="4" rx="2" fill="#DEE1E3"/>
+</g>
+<g clip-path="url(#clip4_112_171)">
+<rect x="32.1758" y="147.291" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="155.476" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="163.661" width="152" height="4" rx="2" fill="#DEE1E3"/>
+<rect x="32.1758" y="171.824" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="180.01" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="188.195" width="112.615" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+</g>
+<g clip-path="url(#clip5_112_171)">
+<rect x="32.1758" y="208.305" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="216.49" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="224.676" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="232.861" width="152" height="4" rx="2" fill="#DEE1E3"/>
+<rect x="32.1758" y="241.024" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="249.209" width="112.615" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+</g>
+<g clip-path="url(#clip6_112_171)">
+<rect x="32.1758" y="269.319" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="277.505" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="285.69" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+</g>
+<g clip-path="url(#clip7_112_171)">
+<rect x="32.1758" y="305.8" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="313.985" width="189.033" height="4.02198" rx="2.01099" fill="#DEE1E3"/>
+<rect x="32.1758" y="322.17" width="87" height="4" rx="2" fill="#DEE1E3"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_112_171">
+<rect width="189.033" height="293.994" fill="white" transform="translate(32.1758 32.1758)"/>
+</clipPath>
+<clipPath id="clip1_112_171">
+<rect width="96.5275" height="20.022" fill="white" transform="translate(32.1758 32.1758)"/>
+</clipPath>
+<clipPath id="clip2_112_171">
+<rect width="49.9597" height="20.3925" fill="white" transform="translate(171.249 32.1758)"/>
+</clipPath>
+<clipPath id="clip3_112_171">
+<rect width="189.033" height="20.3706" fill="white" transform="translate(32.1758 110.832)"/>
+</clipPath>
+<clipPath id="clip4_112_171">
+<rect width="189.033" height="44.9264" fill="white" transform="translate(32.1758 147.291)"/>
+</clipPath>
+<clipPath id="clip5_112_171">
+<rect width="189.033" height="44.9264" fill="white" transform="translate(32.1758 208.305)"/>
+</clipPath>
+<clipPath id="clip6_112_171">
+<rect width="189.033" height="20.3926" fill="white" transform="translate(32.1758 269.319)"/>
+</clipPath>
+<clipPath id="clip7_112_171">
+<rect width="189.033" height="20.3706" fill="white" transform="translate(32.1758 305.8)"/>
+</clipPath>
+</defs>
 </svg>

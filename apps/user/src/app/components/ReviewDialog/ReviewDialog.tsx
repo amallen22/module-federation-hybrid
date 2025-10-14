@@ -22,7 +22,7 @@ export const ReviewDialog = ({ open, closeModal, userLanguage }: Props) => {
     const [show, setShow] = useState(true);
 
     const loadMoreDocuments = () => {
-        documentDispatch(fetchDocuments({ limit: 99, documentType: DocumentTypeEnum.Resume }));
+        documentDispatch(fetchDocuments({ documentType: DocumentTypeEnum.Resume }));
     };
 
     const anRef = useRef<HTMLDialogElement>(null);
@@ -62,7 +62,9 @@ export const ReviewDialog = ({ open, closeModal, userLanguage }: Props) => {
                 </DocumentBox>
                 <Footer>
                     {loadingResumes ? (
-                        <Spinner color='blue' styles={{ height: '20px' }} />
+                        <div data-qa="loading-resumes">
+                            <Spinner color='blue' styles={{ height: '20px' }} />
+                        </div>
                     ) : (
                         <ShowMoreButton
                             onClick={() => loadMoreDocuments()}

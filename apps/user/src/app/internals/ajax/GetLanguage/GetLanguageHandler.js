@@ -1,4 +1,4 @@
-import { sessionStoreCookie } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import { AjaxHandler } from '@npm_leadtech/jsr-lib-http';
 
 import { FrontLogService } from '../../../services/FrontLogService';
@@ -12,7 +12,7 @@ export class GetLanguageHandler extends AjaxHandler {
             errorHandler: FrontLogService.logAjaxResponse,
             endpointDefinition,
             reducer: GetLanguageReducer,
-            sessionStoreCookie,
+            sessionStoreCookie: StorePackage.sessionStoreCookie,
         });
     }
 }

@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "path": "/template",
+  "params": {
+    "documentType": {
+      "description": "Document type",
+      "type": "string",
+      "allowEmpty": false,
+      "required": true
+    }
+  },
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ]
+}

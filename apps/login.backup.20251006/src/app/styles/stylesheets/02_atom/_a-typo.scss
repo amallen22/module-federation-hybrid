@@ -1,0 +1,46 @@
+.a {
+  &-splash {
+    &-highlight {
+      position: absolute;
+      p {
+        color: white;
+        padding: 3rem;
+        font-family: $Arvo;
+      }
+    }
+  }
+}
+
+.a-typo {
+  &__centered {
+    text-align: center;
+  }
+  &-splash {
+    &-highlight {
+      position: absolute;
+      p {
+        color: white;
+        padding: 3rem;
+        font-family: $Arvo;
+      }
+    }
+  }
+  &-introduction {
+    &__principal {
+      text-align: center;
+      font-family: $Arvo;
+      font-size: 20px;
+      line-height: 26px;
+      color: $secondary-color;
+    }
+    &__content {
+      text-align: center;
+      font-family: $Roboto;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    &__separator {
+      margin-top: 0;
+    }
+  }
+}

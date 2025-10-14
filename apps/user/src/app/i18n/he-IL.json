@@ -82,7 +82,7 @@
     "The use of <strong>KEYWORDS</strong> is often overlooked by jobseekers and they are fast becoming an integral part of a winning resume. - You can <strong>find the relevant keywords and expressions for your resume within the job vacancy</strong>, company website or profiles of other professions in that particular area.": "מחפשי העבודה בדרך כלל מתעלמים מהשימוש ב<strong>מילות מפתח</strong> שהופכות במהירות לחלק בלתי נפרד מקורות חיים מנצחים. - אפשר <strong>למצוא את מילות המפתח והביטויים הרלוונטיים לקורות החיים שלכם במשרה הפנויה</strong>, באתר החברה או בפרופילים של מקצועות אחרים באזור המסוים הזה.",
     "<strong>Include the standard sections in every resume you create</strong> - contact information, objective or summary, education, work experience and skills.": "<strong>כללו את הסעיפים הסטנדרטיים בכל קורות חיים שאתם יוצרים</strong> – פרטי התקשרות, מטרה או תקציר, השכלה, ניסיון עבודה וכישורים.",
     "But to <strong>create a unique resume</strong> that will attract a hiring manager at first glance, remember to <strong>include specific resume sections that relate to your professional profile</strong> and the vacancy on offer, such as pertinent publications, conferences you’ve attended, extra training, courses or awards you’ve received etc.": "אבל כדי <strong>ליצור קורות חיים ייחודיים</strong> שימשכו מיד את תשומת הלב של מנהל/ת הגיוס, <strong>הוסיפו לקורות החיים מקטעים ספציפיים הקשורים לפרופיל המקצועי שלכם</strong> ולמשרה הפנויה המוצעת, כגון פרסומים רלוונטיים, כנסים שבהם השתתפתם, הכשרות נוספות, קורסים או פרסים שקיבלתם וכו'.",
-    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>הימנעו משימוש בגוף ראשון</strong>: 'אני', לאורך קורות החיים. במקום זאת, התייחסו תמיד לגוף שלישי מבלי להשתמש בנושא. לדוגמה, <strong>במקטע היעדים או בתיאורי הניסיון בעבודה</strong>.",
+    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>הימנעו משימוש בגוף ראשון</strong>: 'אני', לאורך קורות החיים. במקום זאת, התייחסו תמיד לגוף שלישי מבלי להשתמש בנושא. לדוגמה,  <strong>במקטע היעדים או בתיאורי הניסיון בעבודה</strong>",
     "<strong>Use strong verbs</strong> to describe your previous experience such as spearheaded, coordinated, orchestrated, established, launched, reduced (costs), increased (profits), restructured, facilitated, negotiated etc.": "<strong>השתמשו בפעלים חזקים</strong> כדי לתאר את הניסיון הקודם שלכם, כגון הוביל, תיאם, תכנן, הקים, השיק, הפחית (עלויות), הגדיל (רווחים), ארגן מחדש, הקל, משא ומתן וכו'.",
     "<strong>Demonstrate quantifiable evidence</strong> of your personal involvement in a project or impact on a role.": "<strong>הציגו ראיות שאפשר לכמת</strong> למעורבותך האישית בפרויקט או השפעה על תפקיד.",
     "Current Plan": "התוכנית הנוכחית",
@@ -274,6 +274,7 @@
     "Want expert advice?": "לקבל עצה מהמומחים?",
     "Visit our Help & Contact section": "ביקור במקטע העזרה ויצירת הקשר",
     "or send an e-mail to %(appEmail)s": "או לשלוח דוא\"ל ל-‎‎%(appEmail)s",
+    "or send an e-mail to": "או לשלוח דוא\"ל ל-‎‎",
     "Go to Help & Contact": "מעבר ל‘עזרה ויצירת קשר‘",
     "resume": "קורות חיים",
     "cover letter": "מכתב נלווה",
@@ -516,5 +517,15 @@
     "Your expert coach": "המאמן המומחה שלך",
     "ASK FOR RESUME REVIEW": "בקש ביקורת קורות חיים",
     "Continue": "המשך",
-    "Unlimited User": "משתמש ללא הגבלה"
+    "Unlimited User": "משתמש ללא הגבלה",
+    "example": "דוגמה",
+    "before": "לפני",
+    "after": "אחרי",
+    "online cover letter": "מכתב נלווה מקוון",
+    "Looks like you've been away for a bit, so your documents are temporarily inactive. To bring back a document, open and edit it as usual.": "נראה שלא היית באתר זמן מה, כך שהמסמכים שלך אינם פעילים באופן זמני. כדי להחזיר מסמך, פתח וערוך אותו כרגיל.",
+    "Cancel membership": "ביטול חברות",
+    "Do you want to cancel your account?": "בטוח שברצונך לבטל את חשבון הפרימיום?",
+    "<span>Ready in seconds.</span> Ensure it´s correct, one chance only": "<span>מוכן תוך שניות.</span> יש לוודא שזה נכון, הזדמנות אחת בלבד",
+    "Receive professional feedback in seconds, then apply to your dream job.": "אפשר לקבל משוב מקצועי תוך שעות, ואז להגיש מועמדות למשרת החלומות שלך.",
+    "Just a moment, we're preparing expert tips to improve your resume": "רגע, אנחנו מכינים טיפים ממומחים לשיפור קורות החיים שלכם"
 }

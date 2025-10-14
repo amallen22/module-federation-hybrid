@@ -43,7 +43,7 @@ const AddDocument = ({ documentType, groupPermission, loadingDocuments }: Props)
             data-qa={`create-new-${documentType}`}
         >
             {loading ? (
-                <SpinnerContainer>
+                <SpinnerContainer data-qa={`create-new-${documentType}-loader`}>
                     <Spinner color='blue' />
                 </SpinnerContainer>
             ) : (

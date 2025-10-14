@@ -82,7 +82,7 @@
     "The use of <strong>KEYWORDS</strong> is often overlooked by jobseekers and they are fast becoming an integral part of a winning resume. - You can <strong>find the relevant keywords and expressions for your resume within the job vacancy</strong>, company website or profiles of other professions in that particular area.": "A menudo, los aspirantes pasan por alto el uso de las <strong>PALABRAS CLAVE</strong>, cuando, en realidad, son una parte fundamental de un buen CV. Podés <strong>encontrar las palabras clave y las expresiones más relevantes en la descripción de la oferta de trabajo</strong>, en el sitio web de la empresa o en los perfiles de otros profesionales de tu sector.",
     "<strong>Include the standard sections in every resume you create</strong> - contact information, objective or summary, education, work experience and skills.": "<strong>Incluí las secciones básicas en cada CV que crees</strong>: información de contacto, objetivo, educación, experiencia laboral y habilidades.",
     "But to <strong>create a unique resume</strong> that will attract a hiring manager at first glance, remember to <strong>include specific resume sections that relate to your professional profile</strong> and the vacancy on offer, such as pertinent publications, conferences you’ve attended, extra training, courses or awards you’ve received etc.": "Pero para <strong>crear un CV único</strong> que llame la atención de un gerente de Recursos Humanos, recordá <strong>incluir secciones específicas relacionadas con tu perfil profesional</strong> y con la vacante. Por ejemplo: publicaciones, conferencias a las que asististe, cursos, premios que recibiste, etc.",
-    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>Evita usar la primera persona singular</strong>: \"yo\", a lo largo de tu currículum. Usa siempre la tercera persona singular sin mencionar el sujeto en secciones como <strong>los objetivos de tu CV o la descripción de la experiencia laboral</strong>, por ejemplo.",
+    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>Evita usar la primera persona singular</strong>: \"yo\", a lo largo de tu currículum. Usá siempre la tercera persona singular sin mencionar el sujeto en secciones como: <strong>la descripción de tu CV o la experiencia laboral</strong>.",
     "<strong>Use strong verbs</strong> to describe your previous experience such as spearheaded, coordinated, orchestrated, established, launched, reduced (costs), increased (profits), restructured, facilitated, negotiated etc.": "<strong>Usa verbos potentes</strong> para describir tu experiencia previa. Por ejemplo: liderar, coordinar, organizar, consolidar, lanzar, reducir (costos), incrementar (beneficios), reestructurar, facilitar, negociar, etc.",
     "<strong>Demonstrate quantifiable evidence</strong> of your personal involvement in a project or impact on a role.": "<strong>Demostrá evidencias cuantificables</strong> de tu participación en el proyecto o el impacto que tuvo tu papel en el mismo.",
     "Current Plan": "Plan actual",
@@ -274,6 +274,7 @@
     "Want expert advice?": "¿Necesitas ayuda de un experto?",
     "Visit our Help & Contact section": "Visitá nuestra sección de Ayuda y Contacto",
     "or send an e-mail to %(appEmail)s": "o enviá un correo a %(appEmail)s",
+    "or send an e-mail to": "o enviá un correo a",
     "Go to Help & Contact": "Ir a Ayuda y Contacto",
     "resume": "currículum",
     "cover letter": "carta de presentación",
@@ -516,5 +517,15 @@
     "Your expert coach": "Tu asesor experto",
     "ASK FOR RESUME REVIEW": "PEDIR REVISIÓN DE CURRÍCULUM",
     "Continue": "Continuar",
-    "Unlimited User": "Usuario Ilimitado"
+    "Unlimited User": "Usuario Ilimitado",
+    "example": "ejemplo",
+    "before": "antes",
+    "after": "después",
+    "online cover letter": "carta de presentación en línea",
+    "Looks like you've been away for a bit, so your documents are temporarily inactive. To bring back a document, open and edit it as usual.": "Parece que te fuiste un rato, tus documentos están inactivos temporalmente. Solo tenés que abrir y editar uno para tenerlo de vuelta.",
+    "Cancel membership": "Cancelar membresía",
+    "Do you want to cancel your account?": "¿Querés cancelar tu cuenta?",
+    "<span>Ready in seconds.</span> Ensure it´s correct, one chance only": "<span>Listo en segundos.</span> Asegurate de que esté correcto, solo tenés una chance",
+    "Receive professional feedback in seconds, then apply to your dream job.": "Recibí sugerencias profesionales en segundos y aplicá a tu trabajo soñado.",
+    "Just a moment, we're preparing expert tips to improve your resume": "Un momento, estamos preparando consejos de expertos para mejorar tu currículum"
 }

@@ -1,3 +1,4 @@
+import { CurrencyDescriptor } from '@npm_leadtech/cv-lib-app-config';
 import translate from 'counterpart';
 import React, { useEffect, useState } from 'react';
 
@@ -5,7 +6,7 @@ import { getUserTypeText } from '../../helpers/getUserTypeText';
 import useProfile from '../../hooks/useProfile';
 import useSubscription from '../../hooks/useSubscription';
 import { Debit } from '../../models/debits';
-import { ApiError } from '../../models/error';
+import { Error } from '../../models/error';
 import { Amount, Product } from '../../models/products';
 import { StyledProfileTitle } from '../../pages/AccountManagement/styles';
 import { apiService } from '../../services/ApiService';
@@ -15,12 +16,13 @@ import { SubscriptionInfoPanelUpgrade } from '../SubscriptionInfoPanelUpgrade';
 import { SubscriptionPaymentHistory } from '../SubscriptionPaymentHistory/SubscriptionPaymentHistory';
 import { Loading } from './Loading';
 
-function getPriceWithCurrency(amount: Amount) {
+function getPriceWithCurrency(amount: Amount, currencyKey: string) {
+    const display = CurrencyDescriptor.toString(currencyKey, amount.display);
     if (amount.currencyPrefix) {
-        return `${amount.currencyPrefix}${amount.display}`;
+        return `${amount.currencyPrefix}${display}`;
     }
 
-    return `${amount.display}${amount.currencySuffix}`;
+    return `${display}${amount.currencySuffix}`;
 }
 
 const initialState = {
@@ -105,7 +107,7 @@ const SubscriptionInfo = () => {
             .then(() => {
                 setLoading(false);
             })
-            .catch((err: ApiError) => {
+            .catch((err: Error) => {
                 setLoading(false);
                 FrontLogService.logAjaxResponse({
                     className: 'SubscriptionManagement',
@@ -141,8 +143,9 @@ const SubscriptionInfo = () => {
 
         let startingPrice;
         if (products.length) {
-            const amount = products[0].price.amount[Object.keys(products[0].price.amount)[0]];
-            startingPrice = getPriceWithCurrency(amount);
+            const currencyKey = Object.keys(products[0].price.amount)[0];
+            const amount = products[0].price.amount[currencyKey];
+            startingPrice = getPriceWithCurrency(amount, currencyKey);
         }
 
         return <SubscriptionInfoPanelUpgrade startingPrice={startingPrice} />;

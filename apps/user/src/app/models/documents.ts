@@ -28,7 +28,8 @@ export interface Documents {
 
 export interface DocumentsParams {
     documentType: string;
-    'limit'?: number | null;
+    limit?: number | null;
+    offset?: number;
 }
 
 export interface DocumentTitle {

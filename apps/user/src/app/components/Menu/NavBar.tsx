@@ -1,5 +1,5 @@
 import { InitialLoading, StepNavBar } from '@npm_leadtech/cv-lib-app-components';
-import { StorageManager } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import translate from 'counterpart';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,6 @@ import { Routes } from '../../internals/router/Routes';
 import { Language } from '../../models/language';
 import { ReviewCookieEnum, ReviewStatusEnum } from '../../models/review';
 import { AppLanguageSelector } from '../AppLanguageSelector/AppLanguageSelector';
-import { calculateIfTwoWeeksPassed } from '../ReviewSnackbar/ReviewSnackbar';
 import { DropdownMenu } from './Dropdown/Dropdown';
 
 const domain = APP_CONFIG.domain;
@@ -53,14 +52,13 @@ export const NavBarMenu = ({
 }: Props) => {
     const resumeCount = useAppSelector((state) => state.documents.resumeCount);
     const letterCount = useAppSelector((state) => state.documents.letterCount);
-    const { reviewStatus, response } = useAppSelector((state) => state.documentReview);
+    const { reviewStatus } = useAppSelector((state) => state.documentReview);
     const navigate = useNavigate();
-    const cookiesStorage = StorageManager();
+    const cookiesStorage = StorePackage.StorageManager();
     const cookieValue = cookiesStorage.getCookie(ReviewCookieEnum.REVIEWED_COOKIE);
 
     function showNotification() {
-        const twoWeeksPassed = calculateIfTwoWeeksPassed(response?.timeline.past_due_event);
-        return reviewStatus === ReviewStatusEnum.REVIEWED && !cookieValue && !twoWeeksPassed;
+        return reviewStatus === ReviewStatusEnum.REVIEWED && !cookieValue;
     }
 
     const [menuItemsConfig, setMenuItemsConfig] = useState<NavbarTab[]>([

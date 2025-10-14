@@ -41,6 +41,18 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(scss|sass)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot)$/,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
@@ -48,7 +60,7 @@ module.exports = {
       name: 'shell',
       remotes: {
         loginApp: 'loginApp@http://localhost:3001/dist/remoteEntry.js',
-        userApp: 'userApp@http://localhost:3003/dist/remoteEntry.js',
+        // userApp: 'userApp@http://localhost:3003/dist/remoteEntry.js', // Temporarily disabled for testing
       },
       shared: {
         react: { 

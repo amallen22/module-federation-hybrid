@@ -2,15 +2,17 @@ import { Tabs } from '@mui/material';
 import { AnalyticsLocationChange } from '@npm_leadtech/cv-lib-app-analytics';
 import { InitialLoading } from '@npm_leadtech/cv-lib-app-components';
 import translate from 'counterpart';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 
 import { Footer } from '../../components/Footer/Footer';
 import { MyDocuments } from '../../components/MyDocuments/MyDocuments';
+import { PreviewSnackbar } from '../../components/PreviewSnackbar/PreviewSnackbar';
 import useLanguages from '../../hooks/useLanguages';
 import useProfile from '../../hooks/useProfile';
-import { DocumentTypeEnum } from '../../models/documents';
+import { useAppSelector } from '../../internals/redux/hooks';
+import { Document, DocumentTypeEnum } from '../../models/documents';
 import { PageContainer, PageWrapper, StyledTab, stylesTabs } from './styles';
 
 const Documents = () => {
@@ -25,13 +27,12 @@ const Documents = () => {
         if (tabSelected === 'letters') {
             return 1;
         }
-
         return 0;
     };
 
     const [selectedDocumentType, setSelectedDocumentType] = useState(getSelectedDocumentType(tabSelected));
 
-    const handleDocumentChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    const handleDocumentChange = (_event: ChangeEvent<{}>, newValue: number) => {
         setSelectedDocumentType(newValue);
     };
 
@@ -39,9 +40,24 @@ const Documents = () => {
         setSelectedDocumentType(index);
     };
 
+    const resumes = useAppSelector((state) => state.documents.resumes);
+    const letters = useAppSelector((state) => state.documents.letters);
+
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+
+    const isOlderThanOneYear = (document: Document) =>
+        new Date().getTime() - new Date(document.modifiedAt).getTime() > ONE_YEAR_MS;
+    const hasEmptyPreviewResumes = resumes.some(
+        (document) => !!!document.previewThumbnail && isOlderThanOneYear(document),
+    );
+    const hasEmptyPreviewLetters = letters.some(
+        (document) => !!!document.previewThumbnail && isOlderThanOneYear(document),
+    );
+    const hasEmptyPreviews = selectedDocumentType === 0 ? hasEmptyPreviewResumes : hasEmptyPreviewLetters;
+
     if (loadingProfile || !languagesLoaded) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );
@@ -50,6 +66,7 @@ const Documents = () => {
     return (
         <PageWrapper>
             <AnalyticsLocationChange analyticsViewEvent='view_documents' />
+            {hasEmptyPreviews && <PreviewSnackbar />}
             <PageContainer>
                 <Tabs
                     value={selectedDocumentType}

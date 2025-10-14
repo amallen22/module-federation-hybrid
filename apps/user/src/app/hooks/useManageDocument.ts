@@ -9,7 +9,7 @@ import { HandleTxt } from '../internals/ajax/handleTxt/handleTxt';
 import { useAppSelector } from '../internals/redux/hooks';
 import { Routes } from '../internals/router/Routes';
 import { Document, DocumentTypeEnum, ManageDocuments } from '../models/documents';
-import { ApiError } from '../models/error';
+import { Error } from '../models/error';
 import { Sections } from '../models/sections';
 import { apiService } from '../services/ApiService';
 import CookiesStorage from '../services/CookiesStorage';

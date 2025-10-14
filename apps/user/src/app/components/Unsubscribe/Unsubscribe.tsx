@@ -8,7 +8,7 @@ import { APP_CONFIG } from '../../config/appConfig';
 import useProfile from '../../hooks/useProfile';
 import { Routes } from '../../internals/router/Routes';
 import { Document, Documents, DocumentTypeEnum } from '../../models/documents';
-import { ApiError } from '../../models/error';
+import { Error } from '../../models/error';
 import { apiService } from '../../services/ApiService';
 import { FrontLogService } from '../../services/FrontLogService';
 import { Footer } from '../Footer/Footer';
@@ -99,7 +99,7 @@ const Unsubscribe = ({ subscriptionId }: Props) => {
 
     if (loadingProfile || loading) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );

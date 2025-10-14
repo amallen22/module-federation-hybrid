@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
     DocumentReviewState,
     InternalReviewStatusEnum,
+    Recommendation,
     ReviewRequest,
     ReviewResponse,
     ReviewStatusEnum,
@@ -42,11 +43,11 @@ export const documentReviewSlice = createSlice({
             state.loadingResponse = true;
         })
         .addCase(getReviews.fulfilled, (state, action) => {
-            state.loadingResponse = false;
             state.response = action.payload;
             state.profession = parseProfession(action.payload);
             state.review = parseReview(action.payload);
             state.reviewStatus = parseStatus(action.payload);
+            state.loadingResponse = state.reviewStatus === ReviewStatusEnum.PENDING_REVIEW;
         })
         .addCase(getReviews.rejected, (state) => {
             state.loadingResponse = false;
@@ -68,55 +69,72 @@ const parseStatus = (review: ReviewResponse | null) => {
     return ReviewStatusEnum.PENDING_REVIEW;
 };
 
-const parseReview = (review: ReviewResponse | null) => {
-    if (!review || !review.response || !review.response.success) return;
+const parseReview = (review: ReviewResponse | null) : Recommendation[] | null=> {
+    if (!review || !review.response || !review.response.success) return null;
 
     const content = review.response.success.content;
-
+    const cleanContent = content.replace('```json', '').replace('```', '');
     try {
-        const parsedReview = JSON.parse(content);
-
-        if (!parsedReview.recommendations) {
-            const recommendations = {
-                'recommendations': parsedReview,
-            };
-            const amplitudeProps = {
-                'review_id': review.review_id,
-                'openAi_response': content,
-                'controlled': recommendations && Array.isArray(recommendations) ? true : false,
-            };
-            analyticsClient.sendAnalyticsEvent(AnalyticsEvent.AIReviewFail, amplitudeProps, [
-                AnalyticsClientEnum.Amplitude,
-                AnalyticsClientEnum.GA4,
-            ]);
-            return recommendations;
-        }
-        return parsedReview;
+        const parsedReview = JSON.parse(cleanContent);
+        const normalizedReview = normalizeCompletions(parsedReview);
+        return normalizedReview;
     } catch {
-        const processedContent = content.replace('```json', '').replace('```', '');
-        let parsedReview = JSON.parse(processedContent);
-        let recommendations = {};
-
-        if (!parsedReview.recommendations) {
-            recommendations = {
-                'recommendations': parsedReview,
-            };
-            parsedReview = recommendations;
-        }
-        // Open AI sometimes returns a badly formatted JSON. We handle this here, and send an event to keep track of this and any other open ai malfunctions
         const amplitudeProps = {
             'review_id': review.review_id,
             'openAi_response': content,
-            'controlled': parsedReview.recommendations && Array.isArray(parsedReview.recommendations) ? true : false,
         };
         analyticsClient.sendAnalyticsEvent(AnalyticsEvent.AIReviewFail, amplitudeProps, [
             AnalyticsClientEnum.Amplitude,
             AnalyticsClientEnum.GA4,
         ]);
 
-        return parsedReview;
+        const recommendation: Recommendation = {
+            description: cleanContent,
+            title: '',
+            example: {
+                before: '',
+                after: ''
+            }
+        };
+
+        return [recommendation];
     }
 };
+
+function normalizeCompletions(review: any): Recommendation[] {
+    const index: string = Object.keys(review)[0];
+
+    const recommendations: Recommendation[] = review[index].map((i: any): Recommendation=> {
+        const recommendation: Recommendation = {
+            description: '',
+            title: '',
+            example: {
+                before: '',
+                after: ''
+            }
+        };
+
+        if (i.description && i.title && i.example) {
+            if (typeof i.title === 'string') recommendation.description = i.description;
+            if (typeof i.title === 'string') recommendation.title = i.title;
+            if (i.example.before && typeof i.example.before === 'string') recommendation.example.before = i.example.before;
+            if (i.example.after && typeof i.example.before === 'string') recommendation.example.after = i.example.after;  
+        } else {
+            const array: string[] = Object.keys(i);
+            if (array[0] && i[array[0]]) recommendation.title = i[array[0]];
+            if (array[1] && i[array[1]]) recommendation.description = i[array[1]];
+        }
+    
+        return recommendation;
+    });
+
+    if (recommendations.length < 1) {
+        throw new Error('AI PARSE:  Incorrect format');
+    }
+
+    return recommendations;
+}
+
 
 const parseProfession = (review: ReviewResponse | null) => {
     if (!review || !review.review_customization || !review.review_customization.profession) return '';
@@ -133,7 +151,7 @@ export const requestReview = createAsyncThunk(
 
 export const getReviews = createAsyncThunk('documents/getReviews', async (): Promise<ReviewResponse | null> => {
     const reviews = await apiService.getReviews();
-
+    
     if (reviews.length < 1) return null;
     if (reviews.length === 1) return reviews[0];
 

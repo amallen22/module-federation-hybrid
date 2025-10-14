@@ -1,0 +1,16 @@
+.a {
+  &-list {
+    li{
+      padding-left: 29px;
+      position: relative;
+      margin-bottom: 15px;
+      font-size: 13px;
+      &:before{
+        content: url(/login/images/icons/check-blue.png);
+        position: absolute;
+        left: 0;
+        top: 7px;
+      }
+    }
+  }
+}

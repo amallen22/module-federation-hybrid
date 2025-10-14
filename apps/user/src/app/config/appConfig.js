@@ -7,24 +7,9 @@ if ((CONFIG || CONFIG.data) === undefined) {
     throw new Error('App configuration missing. Please execute npm run setup.');
 }
 
-
-// console.log('location.hostname ::::::::::::::::::::::::::', location.hostname);
-// console.log('CONFIG.data ::::::::::::::::::::::::::', CONFIG.data);
-
-// Obtener configuración del dominio
-// let APP_CONFIG = GetDomainConfig(location.hostname, CONFIG.data);
-export let APP_CONFIG = GetDomainConfig('local.resumecoach.com', CONFIG.data);
-
-// export const APP_CONFIG = GetDomainConfig(location.hostname, CONFIG.data);
-// console.log('APP_CONFIG from getDomainConfig ::::::::::::::::::::::::::', APP_CONFIG);
-
+export const APP_CONFIG = GetDomainConfig(location.hostname, CONFIG.data);
 export const TEMPLATES_CONFIG = GetBuildConfig(TEMPLATES_CONFIG_DATA.data);
-// console.log('TEMPLATES_CONFIG from getBuildConfig ::::::::::::::::::::::::::', TEMPLATES_CONFIG);
-
 export const API_URL = GetApiUrl(APP_CONFIG);
-
-console.log('API_URL from getDomainConfig ::::::::::::::::::::::::::', API_URL);
-
 export const API_EDITOR_URL = GetApiEditorUrl(APP_CONFIG);
 // This string is hardcoded because it's provided by another call /Templates or /Template and configuring the whole call was deemed not worth it as this field never changes.
 export const PREDEFINED_SECTIONS_CV =

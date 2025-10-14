@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { ApiError } from '../models/error';
+import { Error } from '../models/error';
 import { Language } from '../models/language';
-import { isDevelopment, mockDelay, mockLanguages } from '../mocks/mockData';
 import { apiService } from '../services/ApiService';
 import { FrontLogService } from '../services/FrontLogService';
 
@@ -19,17 +18,6 @@ function useLanguages() {
     };
 
     useEffect(() => {
-        // En desarrollo local, usar datos mock para evitar errores de CORS
-        if (isDevelopment) {
-            console.log('🔧 [DEV MODE] Using mock languages data');
-            mockDelay(200).then(() => {
-                setLanguage(mockLanguages);
-                setLanguageLoaded(true);
-            });
-            return;
-        }
-
-        // En producción, usar la API real
         apiService
         .getLanguages()
         .then((res) => {

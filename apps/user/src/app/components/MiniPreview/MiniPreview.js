@@ -6,9 +6,9 @@ import { Wrapper } from './styles';
 const MiniPreview = ({ thumbnail, loading }) => {
     if (loading) {
         return (
-            <Wrapper>
+            <Wrapper data-qa='mini-preview-loading'>
                 <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
-                    <Spinner data-qa='mini-preview-loading' color='neutral' />
+                    <Spinner color='neutral' />
                 </div>
             </Wrapper>
         );

@@ -1,5 +1,5 @@
 import { InitialLoading } from '@npm_leadtech/cv-lib-app-components';
-import { StorageManager } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import translate from 'counterpart';
 import parse from 'html-react-parser';
 import React, { useEffect, useState } from 'react';
@@ -22,6 +22,9 @@ import {
     CvPreviewBottom,
     CvPreviewTop,
     EditResumeButton,
+    ExampleList,
+    ExampleListItem,
+    ReviewExample,
     ReviewList,
     ReviewPoint,
     ReviewPointIcon,
@@ -51,7 +54,7 @@ export const ReviewDone = () => {
     const loadingResumes = useAppSelector((state) => state.documents.loadingResumes);
     const documentDispatch = useAppDispatch();
     const { groupPermission, userLanguage } = useProfile();
-    const cookiesStorage = StorageManager();
+    const cookiesStorage = StorePackage.StorageManager();
     const [currentDocument, setCurrentDocument] = useState<Document | null>(null);
     const { editDocumentNewTab } = useManageDocument({ groupPermission });
 
@@ -68,7 +71,7 @@ export const ReviewDone = () => {
     }, []);
 
     const dispatchDocument = () => {
-        documentDispatch(fetchDocuments({ limit: 100, documentType: DocumentTypeEnum.Resume }))
+        documentDispatch(fetchDocuments({ documentType: DocumentTypeEnum.Resume }))
         .unwrap()
         .then((res) => {
             const document = res.documents.find((doc) => doc.documentId === response?.document_id);
@@ -101,7 +104,13 @@ export const ReviewDone = () => {
         );
     };
 
-    if (!response || loadingResumes || !review || !userLanguage || !documents) return <InitialLoading />;
+    if (!response || loadingResumes || !review || !userLanguage || !documents) {
+        return (
+            <div data-qa='user-loader'>
+                <InitialLoading />;
+            </div>
+        );
+    }
 
     return (
         <>
@@ -115,14 +124,24 @@ export const ReviewDone = () => {
                 <BottomTextContainer className='topText'>
                     <Subtitle id='subtitle'>{subtitleText()}</Subtitle>
                     <ReviewList data-qa='review-done-recommendation-list'>
-                        {review.recommendations && Array.isArray(review.recommendations) ? (
-                            review.recommendations.map((r: Recommendation) => {
+                        {review ? (
+                            review.map((r: Recommendation) => {
                                 return (
                                     <ReviewPoint key={r.title}>
                                         <ReviewPointIcon src={customDot} />
                                         <ReviewSet>
                                             <ReviewTitle>{r.title}</ReviewTitle>
-                                            <ReviewText>{r.body}</ReviewText>
+                                            <ReviewText> {r.description} </ReviewText>
+                                            {   (r.example && r.example.before || r.example && r.example.after) &&
+                                                    <>
+                                                        <ReviewExample> { translate('example') }: </ReviewExample>
+                                                        <ExampleList>
+                                                            {r.example.before && <ExampleListItem> <b> { translate('before') }: </b> {r.example.before} </ExampleListItem>}
+                                                            {r.example.after && <ExampleListItem> <b> { translate('after') }: </b> {r.example.after} </ExampleListItem>}
+                                                        </ExampleList>
+                                                    </>
+                                            }
+                                            
                                         </ReviewSet>
                                     </ReviewPoint>
                                 );

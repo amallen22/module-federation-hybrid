@@ -1,0 +1,91 @@
+{
+  "method": "GET",
+  "path": "/jobs/indeed",
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ],
+  "params": {
+    "q": {
+      "description": "By default, terms are added with an 'AND'. To see what's possible, see API docs.",
+      "type": "string",
+      "allowEmpty": true,
+      "required": true
+    },
+    "co": {
+      "description": "By default, 'us'. Country for which to return search results.",
+      "type": "string",
+      "allowEmpty": false,
+      "required": false
+    },
+    "l": {
+      "description": "Location. Accepts postal code or state/province/region.",
+      "type": "string",
+      "allowEmpty": true,
+      "required": true
+    },
+    "start": {
+      "description": "For pagination",
+      "type": "number",
+      "allowEmpty": true,
+      "required": false
+    }
+  },
+  "mockResponse": {
+    "version": 2,
+    "query": "UX",
+    "location": "Barcelona",
+    "paginationPayload": "",
+    "dupefilter": true,
+    "highlight": true,
+    "totalResults": 250,
+    "start": 1,
+    "end": 10,
+    "pageNumber": 0,
+    "results": [
+      {
+        "jobtitle": "UX Designer & Researcher",
+        "company": "Mock company",
+        "city": "Mock city",
+        "state": "A",
+        "country": "AA",
+        "language": "en",
+        "formattedLocation": "Mock formatted location",
+        "source": "Mock source",
+        "date": "Mon, 21 May 2018 13:03:52 GMT",
+        "snippet": "Lorem <b>ipsum</b> dolor ...",
+        "url": "https://www.indeed.com",
+        "onMouseDown": "indeed_clk(this,'5674');",
+        "jobkey": "1234567812345678",
+        "sponsored": false,
+        "expired": false,
+        "indeedApply": true,
+        "formattedLocationFull": "Mock formatted location full",
+        "formattedRelativeTime": "Mock formatted relative time",
+        "stations": ""
+      }, {
+        "jobtitle": "UX Designer",
+        "company": "Mock company",
+        "city": "Mock city",
+        "state": "A",
+        "country": "AA",
+        "language": "en",
+        "formattedLocation": "Mock formatted location",
+        "source": "Mock source",
+        "date": "Thu, 17 May 2018 03:06:23 GMT",
+        "snippet": "Lorem ipsum dolor ...",
+        "url": "https://www.indeed.com",
+        "onMouseDown": "indeed_clk(this,'5674');",
+        "jobkey": "1234567812345678",
+        "sponsored": false,
+        "expired": false,
+        "indeedApply": false,
+        "formattedLocationFull": "Mock formatted location full",
+        "formattedRelativeTime": "Mock formatted relative time",
+        "stations": ""
+      }
+    ]
+  }
+}

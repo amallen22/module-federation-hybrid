@@ -1,0 +1,8 @@
+.gdpr-checkbox {
+  input[type="checkbox"] {
+    width: 40px !important;
+  }
+  label {
+    flex: 1; /* ie fix */
+  }
+}

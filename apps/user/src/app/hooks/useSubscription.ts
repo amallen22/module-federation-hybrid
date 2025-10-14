@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ApiError } from '../models/error';
+import { Error } from '../models/error';
 import { apiService } from '../services/ApiService';
 import { FrontLogService } from '../services/FrontLogService';
 

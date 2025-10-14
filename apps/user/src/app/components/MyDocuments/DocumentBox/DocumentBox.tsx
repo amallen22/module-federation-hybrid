@@ -16,6 +16,8 @@ interface Props {
     openOnlineDocument: (_document: Document) => void;
     duplicateDocument: (_documentId: string, _documentTitle: string) => void;
     deleteDocument: (_documentId: string) => void;
+    userLanguage: string;
+    loadingProfile: boolean;
 }
 
 const DocumentBox = ({
@@ -28,6 +30,8 @@ const DocumentBox = ({
     openOnlineDocument,
     duplicateDocument,
     deleteDocument,
+    loadingProfile,
+    userLanguage
 }: Props) => {
     return (
         <Fragment>
@@ -48,6 +52,8 @@ const DocumentBox = ({
                             duplicateDocument={duplicateDocument}
                             deleteDocument={deleteDocument}
                             groupPermission={groupPermission}
+                            userLanguage={userLanguage}
+                            loadingProfile={loadingProfile}
                         />
                     </DocumentBoxWrapper>
                 );

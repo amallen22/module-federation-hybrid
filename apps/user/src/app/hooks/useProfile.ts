@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ApiError } from '../models/error';
-import { isDevelopment, mockDelay, mockProfileData } from '../mocks/mockData';
+import { Error } from '../models/error';
 import { apiService } from '../services/ApiService';
 import { FrontLogService } from '../services/FrontLogService';
 
@@ -26,25 +25,6 @@ function useProfile() {
     };
 
     useEffect(() => {
-        // En desarrollo local, usar datos mock para evitar errores de CORS
-        if (isDevelopment) {
-            console.log('🔧 [DEV MODE] Using mock profile data');
-            mockDelay(300).then(() => {
-                const { groupPermission, email, userLanguage, createdAt, pricingModel, firstName, lastName, photo } = mockProfileData;
-                setGroupPermission(groupPermission);
-                setEmail(email);
-                setUserLanguage(userLanguage);
-                setCreatedAt(createdAt);
-                setPricingModel(pricingModel);
-                setFirstName(firstName);
-                setLastName(lastName);
-                setProfilePhoto(photo);
-                setLoadingProfile(false);
-            });
-            return;
-        }
-
-        // En producción, usar la API real
         apiService
         .getProfile()
         .then(({ groupPermission, email, userLanguage, createdAt, pricingModel, firstName, lastName, photo }) => {
@@ -58,10 +38,7 @@ function useProfile() {
             setProfilePhoto(photo);
             setLoadingProfile(false);
         })
-        .catch(e => {
-            console.error('Error fetching profile data', e);
-            onPrefetchError(e);
-        });
+        .catch(onPrefetchError);
     }, []);
 
     return {

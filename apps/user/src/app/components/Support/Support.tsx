@@ -27,7 +27,7 @@ const Support = () => {
 
     if (loadingProfile || !languagesLoaded) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );

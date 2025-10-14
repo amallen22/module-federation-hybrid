@@ -142,7 +142,8 @@ export const Title = styled.h1`
         font-size: 24px;
     }
 
-    span {
+    @media only screen and (min-width: 480px) {
+        span {
         position: relative;
         z-index: 3;
         display: flex;
@@ -161,6 +162,7 @@ export const Title = styled.h1`
             mix-blend-mode: color-burn;
         }
     }
+}
 `;
 
 export const Subtitle = styled.h2`
@@ -172,8 +174,7 @@ export const Subtitle = styled.h2`
     text-align: left;
 
     @media only screen and (max-width: 480px) {
-        ${dsmTypography.SBodyText}
-        line-height: 20px;
+        display: none !important;
     }
 `;
 
@@ -182,7 +183,6 @@ export const ReviewList = styled.ul`
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
     margin-top: 32px;
     padding-bottom: 64px;
 
@@ -195,22 +195,73 @@ export const ReviewList = styled.ul`
 export const ReviewPoint = styled.li`
     display: flex;
     gap: 6px;
+    margin-top: 24px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    @media only screen and (max-width: 480px) {
+        &:not(:last-child) {
+            border-bottom: 2px solid ${dsmColors.colorNeutral300};  
+        }
+        
+    }
+
+    @media only screen and (min-width: 481px) {
+        &:not(:last-child) {
+            div {
+                border-bottom: 2px solid ${dsmColors.colorNeutral300};
+            }   
+        }
+    }
 `;
 
 export const ReviewPointIcon = styled.img`
     height: 7px;
     width: 7px;
     padding: 10px;
+
+    @media only screen and (max-width: 480px) {
+        padding-left: 0;
+    }
 `;
 
-export const ReviewSet = styled.div``;
+export const ReviewSet = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    padding-bottom: 24px;
+`;
+
+export const ExampleList = styled.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: disc;
+    padding-left: 20px;
+`;
+
+
+export const ExampleListItem = styled.li`
+    color: ${dsmColors.colorNeutral700};
+    text-transform: capitalize;
+    line-height: 24px;
+    padding-left: 2px;
+    ${dsmTypography.MBodyText};
+
+    @media only screen and (max-width: 480px) {
+        font-size: 14px;
+        line-height: 20px;
+    }
+`;
+
 
 export const ReviewTitle = styled.p`
     margin: 0;
     ${dsmTypography.STitle}
     font-size: 20px;
     line-height: 28px;
-    margin-bottom: 4px;
 
     @media only screen and (max-width: 480px) {
         font-size: 16px;
@@ -222,9 +273,23 @@ export const ReviewText = styled.p`
     margin: 0;
     ${dsmTypography.MBodyText}
     color: ${dsmColors.colorNeutral700};
+    text-align: justify;
 
     @media only screen and (max-width: 480px) {
         ${dsmTypography.SBodyText}
+        line-height: 20px;
+    }
+`;
+
+export const ReviewExample = styled.p`
+    margin: 0;
+    ${dsmTypography.STitle}
+    font-weight: 500;
+    color: ${dsmColors.colorNeutral900};
+    text-transform: capitalize;
+
+    @media only screen and (max-width: 480px) {
+        font-size: 14px;
         line-height: 20px;
     }
 `;
@@ -354,7 +419,6 @@ export const WidgetItem = styled.div`
     padding: 18px 0;
     margin: 0 24px;
     box-sizing: border-box;
-
     &:first-child {
         border-bottom: 2px solid ${dsmColors.colorNeutral200};
     }

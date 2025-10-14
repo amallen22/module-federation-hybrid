@@ -1,4 +1,5 @@
 import { analyticsClient, AnalyticsClientEnum, AnalyticsEvent } from '@npm_leadtech/cv-lib-app-analytics';
+import { CurrencyDescriptor } from '@npm_leadtech/cv-lib-app-config';
 import translate from 'counterpart';
 import React, { useState } from 'react';
 import { Collapse } from 'react-collapse';
@@ -93,7 +94,7 @@ const SubscriptionPaymentHistory = ({ debits, subscriptionPlan, userLanguage, su
                 case 'total':
                     return (
                         <StyledTableCell data-qa={`debit-total-row-${rowIndex}`}>
-                            {`${row['amount']} ${row['currency']}`}
+                            {`${CurrencyDescriptor.toString(row.currency, row.amount)} ${row['currency']}`}
                         </StyledTableCell>
                     );
                 case 'status':
@@ -135,9 +136,9 @@ const SubscriptionPaymentHistory = ({ debits, subscriptionPlan, userLanguage, su
         if (subscribedUser) {
             return (
                 <UnsubscribeContainer>
-                    <ContentTitle>{translate('Cancel Premium membership')}</ContentTitle>
+                    <ContentTitle>{translate('Cancel membership')}</ContentTitle>
                     <UnsubscribeButton data-qa='unsubscribe-link' onClick={() => unsubscribeUser()}>
-                        {translate('Do you want to cancel your Premium account?')}
+                        {translate('Do you want to cancel your account?')}
                     </UnsubscribeButton>
                 </UnsubscribeContainer>
             );

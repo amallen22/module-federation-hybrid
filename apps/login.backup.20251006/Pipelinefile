@@ -1,0 +1,163 @@
+#!groovy​
+
+pipeline
+{
+    agent
+    {
+        docker
+        {
+            image 'leadtechhub/node5-with-git:frontend-pipeline-9'
+            args '-v /etc/passwd:/etc/passwd -v /var/lib/jenkins/.ssh:/var/lib/jenkins/.ssh -v /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner:/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner -v /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner:/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner -v /var/lib/jenkins/.sonar:/var/lib/jenkins/.sonar --net=host'
+        }
+    }
+
+    environment {
+        HOME="."
+    }
+
+    stages
+    {
+        stage("Build")
+        {
+            steps
+            {
+                echo "Starting stage: Build"
+
+                withNPM(npmrcConfig:'npmrc')
+                {
+                    echo "Performing npm build, branch: ${env.BRANCH_NAME}"
+                    sh 'npm cache clean --force'
+                    sh 'npm install --force'
+                    sh 'NODE_ENV=local npm run setup'
+                }
+
+                echo "Completed stage: Build"
+            }
+        }
+
+        stage("Test")
+        {
+            steps
+            {
+                echo "Starting stage: Test"
+                sh 'npm test'
+                echo "Completed stage: Test"
+            }
+        }
+
+        stage("Code Inspection")
+        {
+            steps
+            {
+                echo "Starting stage: Code Inspection"
+
+                script
+                {
+                    scannerHome = tool 'SonarQube Scanner'
+		            jobName = env.JOB_NAME.substring(env.JOB_NAME.indexOf("/") + 1, env.JOB_NAME.length())
+                    jobName = jobName.replace("/", "_")
+                }
+                withSonarQubeEnv('SonarQube')
+                {
+                    echo "Job name: ${jobName}"
+                    sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.sources=. -Dsonar.projectKey=${jobName} -Dsonar.profile='frontend strict' -Dsonar.exclusions=**/*.java"
+                }
+
+                echo "Completed stage: Code Inspection"
+            }
+        }
+
+        stage("Quality Gateway")
+        {
+            steps
+            {
+                script
+                {
+                    timeout(time: 1, unit: 'MINUTES')
+                    {
+                        def response = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+                        if (response.status != 'OK')
+                        {
+                            error "Pipeline aborted due to quality gate failure: ${response.status}"
+                        }
+                        else
+                        {
+                            echo "SonarQube QualityGate OK, response ${response}"
+                        }
+                    }
+                }
+            }
+        }
+
+        //stage("Deploy to stage")
+        //stage("End to end tests on stage")
+
+        //manual promotion
+
+        //stage("Deploy to prod")
+        //stage("Complete switch over")
+
+        stage('Success')
+        {
+            steps
+            {
+                script
+                {
+                    currentBuild.result = 'SUCCESS'
+                }
+            }
+        }
+    }
+
+    post
+    {
+        failure
+        {
+            script
+            {
+                def recipients = [[$class: 'CulpritsRecipientProvider'],
+                    [$class: 'UpstreamComitterRecipientProvider'],
+                    [$class: 'RequesterRecipientProvider'],
+                    [$class: 'DevelopersRecipientProvider'],
+                    [$class: 'FailingTestSuspectsRecipientProvider'],
+                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']]
+
+                emailext(
+                    recipientProviders: recipients,
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Build failed: ${env.BUILD_URL}"
+                )
+            }
+        }
+
+        success
+        {
+            script
+            {
+                def recipients = [[$class: 'CulpritsRecipientProvider'],
+                    [$class: 'UpstreamComitterRecipientProvider'],
+                    [$class: 'RequesterRecipientProvider'],
+                    [$class: 'DevelopersRecipientProvider'],
+                    [$class: 'FailingTestSuspectsRecipientProvider'],
+                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']]
+
+                if (currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS')
+                {
+                    emailext(
+                        recipientProviders: recipients,
+                        subject: "Pipeline Success Again: ${currentBuild.fullDisplayName}",
+                        body: "Build is back to normal (success): ${env.BUILD_URL}"
+                    )
+                }
+                else
+                {
+                    emailext(
+                        recipientProviders: recipients,
+                        subject: "Pipeline success: ${currentBuild.fullDisplayName}",
+                        body: "Build back to normal (success): ${env.BUILD_URL}"
+                    )
+                }
+            }
+        }
+    }
+}

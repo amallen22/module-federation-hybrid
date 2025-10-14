@@ -1,0 +1,15 @@
+{
+  "method": "PUT",
+  "path": "/document/$1",
+  "params": {
+    "title": {
+      "type": "string",
+      "allowEmpty": true,
+      "required": true,
+      "description": "Document title"
+    }
+  },
+  "urlParams": {
+    "$1": "documentId"
+  }
+}

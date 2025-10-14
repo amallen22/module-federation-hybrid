@@ -1,0 +1,44 @@
+.m-info-login{
+  background: get-color("grey", "lighten-5");
+  padding-top: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
+
+  &-container{
+    padding: 0 !important;
+    @media #{$medium-and-down} {
+      background: #FFF;
+    }
+    @media #{$large-and-up} {
+      border-radius: 4px;
+      margin: 35px 10px;
+      box-shadow: 0 7px 30px -10px #d9dde0;
+      background: #fff;
+      overflow: hidden;
+      vertical-align: middle;
+      display: inline-block;
+      text-align: left;
+      animation: fadein 300ms ease-in-out;
+    }
+    .container{
+      @media #{$large-and-up} {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.a-btn-login {
+  padding: 20px;
+  width: 266px;
+  max-width: 100%;
+  margin: 0 auto 15px;
+  height: auto;
+  min-height: 48px;
+  line-height: 20px;
+}

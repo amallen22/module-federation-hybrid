@@ -1,0 +1,21 @@
+{
+    "method": "GET",
+    "path": "/document/$1/section",
+    "params": {
+        "predefinedSections": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "predefinedSections"
+        },
+        "language": {
+            "type": "string",
+            "allowEmpty": true,
+            "required": false,
+            "description": "Language"
+        }
+    },
+    "urlParams": {
+        "$1": "documentId"
+    }
+}

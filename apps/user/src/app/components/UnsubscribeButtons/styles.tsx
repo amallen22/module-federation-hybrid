@@ -18,37 +18,21 @@ const Title = styled.h4`
     color: ${dsmColors.colorNeutral900};
 `;
 
-const Button = styled.a`
-    ${dsmTypography.PrimaryFontFamily};
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.14;
-    letter-spacing: 1.25px;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 16px 24px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    border-radius: 24px;
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
-    color: ${dsmColors.colorPrimary400Base};
-    border: 2px solid ${dsmColors.colorPrimary400Base};
-`;
-
 const ButtonUnsubscribe = styled.div`
     ${dsmTypography.PrimaryFontFamily};
-    font-size: 14px;
+    color: var(--base-neutral-aux-default, #b5b8ba);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
     font-weight: 500;
-    line-height: 1.14;
-    letter-spacing: 1.25px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-decoration-line: underline;
+    text-underline-position: from-font;
     text-align: center;
-    text-transform: uppercase;
-    text-decoration: underline;
     box-sizing: border-box;
     cursor: pointer;
-    color: ${dsmColors.colorNeutral400};
+    margin-top: 16px;
 `;
 
-export { Title, Wrapper, Button, ButtonUnsubscribe };
+export { Title, Wrapper, ButtonUnsubscribe };

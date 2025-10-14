@@ -139,11 +139,11 @@ export const PreviewModule = ({
             <div className='useRefContainer' ref={boxRef}>
                 <PreviewContainer>
                     {loadingAction || loading ? (
-                        <SpinnerContainer>
+                        <SpinnerContainer data-qa='document-preview-loader'>
                             <Spinner color='blue' />
                         </SpinnerContainer>
                     ) : (
-                        <React.Fragment>
+                        <>
                             <PreviewHeader isMobile={isMobile}>
                                 {documentCount !== 0 && (
                                     <EditableTitle>
@@ -183,7 +183,7 @@ export const PreviewModule = ({
                                     })}
                                 />
                             </PreviewBody>
-                        </React.Fragment>
+                        </>
                     )}
                     <PreviewFooter>
                         <div className='useRefFooter' ref={buttonsRef}>

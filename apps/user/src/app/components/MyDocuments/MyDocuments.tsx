@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { duplicatedDocumentTitleFormatter } from '../../helpers/duplicatedDocumentTitleFormatter';
 import useManageDocument from '../../hooks/useManageDocument';
+import useProfile from '../../hooks/useProfile';
 import { fetchDocuments } from '../../internals/redux/documentSlice';
 import { useAppDispatch, useAppSelector } from '../../internals/redux/hooks';
 import { Routes } from '../../internals/router';
@@ -23,6 +24,7 @@ const defaultDocumentsLimit = 3;
 export const MyDocuments = ({ documentType, groupPermission, languages }: Props) => {
     const [showAllDocuments, setShowAllDocuments] = useState(false);
     const documentDispatch = useAppDispatch();
+    const { userLanguage, loadingProfile } = useProfile();
     const { deleteDocument, duplicateDocument, openOnlineDocument, loadingAction } = useManageDocument({
         groupPermission,
     });
@@ -40,24 +42,49 @@ export const MyDocuments = ({ documentType, groupPermission, languages }: Props)
             : useAppSelector((state) => state.documents.loadingLetters);
 
     useEffect(() => {
-        documentDispatch(fetchDocuments({ limit: defaultDocumentsLimit, documentType }));
+        if (documents.length < defaultDocumentsLimit) {
+            documentDispatch(fetchDocuments({ limit: defaultDocumentsLimit, documentType }));  
+        }
     }, []);
 
     useEffect(() => {
         if (!showAllDocuments) window.scrollTo(0, 0);
     }, [showAllDocuments]);
 
-    const loadAllDocuments = () => {
-        if (documents.length < documentCount) {
-            documentDispatch(fetchDocuments({ documentType }));
+    const fetchDocumentsDispatch = () => {
+        documentDispatch(fetchDocuments({ documentType }));
+    };
+
+    const fetchDocumentsWithLimitDispatch = () => {
+        documentDispatch(
+            fetchDocuments({
+                limit: defaultDocumentsLimit,
+                documentType: documentType,
+            }),
+        );
+    };
+
+    const loadDocuments = () => {
+        if (showAllDocuments) {
+            fetchDocumentsDispatch();
+        } else {
+            fetchDocumentsWithLimitDispatch();
         }
+    };
+
+    const loadAllDocuments = () => {
+        fetchDocumentsDispatch();
         setShowAllDocuments(true);
     };
 
-    const renderViewAllDocumentsButton = () => {
+    const renderAllDocumentsButton = () => {
         if (documentCount <= defaultDocumentsLimit) return;
-        if (loading || !documents) {
-            return <Spinner color='blue' />;
+        if (loading) {
+            return (
+                <div data-qa='data-qa-loading-documents'>
+                    <Spinner color='blue' />
+                </div>
+            );
         }
         if (showAllDocuments) {
             return (
@@ -95,23 +122,14 @@ export const MyDocuments = ({ documentType, groupPermission, languages }: Props)
         });
     };
 
-    const loadDocuments = () => {
-        documentDispatch(
-            fetchDocuments({
-                limit: showAllDocuments ? null : defaultDocumentsLimit,
-                documentType: documentType,
-            }),
-        );
-    };
-
     const displayDocuments = () => {
         if (showAllDocuments) return documents;
         return documents.slice(0, defaultDocumentsLimit);
     };
 
-    if (!documents || loading || loadingAction) {
+    if (loading || documents.length === 0 && loading || loadingAction) {
         return (
-            <ContainerWrapper>
+            <ContainerWrapper data-qa='my-documents-loading'>
                 <Spinner color='neutral' />
             </ContainerWrapper>
         );
@@ -130,9 +148,11 @@ export const MyDocuments = ({ documentType, groupPermission, languages }: Props)
                     openOnlineDocument={(document) => openOnlineDocument({ document, callback: () => loadDocuments() })}
                     duplicateDocument={handleDuplicateDocument}
                     deleteDocument={handleDeleteDocument}
+                    userLanguage={userLanguage}
+                    loadingProfile={loadingProfile}
                 />
             </MyDocumentsWrapper>
-            <ButtonWrapper>{renderViewAllDocumentsButton()}</ButtonWrapper>
+            <ButtonWrapper>{renderAllDocumentsButton()}</ButtonWrapper>
         </ContainerWrapper>
     );
 };

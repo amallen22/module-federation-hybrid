@@ -1,0 +1,90 @@
+@import '@npm_leadtech/cv-ui-kit/dist/cv-ui-kit.css';
+
+@import './vendors/variables.scss';
+@import './vendors/normalize.scss';
+@import './vendors/settings.scss';
+@import './vendors/utils.scss';
+@import './vendors/mixins.scss';
+
+// Commons
+@import './commons/btn';
+@import './commons/loading';
+@import './commons/mobile';
+
+body {
+    font-family: $Arvo;
+    margin: 0;
+    overflow-x: hidden;
+    background: #f0f3f5;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.PreviewComponent-container {
+    background: #d8d8d8;
+    text-align: center;
+    height: calc(100vh - 110px);
+    position: relative;
+    &-mobile {
+        height: auto;
+    }
+    &-templates-mobile {
+        height: auto;
+    }
+}
+.form-input {
+    label {
+        -ms-transition: none !important;
+        -ms-transition-duration: 0 !important;
+    }
+}
+::-ms-clear {
+    display: none !important;
+}
+.PreviewComponent {
+    &-btn {
+        bottom: 0;
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        position: absolute;
+        &-mobile {
+            position: fixed;
+        }
+    }
+}
+.cvLayout {
+    width: 100%;
+    &-mobile {
+        padding-top: 0;
+    }
+}
+* {
+    :active,
+    :focus,
+    :active:focus {
+        outline: none !important;
+    }
+}
+
+.modal {
+    &-link {
+        color: #e26960;
+        &:hover,
+        &:active,
+        &:focus {
+            color: #e26960;
+        }
+    }
+}
+
+.cv-initial-loading {
+    .MuiCircularProgress-root {
+        color: #0083e4;
+    }
+}

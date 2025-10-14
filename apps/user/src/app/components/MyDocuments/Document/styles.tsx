@@ -149,6 +149,9 @@ const ItemAction = styled.div`
     padding: 12px 12px 12px 12px;
     gap: 15px;
     transition: 0.1s all;
+    span::first-letter {
+        text-transform: uppercase;
+    }
     img,
     svg {
         height: 25px;

@@ -30,8 +30,11 @@ const DashBoard = () => {
     const documentCount = useAppSelector((state) => state.documents.resumeCount);
     const firstDocument = documents.slice(0, 1);
     const { isMobile } = useMobile();
-    const { loadingAction } = useManageDocument({ groupPermission });
+    const { loadingAction, editDocument } = useManageDocument({ groupPermission });
     const { reviewStatus } = useAppSelector((state) => state.documentReview);
+
+    const isLoadingDocuments = loadingResumes || loadingLetters;
+    const isLoading = loadingProfile || !userLanguage || !languagesLoaded || isLoadingDocuments || loadingAction;
 
     useEffect(() => {
         // We load both resumes and letters to load the document Count for the navbar
@@ -39,12 +42,25 @@ const DashBoard = () => {
         documentDispatch(fetchDocuments({ limit: 3, documentType: DocumentTypeEnum.CoverLetter }));
     }, []);
 
-    if (loadingProfile || !userLanguage || !languagesLoaded || loadingResumes || loadingLetters || loadingAction) {
+    const redirectIfStaleAndNoPreview = () => {
+        const [document] = firstDocument;
+        const { documentId, documentType, modifiedAt } = document;
+        const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+        const isOlderThanOneYear = new Date().getTime() - new Date(modifiedAt).getTime() > ONE_YEAR_MS;
+
+        if (!document.hasOwnProperty('previewThumbnail') && isOlderThanOneYear) {
+            editDocument({ documentId, documentType });
+        }
+    };
+    
+    if (isLoading) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );
+    } else if (!isLoadingDocuments && documentCount > 0) {
+        redirectIfStaleAndNoPreview();
     }
 
     const renderDashboard = () => {

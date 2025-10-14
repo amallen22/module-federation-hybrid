@@ -22,7 +22,13 @@ interface Props {
 const AccountManagement = (props: Props) => {
     const { email, groupPermission, firstName, lastName, profilePhoto } = useProfile();
 
-    if (!groupPermission) return <InitialLoading />;
+    if (!groupPermission) {
+        return (
+            <div data-qa='user-loader'>
+                <InitialLoading />
+            </div>
+        );
+    }
 
     return (
         <>

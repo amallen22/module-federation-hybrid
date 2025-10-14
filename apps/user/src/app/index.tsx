@@ -1,10 +1,10 @@
 import { analyticsClient } from '@npm_leadtech/cv-lib-app-analytics';
-import { setupLog } from '@npm_leadtech/cv-lib-app-jsnlog';
+import { getLogger, setupLog } from '@npm_leadtech/cv-lib-app-jsnlog';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { API_URL, APP_CONFIG } from './config/appConfig';
+import { API_URL, APP_CONFIG } from '../app/config/appConfig';
 import { App } from './App';
 import store from './internals/redux/store';
 import { SetupTranslations } from './services/SetupTranslations';
@@ -23,6 +23,9 @@ setupLog({
     apiPrefix: API_URL,
     appName: 'cv-app-user',
 });
+
+(global as any).CV = (global as any).CV || {};
+(global as any).CV.Log = getLogger();
 
 SetupTranslations();
 

@@ -86,7 +86,7 @@ const JobOffers = ({ jobSearchParams }: Props) => {
 
     if (loading && !isLoadMore) {
         return (
-            <SpinnerContainer>
+            <SpinnerContainer data-qa='job-offers-loader'>
                 <Spinner color='neutral' />
             </SpinnerContainer>
         );
@@ -108,7 +108,7 @@ const JobOffers = ({ jobSearchParams }: Props) => {
                 <JobCards searchResult={searchResult} />
             </JobsWrapper>
             {loading ? (
-                <SpinnerContainer>
+                <SpinnerContainer data-qa='job-offers-loader'>
                     <Spinner color='blue' />
                 </SpinnerContainer>
             ) : (

@@ -44,6 +44,7 @@ export default defineConfig({
     federation({
       name: 'shell',
       remotes: {
+        loginApp: 'http://localhost:3001/dist/remoteEntry.js',
         user: 'http://localhost:5004/assets/remoteEntry.js'
       },
       exposes: {
@@ -107,7 +108,7 @@ export default defineConfig({
     alias: {
       '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
       '@apps/product': resolve(__dirname, '../../apps/product/src'),
-      '@apps/login': resolve(__dirname, '../../apps/login/src'),
+      // @apps/login se elimina porque se carga via Module Federation
     }
   },
   server: {
@@ -115,7 +116,7 @@ export default defineConfig({
     strictPort: true,
     host: true,
     cors: {
-      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003', 'http://localhost:5004'],
+      origin: ['http://localhost:3001', 'http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003', 'http://localhost:5004'],
       credentials: true
     }
   }

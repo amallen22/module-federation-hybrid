@@ -1,4 +1,4 @@
-import { sessionStoreCookie } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import { ActiveRequester, AjaxAction, EndpointService } from '@npm_leadtech/jsr-lib-http';
 
 import { API_EDITOR_URL } from '../../../config/appConfig';
@@ -12,7 +12,7 @@ export class GetDocumentPdfHandler {
 
     customAction(params) {
         const activeRequester = new ActiveRequester({
-            sessionStoreCookieFactory: sessionStoreCookie,
+            sessionStoreCookieFactory: StorePackage.sessionStoreCookie,
             apiPrefix: API_EDITOR_URL,
             type: 'application/pdf',
         });

@@ -1,0 +1,25 @@
+{
+    "method": "POST",
+    "path": "/unsubscribe/feedback",
+    "params": {
+        "subscriptionId": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "subscriptionId"
+        },
+        "reasonId": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": true,
+            "description": "reasonId"
+        },
+        "comment": {
+            "type": "string",
+            "allowEmpty": true,
+            "required": false,
+            "description": "subscriptionId"
+        }
+    }
+}
+  

@@ -1,0 +1,15 @@
+{
+    "method": "GET",
+    "path": "/tb/layout",
+    "params": {
+        "scope": {
+          "description": "App scope",
+          "type": "string",
+          "allowEmpty": false,
+          "required": true
+        }
+    },
+    "mockResponse": {
+        "layoutId":"1f79fd96-4558-4aee-a82f-1684b4ad0ddd"
+    }
+}

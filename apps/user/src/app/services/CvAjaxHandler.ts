@@ -1,4 +1,4 @@
-import { sessionStoreCookie } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import { AjaxHandler } from '@npm_leadtech/jsr-lib-http';
 
 import { API_EDITOR_URL, API_URL } from '../config/appConfig';
@@ -51,7 +51,7 @@ export class CvAjaxHandler<R> extends AjaxHandler {
         super({
             apiPrefix: app,
             errorHandler,
-            sessionStoreCookie,
+            sessionStoreCookie: StorePackage.sessionStoreCookie,
             endpointDefinition,
             reducer,
         });

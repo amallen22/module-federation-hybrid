@@ -82,7 +82,7 @@
     "The use of <strong>KEYWORDS</strong> is often overlooked by jobseekers and they are fast becoming an integral part of a winning resume. - You can <strong>find the relevant keywords and expressions for your resume within the job vacancy</strong>, company website or profiles of other professions in that particular area.": "<strong>SCHLÜSSELWÖRTER</strong> spielen in einem überzeugenden Lebenslauf eine entscheidende Rolle, werden von Bewerbern jedoch häufig vernachlässigt. <strong>Wichtige Schlüsselwörter und passende Formulierungen</strong> findest du in der Stellenausschreibung, auf der Unternehmenswebseite und in den Profilen anderer Personen, die in deinem Bereich tätig sind.",
     "<strong>Include the standard sections in every resume you create</strong> - contact information, objective or summary, education, work experience and skills.": "<strong>Die folgenden Hauptabschnitte sollten in jedem Lebenslauf, den du erstellst, enthalten sein</strong>: Kontaktdaten, Betreff oder Zusammenfassung, Ausbildung, Arbeitserfahrung und Fähigkeiten.",
     "But to <strong>create a unique resume</strong> that will attract a hiring manager at first glance, remember to <strong>include specific resume sections that relate to your professional profile</strong> and the vacancy on offer, such as pertinent publications, conferences you’ve attended, extra training, courses or awards you’ve received etc.": "<strong>Um deinen Lebenslauf einzigartig zu machen</strong> und einen Personalmanager auf den ersten Blick anzusprechen, personalisiere ihn, indem du <strong>spezifische Abschnitte hinzufügst, die in Bezug zu deinem Berufsprofil</strong> und die angebotene Stelle stehen. Das können beispielsweise relevante Publikationen, Konferenzen, an denen du teilgenommen hast, zusätzliche Schulungen, Kurse oder Auszeichnungen sein.",
-    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>Vermeide die übermäßige Verwendung der ersten Person</strong>: („ich“) in deinem Lebenslauf. Verwende stattdessen <strong>bei der Beschreibung deiner Karriereziele und Arbeitserfahrung</strong> lieber aussagekräftige Substantive.",
+    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>Vermeide die übermäßige Verwendung der ersten Person</strong>: („ich“) in deinem Lebenslauf. Formuliere Sätze immer in der dritten Person, ohne ein Subjekt zu verwenden – zum Beispiel in einem <strong>Lebenslaufprofil oder in Beschreibungen der Berufserfahrung</strong>.",
     "<strong>Use strong verbs</strong> to describe your previous experience such as spearheaded, coordinated, orchestrated, established, launched, reduced (costs), increased (profits), restructured, facilitated, negotiated etc.": "Alternativ kannst du auch <strong>starke Verben im Infinitiv</strong> einsetzen, um deine bisherigen Erfahrungen zu beschreiben. Zum Beispiel: Leiten, Koordinieren, Organisieren, Etablieren, Starten, Reduzieren (Kosten), Steigern (Gewinne), Strukturieren, Vereinfachen, Aushandeln usw.",
     "<strong>Demonstrate quantifiable evidence</strong> of your personal involvement in a project or impact on a role.": "<strong>Nenne Zahlen oder andere Erfolge als Nachweis</strong> für deine erfolgreiche Beteiligung an einem Projekt oder die besonders engagierte Ausführung deiner Aufgaben.",
     "Current Plan": "Aktuelles Abo",
@@ -274,6 +274,7 @@
     "Want expert advice?": "Fachkundige Beratung gewünscht?",
     "Visit our Help & Contact section": "Besuche den Abschnitt Hilfe & Kontakt",
     "or send an e-mail to %(appEmail)s": "oder schicke eine E-Mail an %(appEmail)s",
+    "or send an e-mail to": "oder schicke eine E-Mail an",
     "Go to Help & Contact": "Hilfe & Kontakt aufrufen",
     "resume": "Lebenslauf",
     "cover letter": "Anschreiben",
@@ -516,5 +517,15 @@
     "Your expert coach": "Dein Fach-Coach",
     "ASK FOR RESUME REVIEW": "LEBENSLAUF-ÜBERPRÜFUNG ANFORDERN",
     "Continue": "Weiter",
-    "Unlimited User": "Unlimited Nutzer"
+    "Unlimited User": "Unlimited Nutzer",
+    "example": "Beispiel",
+    "before": "vorher",
+    "after": "nachher",
+    "online cover letter": "Online-Anschreiben",
+    "Looks like you've been away for a bit, so your documents are temporarily inactive. To bring back a document, open and edit it as usual.": "Du warst eine Zeit lang nicht aktiv, deshalb sind deine Dokumente gerade vorübergehend inaktiv. Öffne und bearbeite sie einfach, um sie wieder zu aktivieren.",
+    "Cancel membership": "Mitgliedschaft kündigen",
+    "Do you want to cancel your account?": "Möchtest du dein Konto kündigen?",
+    "<span>Ready in seconds.</span> Ensure it´s correct, one chance only": "<span>In Sekunden fertig.</span> Vergewissere dich, dass alles korrekt ist, du hast nur eine Chance",
+    "Receive professional feedback in seconds, then apply to your dream job.": "Erhalte innerhalb weniger Sekunden professionelles Feedback und bewirb dich dann auf deinen Traumjob.",
+    "Just a moment, we're preparing expert tips to improve your resume": "Einen Moment noch. Wir bereiten gerade Expertentipps für deinen Lebenslauf vor"
 }

@@ -1,0 +1,27 @@
+<svg width="181" height="198" viewBox="0 0 181 198" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(.345)" fill="none" fill-rule="evenodd">
+        <rect fill="#EAEAEA" transform="rotate(-11 86.174 110.839)" x="12.674" y="37.339" width="147" height="147" rx="10"/>
+        <g transform="translate(41.155)">
+            <rect fill="#CCC" x="19.765" y="153.773" width="11.597" height="11.227" rx="5.613"/>
+            <rect fill="#CCC" x="3.027" y="153.773" width="11.597" height="11.227" rx="5.613"/>
+            <rect fill="#CCC" x="54.558" y="153.773" width="11.597" height="11.227" rx="5.613"/>
+            <rect fill="#CCC" x="71.296" y="153.773" width="11.597" height="11.227" rx="5.613"/>
+            <path d="M74.364 5.832v104.205H13.996c-1.961 0-3.551-2.898-3.551-6.473V5.832A5.832 5.832 0 0 1 16.277 0h52.255a5.832 5.832 0 0 1 5.832 5.832z" fill="#B7DCFA"/>
+            <rect fill="#E6E6E6" x="38.772" y="141.712" width="8.376" height="18.73" rx="4.188"/>
+            <rect fill="#FFF" x="40.636" y="109.922" width="4.649" height="50.52" rx="2.324"/>
+            <rect fill="#FFF" x="38.481" y="139.704" width="8.958" height="20.738" rx="4.409"/>
+            <rect fill="#FFF" x="2.509" y="150.833" width="80.904" height="5.613" rx="2.807"/>
+            <rect fill="#88C7F8" x="5.353" y="103.261" width="74.378" height="12.597" rx="4.199"/>
+            <rect fill="#88C7F8" y="70.484" width="22.081" height="12.597" rx="4.199"/>
+            <rect fill="#88C7F8" x="63.919" y="70.484" width="22.081" height="12.597" rx="4.199"/>
+            <rect fill="#26A0F4" opacity=".239" x="20" y="19.301" width="44.636" height="2.807" rx="1.403"/>
+            <rect fill="#26A0F4" opacity=".239" x="20" y="30.528" width="44.636" height="2.807" rx="1.403"/>
+            <rect fill="#26A0F4" opacity=".239" x="20" y="41.754" width="44.636" height="2.807" rx="1.403"/>
+        </g>
+        <path d="m107.97 135.214 15.588 9-17.912 31.025a9 9 0 1 1-15.589-9l17.913-31.025z" fill="#26A0F4"/>
+        <g transform="rotate(30 -61.374 251.902)" fill-rule="nonzero">
+            <ellipse fill-opacity=".436" fill="#FFF" cx="36" cy="36.241" rx="32.87" ry="33.09"/>
+            <path d="M36 72.483c-19.851 0-36-16.258-36-36.242C0 16.258 16.149 0 36 0s36 16.258 36 36.241c0 19.984-16.149 36.242-36 36.242zm0-66.18c-16.398 0-29.74 13.43-29.74 29.938S19.603 66.18 36 66.18c16.398 0 29.74-13.43 29.74-29.939C65.74 19.733 52.397 6.303 36 6.303z" fill="#26A0F4"/>
+        </g>
+    </g>
+</svg>

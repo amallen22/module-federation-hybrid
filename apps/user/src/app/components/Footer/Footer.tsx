@@ -1,6 +1,3 @@
-import RmaFirstAdress from '@npm_leadtech/cv-lib-app-config/src/assets/rma/images/address/01.svg';
-import RmaSecondAdress from '@npm_leadtech/cv-lib-app-config/src/assets/rma/images/address/02.svg';
-import RmaThirdAdress from '@npm_leadtech/cv-lib-app-config/src/assets/rma/images/address/03.svg';
 import translate from 'counterpart';
 import React from 'react';
 
@@ -8,6 +5,9 @@ import { APP_CONFIG } from '../../config/appConfig';
 import FirstAdress from './images/address1.svg';
 import SecondAdress from './images/address2.svg';
 import ThirdAdress from './images/address3.svg';
+import RmaFirstAdress from './images/footer1.svg';
+import RmaSecondAdress from './images/footer2.svg';
+import RmaThirdAdress from './images/footer3.svg';
 import { StyledFooterDiv, StyledLinks } from './styles';
 
 const renderAddress = () => {
@@ -21,7 +21,7 @@ const renderAddress = () => {
         );
     }
 
-    // This is crap, we need to move this to settings-based
+    // This is crap, we need to move this to @npm_leadtech/cv-lib-app-config
     if (assets === 'rma' || assets === 'rgt') {
         return (
             <div className='address'>

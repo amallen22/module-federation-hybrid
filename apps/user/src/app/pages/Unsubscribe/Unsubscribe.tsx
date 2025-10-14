@@ -62,7 +62,7 @@ const UnsubscribePage = () => {
 
     if (loading || loadingReasons) {
         return (
-            <div className='cv-initial-loading'>
+            <div className='cv-initial-loading' data-qa='user-loader'>
                 <InitialLoading />
             </div>
         );

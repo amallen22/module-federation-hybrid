@@ -1,0 +1,7 @@
+{
+    "method": "DELETE",
+    "path": "/document/$1",
+    "urlParams": {
+        "$1": "documentId"
+    }
+}

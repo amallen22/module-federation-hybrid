@@ -1,0 +1,36 @@
+{
+    "method": "GET",
+    "path": "/subscription/$1/debit",
+    "params": {
+        "withFirstPayment": {
+          "description": "withFirstPayment",
+          "type": "boolean",
+          "allowEmpty": true,
+          "required": false
+        },
+        "limit": {
+            "description": "status",
+            "type": "number",
+            "allowEmpty": true,
+            "required": false
+        },
+        "descendingOrder": {
+            "description": "descendingOrder",
+            "type": "boolean",
+            "allowEmpty": true,
+            "required": false
+        },
+        "status": {
+            "description": "status",
+            "type": "string",
+            "allowEmpty": true,
+            "required": false
+        }
+    },
+    "urlParams": {
+      "$1": "subscriptionId"
+    }
+}
+
+
+

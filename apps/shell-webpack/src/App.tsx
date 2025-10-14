@@ -3,16 +3,19 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { useGlobalStore } from './stores/globalStore';
 
-// Lazy load remote apps
-const LoginApp = lazy(() => import('loginApp/App').catch(err => {
-  console.error('Failed to load Login remote:', err);
-  return { default: () => <LoginPlaceholder error={err.message} /> };
-}));
+// // Lazy load remote apps
+// const LoginApp = lazy(() => import('loginApp/App').catch(err => {
+//   console.error('Failed to load Login remote:', err);
+//   return { default: () => <LoginPlaceholder error={err.message} /> };
+// }));
 
-const UserApp = lazy(() => import('userApp/App').catch(err => {
-  console.error('Failed to load User remote:', err);
-  return { default: () => <UserPlaceholder error={err.message} /> };
-}));
+const LoginApp = React.lazy(() => import('../../login/src/app/App.jsx'));
+
+// Temporarily disabled for testing
+// const UserApp = lazy(() => import('userApp/App').catch(err => {
+//   console.error('Failed to load User remote:', err);
+//   return { default: () => <UserPlaceholder error={err.message} /> };
+// }));
 
 // Loading component
 const RemoteLoading: React.FC = () => (
@@ -179,11 +182,7 @@ const App: React.FC = () => {
           {isAuthenticated ? (
             <>
               <Route path="editor/*" element={<EditorPlaceholder />} />
-              <Route path="user/*" element={
-                <Suspense fallback={<RemoteLoading />}>
-                  <UserApp />
-                </Suspense>
-              } />
+              <Route path="user/*" element={<UserPlaceholder />} />
               <Route path="payment/*" element={<PaymentPlaceholder />} />
               <Route path="shop/*" element={<ShopPlaceholder />} />
               <Route path="thankyou/*" element={<WelcomePage />} />

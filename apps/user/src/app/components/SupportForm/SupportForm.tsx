@@ -85,7 +85,11 @@ const SupportForm = ({ firstName, lastName, email }: Props) => {
         if (success) return null;
 
         if (loading) {
-            return <Spinner color='blue' />;
+            return (
+                <div data-qa="support-form-loader">
+                    <Spinner color='blue' />
+                </div>
+            );
         }
 
         return (

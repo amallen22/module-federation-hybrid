@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { Documents, DocumentsParams, DocumentsState, DocumentTypeEnum } from '../../models/documents';
+import { Document, Documents, DocumentsParams, DocumentsState, DocumentTypeEnum } from '../../models/documents';
 import { apiService } from '../../services/ApiService';
 
 const initialState: DocumentsState = {
@@ -47,17 +47,30 @@ export const documentSlice = createSlice({
 
 export const fetchDocuments = createAsyncThunk(
     'documents/fetchDocuments',
-    async (inputParams: DocumentsParams): Promise<Documents> => {
-        const params: DocumentsParams = {
-            documentType: inputParams.documentType,
+    async (params: DocumentsParams): Promise<Documents> => {
+        let currentDocuments: Document[] = [];
+        let offset = 0; 
+        let documentCount = 0;
+        let targetCount = params.limit || 1;
+
+        while (currentDocuments.length < targetCount) {
+            params.offset = offset;
+            const res = await apiService.getDocumentList(params);
+
+            if (res.documents.length === 0) break;
+
+            currentDocuments.push(...res.documents);
+            offset += res.documents.length;
+            documentCount = res.documentCount;
+            if (!params.limit) targetCount = res.documentCount;
+        }
+
+        return {
+            documentCount,
+            documents: currentDocuments,
+            documentType: params.documentType,
         };
-
-        if (inputParams.limit) params.limit = inputParams.limit;
-
-        const res = await apiService.getDocumentList(params);
-        res.documentType = inputParams.documentType;
-        return res;
-    },
+    }
 );
 
 export default documentSlice.reducer;

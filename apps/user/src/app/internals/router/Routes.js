@@ -3,7 +3,7 @@ export const Routes = Object.freeze({
     editor: '/editor/',
     product: '/product/',
     dashboard: '/user/',
-    review: '/user/review/',
+    review: '/user/review',
     documents: '/user/documents/',
     resumes: '/user/resumes',
     covers: '/user/cover-letters/',

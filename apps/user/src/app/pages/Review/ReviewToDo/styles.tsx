@@ -4,6 +4,7 @@ import { dsmColors, dsmTypography } from '@npm_leadtech/cv-lib-app-components';
 export const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
+    flex-grow: inherit;
     align-items: flex-start;
     justify-content: center;
     height: 100%;
@@ -111,3 +112,29 @@ export const ReviewWidget = styled.div`
         width: 100%;
     }
 `;
+
+export const LoaderWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    place-self: start;
+    width: 100%;
+`;
+
+export const LoaderAnimation = styled.div`
+    display: flex;
+    flex-grow: inherit;
+    align-items: center;
+    align-self: center;
+    outline: none;
+    pointer-events: none;
+    width: 200px;
+    height: 100%;
+`;
+
+export const LoaderTitle = styled.h1`
+    ${dsmTypography.MTitle}
+    text-align: center;
+`;
+
+

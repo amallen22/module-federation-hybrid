@@ -1,0 +1,15 @@
+**/node_modules
+app.yaml
+.idea
+dev
+src/public_*
+src/app/config/*Config.json
+src/app/config/config.json
+**/dist/*
+npm-debug.log
+**/remote_modules
+**/coverage/*
+.vscode
+.yalc
+yalc-lock
+yalc.lock

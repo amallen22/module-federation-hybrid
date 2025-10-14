@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV</title>
+
+    <!-- Background for desktop -->
+    <style>
+      @media only screen and (min-width: 993px) {
+        #app {
+          background-color: #f0f3f5;
+          background-size: cover;
+        }
+      }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700|Roboto|Kalam|Material+Icons" />
+
+    <!-- Didomi -->
+    <!-- <script type="text/javascript">
+      if (typeof window !== 'undefined') {
+        const host = window.location.host;
+        const domainName = host.slice(host.indexOf('.') + 1);
+        const folderName = domainName.replaceAll('.', '').replaceAll('-', '');
+        const script = document.createElement('script');
+        script.src = `https://static.${domainName}/scripts/${folderName}/didomi.js`;
+        script.type = 'text/javascript';
+        document.head.appendChild(script);
+      }
+    </script> -->
+
+    <!-- VWO -->
+    <script type="text/javascript">
+      var _vwo_code = (function () {
+        var account_id = 90123,
+          settings_tolerance = 2000,
+          library_tolerance = 2500,
+          use_existing_jquery = false,
+          f = false,
+          d = document;
+        return {
+          use_existing_jquery: function () {
+            return use_existing_jquery;
+          },
+          library_tolerance: function () {
+            return library_tolerance;
+          },
+          finish: function () {
+            if (!f) {
+              f = true;
+              var a = d.getElementById('_vis_opt_path_hides');
+              if (a) a.parentNode.removeChild(a);
+            }
+          },
+          finished: function () {
+            return f;
+          },
+          load: function (a) {
+            var b = d.createElement('script');
+            b.src = a;
+            b.type = 'text/javascript';
+            b.onerror = function () {
+              _vwo_code.finish();
+            };
+            d.getElementsByTagName('head')[0].appendChild(b);
+          },
+          init: function () {
+            settings_timer = setTimeout('_vwo_code.finish()', settings_tolerance);
+            var a = d.createElement('style'),
+              b = 'body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',
+              h = d.getElementsByTagName('head')[0];
+            a.setAttribute('id', '_vis_opt_path_hides');
+            a.setAttribute('type', 'text/css');
+            if (a.styleSheet) a.styleSheet.cssText = b;
+            else a.appendChild(d.createTextNode(b));
+            h.appendChild(a);
+            this.load('//dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&r=' + Math.random());
+            return settings_timer;
+          },
+        };
+      })();
+      _vwo_settings_timer = _vwo_code.init();
+    </script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <!-- Mount points opcionales si los necesitas -->
+    <!-- <div id="some-other-mount-point"></div> -->
+
+    <!-- Polyfills for Node.js global and crypto variables -->
+    <script>
+      // Global setup
+      if (typeof global === 'undefined') {
+        window.global = window;
+        if (typeof globalThis !== 'undefined') {
+          globalThis.global = globalThis;
+        }
+      }
+
+      // Crypto setup
+      if (typeof window.crypto === 'undefined') {
+        window.crypto = window.msCrypto || { getRandomValues: function() { console.warn('crypto.getRandomValues not supported'); return null; } };
+      }
+
+      // Require polyfill for module federation compatibility
+      if (typeof require === 'undefined') {
+        window.require = globalThis.require = function(id) {
+          console.log('Early require polyfill called for:', id);
+          switch (id) {
+            case 'crypto': return window.crypto || {};
+            case 'buffer': return { Buffer: window.Buffer || { from: function() { return new Uint8Array(); }, alloc: function() { return new Uint8Array(); } } };
+            default: return {};
+          }
+        };
+      }
+    </script>
+
+    <!-- Load polyfills first -->
+    <script type="module" src="./src/polyfills.js"></script>
+    <script type="module" src="./src/app/main.jsx"></script>
+  </body>
+</html>

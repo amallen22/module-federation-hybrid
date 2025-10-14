@@ -1,0 +1,150 @@
+{
+  "method": "GET",
+  "path": "/jobs/ziprecruiter",
+  "logOutOnCodeRanges": [
+    {
+      "min": 405,
+      "max": 499
+    }
+  ],
+  "params": {
+    "search": {
+      "description": "search terms, e.g. “Inside Sales”",
+      "type": "string",
+      "allowEmpty": true,
+      "required": true
+    },
+    "location": {
+      "description": "location, e.g., “Santa Monica, CA” or “London, UK”",
+      "type": "string",
+      "allowEmpty": true,
+      "required": false
+    },
+    "radius_miles": {
+      "description": "distance of the job relative to the location",
+      "type": "integer",
+      "allowEmpty": true,
+      "required": false
+    },
+    "page": {
+      "description": "current page ranging from 1-N - A maximum of 500 results are returned through pagination",
+      "type": "integer",
+      "allowEmpty": false,
+      "required": true
+    },
+    "jobs_per_page": {
+      "description": "number of job results to show per page",
+      "type": "integer",
+      "allowEmpty": true,
+      "required": false
+    },
+    "days_ago": {
+      "description": "only show jobs posted within this number of days",
+      "type": "integer",
+      "allowEmpty": true,
+      "required": false
+    },
+    "refine_by_salary": {
+      "description": "only show jobs with salary greater than this number",
+      "type": "integer",
+      "allowEmpty": true,
+      "required": false
+    }
+  },
+  "mockResponse": {
+    "success": true,
+    "num_paginable_jobs": 24,
+    "total_jobs": 24,
+    "jobs": [
+      {
+        "salary_max_annual": 69500,
+        "salary_interval": "yearly",
+        "has_zipapply": false,
+        "has_non_zr_url": "1",
+        "salary_source": "predicted",
+        "location": "",
+        "id": "topresume_hosted2_jobads-e9e5955a95897b3ba1f37d689ea8681c",
+        "source": "TopResume",
+        "job_age": 283,
+        "category": "",
+        "hiring_company": {
+          "id": null,
+          "url": null,
+          "name": "TopResume",
+          "description": null
+        },
+        "salary_min_annual": 30000,
+        "salary_max": 69500,
+        "industry_name": "Technology",
+        "salary_min": 30000,
+        "posted_time_friendly": "9 months ago",
+        "state": "Massachusetts",
+        "url": "https://www.ziprecruiter.co.uk/clk/topresume-00000000-its-not-you-its-your-resume-see-where-yours-stands-e9e5955a95897b3ba1f37d689ea8681c?clk=2lMw-GeWGCUzIs4_9F_pxv0-3q6YbUyH-QLt3Hi2pUOW6qqADYTutuEY3MTXYTHSs3E194aeWlIQsQiyupPEZ5nL_Kh43OEj5JgEleCG8ta3A9Eg40XuLifFhCIqruf-dzH4ptQz5y9wImyK4PSMGOQuao7FbeldslrGqXM1F-hlz4Dg584d9N9Nh1m9DSlxPo8JtNj-CEEpnGP3DEhArx6nahGmqMdNxpsBcjiyzYKvigK8u4RcUtDrJQpOi5mIfIJnMGoih-6DeGopAaSJVhXL71lQlfjU1y6bHgu52wvDu0xG-Qs5u2MWBKg4hezmmZe4mYP9qnpw7HNmOBr0AFcK2IyUjG1UbLjWTizrPgcMlnp9AaoKa-gly3qZWrLXMAeobq_oDq2SwYJGYN33hq8efC-4_7rTWGlCBEYWym9hm6gKGFiycgmclWeJzMAoLrqVzY7Kl36rvmcRzqjGRqQ157RnuDPjzBBEi6B-cLECSHfhUSiMdkl1L9kgtZEbRQTL0JH8M9ei-s9GQkrWuXY2GbDgui5-7lQxKBlgcMyZaupjU7vcNp_OM4Hq0pf8lvixunmCKTDh-xAnVnnXVHboZzmEOkbNtgmc7b_NY.a0aad36c3fb83c87234db3cc875b32ca",
+        "snippet": "An effective resume tells your best career story. How's yours doing? Find out, with a free, expert review",
+        "country": "",
+        "city": "All Cities",
+        "posted_time": "2017-11-11T02:12:38",
+        "name": "It's not you, it's your resume. See where yours stands."
+      },
+      {
+        "country": "US",
+        "city": "Boston",
+        "name": "Front End Developer",
+        "posted_time": "2018-08-14T10:00:00",
+        "state": "MA",
+        "url": "https://www.ziprecruiter.co.uk/clk/openlogix-corporation-00000000-front-end-developer-199276256?clk=BdKVM7ud164XWZaYKLFfnKPa3ltCc_Ap5mnGEshC3ITZE3JQkE4OCQkED5h_AyRYwnqEqP1gvuBs3KgHh9UtqXH5LGrzuxfgSY2oHFFO5g0MqUiIFuL4pXm2zaXr0kufKFzjmex8xVSiMqo7QTZdtcqERhJ6dEIBNbUWEpfralHAmF51rM7JHvTJAk8qs4Y3E6Mol8WGbXXh67VHi-PuqtblgHSMxjZha8EntNgQBTNKRuLIFkrjY4OddjBiZDB8LfzwZE5tG6WzwTQupzxD7mLbzC-uaSe-pzL_MKxwXTY1uqXCW2UDWgX0db2z9N9X4-F9OhWQJnV_RxWTY8c-BdvK1NCpUduUX19MxIid9tGZdTUUdFwilM_7gy4Ozu5EZ7c-KgWgiovAzE3pWMbALsus9A8GH_tDY3EIaL5YJQQ6xwiCwLGz5z7MJgc1bwX_Rp2_Pdpmkw8aFwpKbWFyAjzEs4ZKXpsLV7PwnxzQG-fCnYi1QwsHD7yW3Pjfu4PACQgvhf4hJ_0nYSG46pC6xBq2foD_cPFz0BpVi6Jty1Tteek86nQe3HSiZGPX0p8PNPi6v-5MHaTvpKS25Uf5tBwl4FxnpEuJ3PA7HDH2BkLqhwc-gRZjo0f8ynELu2vh.eda1bb11674c8c010ab4faf5e6463c30",
+        "snippet": "<b>Front End</b> <b>Developer</b> Duration: 6-12 Month Contract Position Location: Boston, MA Responsibilities: As part of a cross-functional, full stack scrum team provide technical direction for and be a key ...",
+        "salary_min": 68000,
+        "posted_time_friendly": "8 days ago",
+        "industry_name": "Technology",
+        "job_age": 7,
+        "category": "",
+        "hiring_company": {
+          "name": "Openlogix Corporation",
+          "description": null,
+          "id": null,
+          "url": null
+        },
+        "salary_min_annual": 68000,
+        "salary_max": 110000,
+        "id": "monster_incremental_cpc-199276256",
+        "source": "Monster",
+        "location": "Boston, MA, USA",
+        "has_non_zr_url": "1",
+        "salary_source": "predicted",
+        "salary_interval": "yearly",
+        "has_zipapply": false,
+        "salary_max_annual": 110000
+      },
+      {
+        "state": "MA",
+        "url": "https://www.ziprecruiter.co.uk/clk/whitridge-associates-inc-00000000-sr-front-end-developer-199305860?clk=bkxm7sK1S-7uJU60xE3mlZhs0j4WlpuV0yqRP8PSkbmXwoCrBQeKaXN_-LxXSqnwXYmO5U8dH1yO7qXjOPiF5wQpLG9mnTmPcmuoIY7ieJZScrBzYCR1HVCisLOzq1FL5SjpwHdp4QlA-5cFh6dmtGr9RxARv-kJes_Rn9jzepasNz5b-UW8kOenEUJjaZc4VKThq8LYNStoehKyLs3xLiK7Fx1m0BrvdywAqBN22QtYTuCpqwBTY08ojcnonsx6l2yoHmLQId4aVT02BonzUWsbtl2G9FGgrUspEcsxmyLVLrwX_llKP2YdQPpXqGQUZyVjIEQATzGuPcNHkvSJ947cI5GVnEo32XwFlOnsjsajh3RCFFi8L6eKoG1cZ4fPU5faAEjQO3eC9WCNIQlzwNDgtpfRoXqYENWqAYXnOgS9bdLJvQs8TENkXmUPcKEm9CprAeJ7fwA1-AzB-eLTBuhohNwrmplxaKe0G8GNTkNmsb30sc6asEZvU5OyYI9uIai5aNM5mo7O166COlSvqzp-obyLeWYji0XbsMHHAM5PjZOYtyKm-eI0wnHMTImLkiGbmet_rnkAV2Xe6C57y5u9OlPKKYO0ktG3TBONsiTVl6S0yUlOgnxY-raLA-ET.103ea1e96c04f702d94426bf25f6af5e",
+        "snippet": "<b>Front End</b> <b>Developer</b> (5+ years of web development experience working on enterprise websites is a must for this role!) THE ROLE The ideal candidate will possess: Bachelor of Science degree in a ...",
+        "city": "Boston",
+        "country": "US",
+        "name": "Sr Front End Developer",
+        "posted_time": "2018-08-14T10:00:00",
+        "id": "monster_general_can_cpc-199305860",
+        "source": "Monster",
+        "category": "",
+        "job_age": 7,
+        "salary_min_annual": 95500,
+        "hiring_company":{ "name": "Whitridge Associates, Inc",
+          "description": null,
+          "id": null,
+          "url": null
+        },
+        "salary_max": 130500,
+        "industry_name": "Technology",
+        "salary_min": 95500,
+        "posted_time_friendly": "8 days ago",
+        "has_non_zr_url": "1",
+        "salary_source": "predicted",
+        "location": "Boston, MA, USA",
+        "salary_max_annual": 130500,
+        "has_zipapply": false,
+        "salary_interval": "yearly"
+      }
+    ]
+  }
+}

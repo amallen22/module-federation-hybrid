@@ -82,7 +82,7 @@
     "The use of <strong>KEYWORDS</strong> is often overlooked by jobseekers and they are fast becoming an integral part of a winning resume. - You can <strong>find the relevant keywords and expressions for your resume within the job vacancy</strong>, company website or profiles of other professions in that particular area.": "職探しをする人は<strong>キーワード</strong>を使うことを見過ごしがちですが、採用につながる履歴書の大切な一部となっています。 - <strong>履歴書に使える関連の高いキーワードや表現</strong>は、募集要項・会社ウェブサイト・特定の分野における他の専門家のプロフィールなどから見つけることができます。",
     "<strong>Include the standard sections in every resume you create</strong> - contact information, objective or summary, education, work experience and skills.": "<strong>どの履歴書にも標準的な項目を含めましょう</strong> - 連絡先、目的や概要、教育歴、職歴、スキル",
     "But to <strong>create a unique resume</strong> that will attract a hiring manager at first glance, remember to <strong>include specific resume sections that relate to your professional profile</strong> and the vacancy on offer, such as pertinent publications, conferences you’ve attended, extra training, courses or awards you’ve received etc.": "しかし、採用担当者を注目を一目で引くような<strong>ユニークな履歴書を作る</strong>場合には、関連のある投稿論文、参加した学術会議、研修、コース、受け取った表彰など、<strong>仕事上のプロフィールや募集中の役職に関係のある特定の項目を履歴書に含める</strong>ことを忘れないようにしましょう。",
-    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>一人称を使うのは避けましょう</strong>:履歴書が「私」で埋め尽くされてしまいます。代わりに、三人称を使いましょう。例えば、<strong>履歴書の目的や職歴の説明</strong>などにおいてです。",
+    "<strong>Avoid using the first person</strong>: ‘I’, throughout your resume; instead always refer to the third person without using the subject. For example, <strong>in a resume objective or work experience descriptions</strong>.": "<strong>一人称を使うのは避けましょう</strong>:履歴書が「私」で埋め尽くされてしまいます。代わりに、三人称を使いましょう。例えば、<strong>履歴書の要約や職歴の説明</strong>などにおいてです。",
     "<strong>Use strong verbs</strong> to describe your previous experience such as spearheaded, coordinated, orchestrated, established, launched, reduced (costs), increased (profits), restructured, facilitated, negotiated etc.": "過去の経験を説明するときには、先導した、コーディネートした、組織化した、構築した、立ち上げた、（コストを）削減させた、（収益を）増加させた、再編した、促進させた、交渉したなど、<strong>強い動詞を使いましょう</strong>。",
     "<strong>Demonstrate quantifiable evidence</strong> of your personal involvement in a project or impact on a role.": "プロジェクトへの自分の関与や役割に対するインパクトなどは、<strong>定量的なエビデンスを示しましょう。</strong>",
     "Current Plan": "現在のプラン",
@@ -274,6 +274,7 @@
     "Want expert advice?": "専門家のアドバイスが必要ですか？",
     "Visit our Help & Contact section": "ヘルプ＆コンタクトをご覧ください。",
     "or send an e-mail to %(appEmail)s": "または %(appEmail)s までメールでご連絡ください。",
+    "or send an e-mail to": "または までメールでご連絡ください。",
     "Go to Help & Contact": "ヘルプ＆お問い合わせへ",
     "resume": "履歴書",
     "cover letter": "カバーレター",
@@ -516,5 +517,15 @@
     "Your expert coach": "あなたのエキスパートコーチ",
     "ASK FOR RESUME REVIEW": "履歴書のレビューをリクエスト",
     "Continue": "続行",
-    "Unlimited User": "無制限ユーザー"
+    "Unlimited User": "無制限ユーザー",
+    "example": "例",
+    "before": "前",
+    "after": "後",
+    "online cover letter": "オンラインカバーレター",
+    "Looks like you've been away for a bit, so your documents are temporarily inactive. To bring back a document, open and edit it as usual.": "使用してからしばらく経過しているため、あなたの文書は一時的に非アクティブになっています。文書を有効にするには、通常通り開いて、編集します。",
+    "Cancel membership": "メンバーシップをキャンセル",
+    "Do you want to cancel your account?": "アカウントをキャンセルしますか？",
+    "<span>Ready in seconds.</span> Ensure it´s correct, one chance only": "<span>数秒以内に用意できます。</span>変更は1回のみ可能なため、正しいことを確認してください",
+    "Receive professional feedback in seconds, then apply to your dream job.": "数秒以内にプロのフィードバックを受け取り、憧れの仕事に応募しましょう。",
+    "Just a moment, we're preparing expert tips to improve your resume": "しばらくお待ちください。履歴書を改善するための専門家によるヒントを準備しています"
 }

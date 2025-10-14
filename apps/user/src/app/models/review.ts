@@ -20,9 +20,9 @@ export type InternalReviewStatus =
     | InternalReviewStatusEnum.ERROR
     | InternalReviewStatusEnum.SUCCESS;
 
-export type ReviewStatus = ReviewStatusEnum.NOT_REVIEWED | ReviewStatusEnum.PENDING_REVIEW | ReviewStatusEnum.REVIEWED;
+export type ReviewStatus = ReviewStatusEnum.NOT_REVIEWED | ReviewStatusEnum.REVIEWED | ReviewStatusEnum.PENDING_REVIEW;
 
-export const reviewerId = 'b651f04d-bf78-4076-aedf-1082194237bd';
+export const reviewerId = '3c31fc46-365a-4f90-893a-d64b2b6921d1';
 
 export interface DocumentReviewState {
     loadingRequest: boolean;
@@ -30,17 +30,17 @@ export interface DocumentReviewState {
     loadingResponse: boolean;
     response: ReviewResponse | null;
     profession: string;
-    review: Recommendations | null;
+    review: Recommendation[] | null;
     reviewStatus: ReviewStatus;
 }
 
-export interface Recommendations {
-    recommendations: Recommendation[];
-}
-
 export interface Recommendation {
+    description: string;
+    example: {
+        after: string;
+        before: string;
+    };
     title: string;
-    body: string;
 }
 
 export interface ReviewRequest {

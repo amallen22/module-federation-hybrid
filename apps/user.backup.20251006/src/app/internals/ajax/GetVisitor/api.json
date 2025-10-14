@@ -1,0 +1,21 @@
+{
+    "method": "GET",
+    "path": "/visitor",
+    "params": {
+        "accountLanguage": {
+            "type": "string",
+            "allowEmpty": false,
+            "required": false,
+            "description": "set language in cookie"
+          }
+    },
+    "logOutOnCodeRanges": [
+        {
+            "min": 400,
+            "max": 499
+        }
+    ],
+    "mockResponse": {
+        "cookie": "cv_session_store=eyJjb3VudHJ5IjoiZXMiLCJhY2Nlc3MiOiIiLCJ1dG1fY2FtcGFpZ24iOiIiLCJpcCI6Ijg4LjEyLjIuMTg2IiwidXRtX21lZGl1bSI6IiIsImxhbmd1YWdlIjoiZW4tVVMiLCJ1c2VyaWQiOiJjN2Q2ZTdhZTI4YzEzNzgyNWJhY2ZlZDAyYzgzNjY2NjJmNTQ5ZGY0IiwicGF5bWVudC1wcm9kdWN0IjpudWxsLCJyZWZlcnJlciI6IiIsInV0bV9vcmlnaW4iOiIiLCJ1dG1fZG9jdW1lbnQiOiIiLCJwcm92aWRlciI6ImNvZ25pdG8iLCJuYW1lIjpudWxsLCJ2aXNpdG9yIjoiYTRlOGI2NGItMzM2ZS00Nzc4LTlmMTItYjU2NjQ1M2EyNzBkIiwidXNlciI6InNnaWxhYmVydCt0ZXN0dXRtZG9jQGxlYWR0ZWNoLmNvbSIsInV0bV9zb3VyY2UiOiIiLCJ1dG1fY29udGVudCI6IiIsInBhZ2Vfc2l6ZSI6ImxldHRlciJ9"
+    }
+}

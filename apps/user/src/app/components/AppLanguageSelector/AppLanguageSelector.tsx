@@ -1,6 +1,6 @@
 import { analyticsClient, AnalyticsClientEnum, AnalyticsEvent } from '@npm_leadtech/cv-lib-app-analytics';
 import { InitialLoading, useMobile } from '@npm_leadtech/cv-lib-app-components';
-import { StorageManager } from '@npm_leadtech/cv-storage-js';
+import StorePackage from '@npm_leadtech/cv-storage-js';
 import { LanguageSelector, OptionItem } from '@npm_leadtech/cv-ui-kit';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -25,7 +25,7 @@ export const AppLanguageSelector = ({ languages, languagesLoaded }: Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    const cookiesStorage = StorageManager();
+    const cookiesStorage = StorePackage.StorageManager();
 
     const handleClickOutside = (event: MouseEvent) => {
         if (
@@ -150,9 +150,8 @@ export const AppLanguageSelector = ({ languages, languagesLoaded }: Props) => {
             <LanguageSelector
                 isActive={isOpen}
                 onClick={toggleOpen}
-            >
-                {getSelectedLanguage()}
-            </LanguageSelector>
+                label={getSelectedLanguage()}
+            />
             {isOpen && (
                 <LanguageListContainer isMobile={isMobile} ref={containerRef}>
                     <LanguageList isMobile={isMobile}>

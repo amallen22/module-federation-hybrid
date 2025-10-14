@@ -70,7 +70,7 @@ const ModalUnsubscribe = ({ modalOpened, setModalOpened }: Props) => {
     const renderModalContent = () => {
         if (loading || unsubscribing) {
             return (
-                <SpinnerContainer>
+                <SpinnerContainer data-qa="unsubscribe-modal-loader">
                     <Spinner color='neutral' />
                 </SpinnerContainer>
             );

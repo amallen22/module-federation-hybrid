@@ -1,0 +1,24 @@
+{
+  "method": "GET",
+  "path": "/document",
+  "params": {
+    "documentType": {
+      "description": "documentType",
+      "type": "string",
+      "allowEmpty": false,
+      "required": true
+    },
+    "limit": {
+      "description": "limits the docs returned by the query",
+      "type": "number",
+      "allowEmpty": false,
+      "required": false
+    }
+  },
+  "logOutOnCodeRanges": [
+    {
+      "min": 400,
+      "max": 499
+    }
+  ]
+}

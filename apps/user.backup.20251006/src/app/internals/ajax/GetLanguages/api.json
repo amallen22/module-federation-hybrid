@@ -1,0 +1,64 @@
+{
+    "method": "GET",
+    "path": "/languages",
+    "params": {
+    },
+    "logOutOnCodeRanges": [
+        {
+            "min": 400,
+            "max": 499
+        }
+    ],
+    "mockResponse": {
+        "languages": [
+            {
+                "code": "en-US",
+                "description": "English (USA)"
+            },
+            {
+                "code": "it",
+                "description": "Italiano"
+            },
+            {
+                "code": "it-IT",
+                "description": "Italiano"
+            },
+            {
+                "code": "es-ES",
+                "description": "Español"
+            },
+            {
+                "code": "fr",
+                "description": "Français"
+            },
+            {
+                "code": "fr-FR",
+                "description": "Français"
+            },
+            {
+                "code": "ja-JP",
+                "description": "日本"
+            },
+            {
+                "code": "zh-CN",
+                "description": "中文"
+            },
+            {
+                "code": "en-GB",
+                "description": "English (GB)"
+            },
+            {
+                "code": "pt-BR",
+                "description": "Português"
+            },
+            {
+                "code": "de-DE",
+                "description": "Deutsch"
+            },
+            {
+                "code": "he-IL",
+                "description": "עִברִית"
+            }
+        ]
+    }
+}

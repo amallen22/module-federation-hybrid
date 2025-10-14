@@ -1,0 +1,12 @@
+{
+    "method": "DELETE",
+    "path": "/subscription",
+    "params": {
+      "subscriptionId": {
+        "description": "The id of the subscription to delete",
+        "type": "string",
+        "allowEmpty": false,
+        "required": true
+      }
+    }
+}

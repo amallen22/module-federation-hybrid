@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/document/$1",
+  "urlParams": {
+    "$1": "documentId"
+  }
+}

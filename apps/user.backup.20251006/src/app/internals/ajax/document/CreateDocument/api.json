@@ -1,0 +1,24 @@
+{
+    "method": "POST",
+    "path": "/document",
+    "params": {
+      "documentType": {
+        "description": "Document type",
+        "type": "string",
+        "allowEmpty": false,
+        "required": true
+      },
+      "templateId": {
+        "description": "The template to use",
+        "type": "string",
+        "allowEmpty": false,
+        "required": true
+      },
+      "previewOrderId": {
+        "description": "The preview id",
+        "type": "string",
+        "allowEmpty": false,
+        "required": true
+      }
+    }
+}

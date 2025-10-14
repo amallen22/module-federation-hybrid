@@ -13,6 +13,12 @@
       "type": "number",
       "allowEmpty": false,
       "required": false
+    },
+    "offset": {
+      "description": "offset for pagination",
+      "type": "number",
+      "allowEmpty": true,
+      "required": false
     }
   },
   "logOutOnCodeRanges": [

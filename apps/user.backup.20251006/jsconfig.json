@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "target": "ES6",
+    "checkJs": false,
+    "jsx": "preserve",
+  },
+  "exclude": ["node_modules", "dist", "src/public_local"],
+  "include": ["src/**/*"]
+}

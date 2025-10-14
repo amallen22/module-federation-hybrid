@@ -8,8 +8,7 @@ import { dateToUpdatedLocale } from '../../../helpers/dateFormatter';
 import { getThumbnail } from '../../../helpers/getThumbnail';
 import { setCategoryAttr } from '../../../helpers/setCategoryAttr';
 import useManageDocument from '../../../hooks/useManageDocument';
-import useProfile from '../../../hooks/useProfile';
-import { Document } from '../../../models/documents';
+import { Document, DocumentTypeEnum } from '../../../models/documents';
 import { Language } from '../../../models/language';
 import { DocumentDownloadButton } from './DocumentDownloadButton/DocumentDownloadButton';
 import { DocumentLanguageLabel } from './DocumentLanguageLabel/DocumentLanguageLabel';
@@ -40,6 +39,8 @@ interface Props {
     openOnlineDocument: () => void;
     groupPermission: string | null;
     listOrder: number;
+    userLanguage: string;
+    loadingProfile: boolean;
 }
 
 const DocumentWrapper = ({
@@ -50,6 +51,8 @@ const DocumentWrapper = ({
     deleteDocument,
     groupPermission,
     listOrder,
+    userLanguage,
+    loadingProfile
 }: Props) => {
     const { documentId, documentType, language, modifiedAt, previewThumbnail, title, accessLevel } = document;
     const { editDocument, downloadDocument, loadingAction } = useManageDocument({
@@ -60,7 +63,6 @@ const DocumentWrapper = ({
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const classes = stylesPopOver();
     const isShared = accessLevel === 'public';
-    const { userLanguage, loadingProfile } = useProfile();
 
     const DocumentUpdatedWrapper = () => {
         return <DocumentUpdated>{dateToUpdatedLocale({ date: modifiedAt, userLanguage })}</DocumentUpdated>;
@@ -94,7 +96,11 @@ const DocumentWrapper = ({
     };
 
     if (loadingAction) {
-        return <Spinner color='neutral' />;
+        return (
+            <div data-qa="document-loader">
+                <Spinner color='neutral' />
+            </div>
+        );
     }
 
     return (
@@ -148,7 +154,9 @@ const DocumentWrapper = ({
                                     data-tm-event-label={document.documentType}
                                 >
                                     <LinkIcon />
-                                    {translate('Online resume')}
+                                    <span>
+                                        {documentType === DocumentTypeEnum.CoverLetter ? translate('online cover letter') : translate('Online resume')} 
+                                    </span>
                                 </ItemAction>
                                 <ItemAction
                                     onClick={() => handleDuplicateDocument()}

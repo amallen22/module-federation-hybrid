@@ -1,4 +1,4 @@
-export interface ApiError {
+export interface Error {
     error: string;
     request: XMLHttpRequest;
     status: number;

@@ -1,0 +1,13 @@
+{
+  "method": "GET",
+  "path": "/document/$1/pdf",
+  "activeRequestConfig": {
+      "start": 5000,
+      "interval": 1000,
+      "maxAttempts": 100,
+      "waitCodes": [202]
+  },
+  "urlParams": {
+      "$1": "documentId"
+  }
+}

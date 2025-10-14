@@ -1,0 +1,212 @@
+@import "/vendors/variables.scss";
+@import "/vendors/normalize.scss";
+@import "/vendors/settings.scss";
+@import "/vendors/utils.scss";
+@import "/vendors/mixins.scss";
+
+$content-width: 1200px;
+
+$primary-font: $Roboto;
+$secondary-font: $Arvo;
+
+$color-primary-primary: #2298e9;
+$color-primary-alt: #18324f;
+$color-primary-altLight: #23476f;
+$color-primary-altDark: #0a1c2f;
+$color-primary-altDarkest: #2d2d2d;
+$color-primary-light: #26a0f4;
+
+$color-secondary-secondary: #ff514e;
+$color-secondary-alt: #56e2c2;
+$color-secondary-altLight: #bcfff0;
+$color-secondary-altDark: #ce4341;
+$color-secondary-light: #ff6767;
+$color-secondary-text: #fff;
+
+/* Titles */
+
+@mixin title-1 () {
+  font-family: $primary-font;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+@mixin title-2 () {
+  font-family: $secondary-font;
+  font-size: 29px;
+  font-weight: 300;
+  line-height: 34px;
+}
+
+@mixin title-3 () {
+  font-family: $primary-font;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+
+// app
+$dashboard-section-padding: 30px;
+$dashboard-main-width: 71%;
+$dashboard-aside-width: 29%;
+$dashboard-background-color: #E1E5F0;
+
+// transition times
+$open-time-transition: 200ms;
+$close-time-transition: 400ms;
+
+//NavBar
+$navbar-height: 64px;
+$navbar-padding: 0 10px;
+$navbar-margin: 0;
+
+$menu-font-size: 18px;
+$menu-font-size-responsive: 16px;
+
+
+$dropdown-button-image-width: 20px;
+$dropdown-button-image-height: 20px;
+
+$dropdown-font-size: 13px;
+$dropdown-width: 200px;
+
+$dropdown-wrapper-icon-width: 32px;
+$dropdown-icon-width: 14px;
+$dropdown-icon-height: 14px;
+$dropdown-item-height: 32px;
+
+$burguer-image-width: 24px;
+$burguer-image-height: 24px;
+$burguer-image-margin: 0 0 0 10px;
+
+$backdrop-background: rgba(0, 0, 0, 0.65);
+
+$logo-margin: 0 0 0 50px;
+$logo-line-height: 0;
+$logo-image-width: auto;
+$logo-image-height: 44px;
+
+$items-sparation: 0 10px;
+
+@mixin burguer-button () {
+  background: transparent;
+  width: 50px;
+  height: $navbar-height;
+  border: none;
+  cursor: pointer;
+  line-height: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-content: start;
+  padding: 0;
+  flex: 0 0 auto;
+  color: $color-secondary-text;
+}
+
+$menu-item-opacity: 0.7;
+$dropdown-item-opacity: 0.8;
+
+@mixin hover-opacity-effect ($opacity) {
+  transition: opacity $close-time-transition linear;
+  opacity: $opacity;
+
+  &:hover {
+    opacity: 1;
+    transition: opacity $open-time-transition linear;
+  }
+}
+
+@mixin current-item () {
+  opacity: 1;
+  -webkit-box-shadow: inset 0 -5px 0 0 $color-primary-alt;
+  -moz-box-shadow: inset 0 -5px 0 0 $color-primary-alt;
+  box-shadow: inset 0 -5px 0 0 $color-primary-alt;
+}
+
+@mixin current-dropdown-item () {
+  opacity: 1;
+  background-color: $color-primary-altLight;
+  background-size: 14px 14px;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  -webkit-box-shadow: inset 2px 0 0 0 $color-primary-light;
+  -moz-box-shadow: inset 2px 0 0 0 $color-primary-light;
+  box-shadow: inset 2px 0 0 0 $color-primary-light;
+}
+
+@mixin item-responsive () {
+  text-align: left;
+  font-size: $menu-font-size-responsive;
+  padding: 20px 25px;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: normal;
+  height: $navbar-height;
+  opacity: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+
+@mixin current-dropdown-item-responsive () {
+  @include current-dropdown-item();
+  background: $color-primary-altLight;
+}
+
+// navbarback
+$backbutton-image-width: 24px;
+$backbutton-image-height: 24px;
+
+@mixin backbutton-custom-item () {
+  width: 40px;
+  height: $navbar-height;
+  margin-left: 10px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: $secondary-font;
+  font-size: $menu-font-size;
+  font-weight: normal;
+  color: $color-secondary-text;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  @media #{$medium-and-down} {
+    font-size: $menu-font-size-responsive;
+  }
+}
+
+@mixin navbar-title () {
+  text-align: left;
+  font-family: $secondary-font;
+  color: $color-secondary-text;
+  font-weight: normal;
+  margin: 0;
+  text-transform: capitalize;
+  font-size: $menu-font-size;
+  @media #{$medium-and-down} {
+    font-size: $menu-font-size-responsive;
+  }
+}
+
+@mixin navbarback-link () {
+  opacity: 1;
+  margin: 0;
+  background: $color-secondary-text;
+  color: $color-primary-light;
+  height: auto;
+  border-radius: 25px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: $menu-font-size;
+  @media #{$medium-and-down} {
+    font-size: $menu-font-size-responsive;
+  }
+}

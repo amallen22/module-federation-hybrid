@@ -1,0 +1,15 @@
+{
+    "method": "GET",
+    "path": "/subscriptions/$1",
+    "activeRequestConfig": {
+        "start": 5000,
+        "interval": 1500,
+        "maxAttempts": 200,
+        "waitCodes": [
+            202
+        ]
+    },
+    "urlParams": {
+        "$1": "subscriptionId"
+    }
+}
