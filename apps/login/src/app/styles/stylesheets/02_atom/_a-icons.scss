@@ -1,0 +1,10 @@
+.a {
+  &-icons {
+    &-info {
+      content: url("/payment/images/icons/info.svg");
+      position: absolute;
+      right: 24px;
+      top: 15px;
+    }
+  }
+}

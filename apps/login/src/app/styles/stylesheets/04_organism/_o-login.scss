@@ -1,0 +1,10 @@
+.o-login{
+  &-container{
+    max-width: 950px;
+    margin: auto;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}

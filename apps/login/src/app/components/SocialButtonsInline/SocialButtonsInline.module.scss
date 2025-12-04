@@ -1,0 +1,15 @@
+.socialButtonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+  
+  button {
+    width: 47%;
+    
+    &:only-child {
+      width: 100%;
+    }
+  }
+}
+

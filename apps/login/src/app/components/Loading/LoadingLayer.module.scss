@@ -1,0 +1,27 @@
+.loadingLayer {
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  background-color: #f5f5f5; // colorNeutral100 equivalent
+}
+
+.progressWrapper {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.progress {
+  color: #2298e9;
+}
+

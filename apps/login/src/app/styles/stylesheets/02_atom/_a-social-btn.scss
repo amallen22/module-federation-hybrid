@@ -1,0 +1,31 @@
+.a {
+  &-social {
+    &__elements {
+      margin: 0 auto;
+      display: flex;
+      span {
+        opacity: 1 !important;
+      }
+    }
+    &-buttons {
+      text-align: center;
+      margin-top: 5px;
+      display: inline-flex;
+      width: 100%;
+      li {
+        display: inline-block;
+        margin: 0 2px;
+        a {
+          width: 60px;
+          height: 60px;
+          display: block;
+          border-radius: 50px;
+          text-decoration: none;
+          font-size: 30px;
+          line-height: 60px;
+          color: white;
+        }
+      }
+    }
+  }
+}

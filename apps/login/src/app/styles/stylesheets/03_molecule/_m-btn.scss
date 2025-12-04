@@ -1,0 +1,13 @@
+.m {
+  &-btn {
+    &-group {
+      padding: 0 10px 10px 10px;
+      &__separated {
+        .a-btn {
+          display: table;
+          margin: 0px auto 15px;
+        }
+      }
+    }
+  }
+}

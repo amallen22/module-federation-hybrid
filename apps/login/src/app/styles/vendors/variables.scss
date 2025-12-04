@@ -1,0 +1,266 @@
+// ==========================================================================
+// Materialize variables
+// ==========================================================================
+//
+// Table of Contents:
+//
+//  1. Colors
+//  2. Badges
+//  3. Buttons
+//  4. Cards
+//  5. Collapsible
+//  6. Chips
+//  7. Date Picker
+//  8. Dropdown
+//  10. Forms
+//  11. Global
+//  12. Grid
+//  13. Navigation Bar
+//  14. Side Navigation
+//  15. Photo Slider
+//  16. Spinners | Loaders
+//  17. Tabs
+//  18. Tables
+//  19. Toasts
+//  20. Typography
+//  21. Footer
+//  22. Flow Text
+//  23. Collections
+//  24. Progress Bar
+
+
+
+// 1. Colors
+// ==========================================================================
+
+$primary-color: #26A0F4;
+$primary-color-light: #fff;
+$primary-color-dark: #fff;
+$primary-resumelist-color: #FF514E;
+
+$secondary-color: #50E3C2;
+$success-color: #fff;
+$error-color: #fff;
+$link-color: #fff;
+
+$gray: #898F96;
+$gray-message: #494c51;
+$gray-light: #c7c7c7;
+$gray-lighter: #E8E8E8;
+$gray-soft: #80888f;
+$gray-burn: #363636;
+$gray-darkburn: #53535F;
+$gray-dark: #55555D;
+$gray-darnes: #565d61;
+$dark: #2D2D2D;
+$dark-blue: #18324F;
+$blue: $primary-color;
+
+$light-blue: #E4F4FF;
+
+$comunication: #00BF96;
+$comunication-2: #00C6A0;
+
+$white: #fff;
+
+$red-soft: #FF5252;
+
+$dashboard-v4-background-dark: #172C45;
+$dashboard-v4-background-aliceblue: #EAF4FF;
+$dashboard-v4-background-lightblue: #CDE5FF;
+$dashboard-v4-background-blue: $blue;
+
+// 2. Badges
+// ==========================================================================
+
+$badge-bg-color: $secondary-color !default;
+$badge-height: 22px !default;
+
+
+// 3. Buttons
+// ==========================================================================
+
+// Shared styles
+$button-border: none !default;
+$button-background-focus: lighten($primary-color, 4%) !default;
+$button-font-size: 1.3rem !default;
+$button-height: 70px !default;
+$button-padding: 0 2rem !default;
+$button-radius: 2px !default;
+
+// Disabled styles
+$button-disabled-background: #DFDFDF !default;
+$button-disabled-color: #9F9F9F !default;
+
+// Raised buttons
+$button-raised-background: $primary-color !default;
+$button-raised-background-hover: lighten($button-raised-background, 5%) !default;
+$button-raised-color: #fff !default;
+
+// Large buttons
+$button-large-icon-font-size: 1.6rem !default;
+$button-large-height: $button-height * 1.5 !default;
+
+// Flat buttons
+$button-flat-color: #FE5D5C !default;
+$button-flat-disabled-color: lighten(#999, 10%) !default;
+
+// Floating buttons
+$button-floating-background: $secondary-color !default;
+$button-floating-background-hover: $button-floating-background !default;
+$button-floating-color: #fff !default;
+$button-floating-size: 40px !default;
+$button-floating-large-size: 56px !default;
+$button-floating-radius: 50% !default;
+
+
+
+// 4. Images
+// ==========================================================================
+
+// 5. Collapsible
+// ==========================================================================
+
+
+// 6. Chips
+// ==========================================================================
+
+
+// 7. Date Picker
+// ==========================================================================
+
+
+// 8. Dropdown
+// ==========================================================================
+
+// 9. Fonts
+// ==========================================================================
+
+$Arvo: 'Arvo', serif !default;
+$Roboto : 'Roboto', sans-serif !default;
+$Kalam: 'Kalam', cursive;
+
+
+// 10. Forms
+// ==========================================================================
+
+
+// 11. Global
+// ==========================================================================
+
+// Media Query Ranges
+$small-screen-up: 769px !default;
+$medium-screen-up: 1025px !default;
+$large-screen-up: 1201px !default;
+$very-large-screen-up: 1351px !default;
+$extra-small-screen: 450px !default;
+$small-screen: 768px !default;
+$medium-screen: 1024px !default;
+$large-screen: 1270px !default;
+$very-large-screen: 1350px !default;
+$extra-large-screen: 1500px !default;
+
+$medium-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
+$very-large-and-up: "only screen and (min-width : #{$very-large-screen-up})" !default;
+$extra-small-and-down: "only screen and (max-width : #{$extra-small-screen})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$large-and-down: "only screen and (max-width : #{$large-screen})" !default;
+$very-large-and-down: "only screen and (max-width : #{$very-large-screen})" !default;
+$extra-large-and-down: "only screen and (max-width : #{$extra-large-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+
+
+// 12. Grid
+// ==========================================================================
+
+
+// 13. Navigation Bar
+// ==========================================================================
+
+
+// 14. Side Navigation
+// ==========================================================================
+
+// 15. Photo Slider
+// ==========================================================================
+
+
+// 16. Spinners | Loaders
+// ==========================================================================
+
+
+// 17. Tabs
+// ==========================================================================
+
+
+// 18. Tables
+// ==========================================================================
+
+
+
+// 19. Toasts
+// ==========================================================================
+
+
+
+// 20. Typography
+// ==========================================================================
+
+$off-black: rgba(0, 0, 0, 0.87) !default;
+// Header Styles
+$h1-fontsize: 4.2rem !default;
+$h2-fontsize: 3.56rem !default;
+$h3-fontsize: 2.92rem !default;
+$h4-fontsize: 2.28rem !default;
+$h5-fontsize: 1.64rem !default;
+$h6-fontsize: 1rem !default;
+
+$base-font-color: $gray-burn;
+
+
+// 21. Footer
+// ==========================================================================
+
+
+// 22. Extra
+
+$alert: $red-soft;
+
+// SLICK SLIDER
+
+$slick-arrow-color: white !default;
+$slick-dot-color: black !default;
+$slick-dot-color-active: $slick-dot-color !default;
+$slick-dot-size: 6px !default;
+$slick-opacity-default: 1 !default;
+$slick-opacity-on-hover: 0.75 !default;
+$slick-opacity-not-active: 0.25 !default;
+$slick-gray: rgba(150, 150, 150, 0.4);
+
+@mixin main-button() {
+  text-decoration: none;
+  background-color: $primary-resumelist-color;
+  letter-spacing: .5px;
+  transition: .2s ease-out;
+  cursor: pointer;
+  border-radius: 100px;
+  height: 39px;
+  line-height: 39px;
+  text-transform: none;
+  padding: 0 2rem;
+  text-align: center;
+  display: inline-block;
+  width: auto;
+  &:hover {
+    opacity: $slick-opacity-on-hover;
+  }
+  span {
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    position: static;
+  }
+}

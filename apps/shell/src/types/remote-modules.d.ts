@@ -21,6 +21,6 @@ declare module 'product/App' {
 }
 
 declare module 'login/App' {
-  const LoginApp: React.FC;
-  export default LoginApp;
+  const App: React.FC;
+  export default App;
 }

@@ -1,0 +1,25 @@
+.a {
+  &-img {
+    &__full {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    &__background {
+      width: auto;
+      height: auto;
+      min-width: 100%;
+      min-height: 100%;
+    }
+    &__centered {
+      text-align: center;
+    }
+    &__spacing {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    &_logo{
+      margin-bottom: 10px;
+    }
+  }
+}

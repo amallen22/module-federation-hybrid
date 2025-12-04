@@ -1,0 +1,140 @@
+/*------------------------------------*\
+  #MATERIALIZE
+\*------------------------------------*/
+
+.btn {
+  border: $button-border;
+  border-radius: $button-radius;
+  display: inline-block;
+  height: $button-height;
+  line-height: $button-height;
+  padding: $button-padding;
+  text-transform: uppercase;
+  vertical-align: middle;
+  // Gets rid of tap active state
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Disabled shared style
+.btn.disabled,
+.btn:disabled ,
+.btn[disabled] {
+  pointer-events: none;
+  background-color: $button-disabled-background !important;
+  box-shadow: none;
+  color: $button-disabled-color !important;
+  cursor: default;
+
+  &:hover {
+    background-color: $button-disabled-background !important;
+    color: $button-disabled-color !important;
+  }
+}
+
+// Shared icon styles
+.btn {
+  outline: 0;
+
+  i {
+    font-size: $button-font-size;
+    line-height: inherit;
+  }
+}
+
+// Shared focus button style
+.btn {
+  &:focus {
+    background-color: darken($button-raised-background, 10%);
+  }
+}
+
+// Raised Button
+.btn {
+  text-decoration: none;
+  color: $button-raised-color;
+  background-color: $button-raised-background;
+  text-align: center;
+  letter-spacing: .5px;
+  @extend .z-depth-1;
+  transition: .2s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-raised-background-hover;
+    @extend .z-depth-1-half;
+  }
+}
+
+/*------------------------------------*\
+  #SECTION-TITLE
+\*------------------------------------*/
+
+.a{
+  &-btn {
+    @extend .btn;
+    border-radius: 100px;
+    height: 48px;
+    line-height: 48px;
+    text-transform: none;
+    span {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+}
+
+.a{
+  &-btn {
+    &-container {
+      height: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      right: 0;
+      height: 200px;
+      width:100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.a{
+  &-btn {
+    &-text {
+      padding-left: 48px;
+      padding-right: 48px;
+      &__clear {
+        color: white;
+      }
+    }
+  }
+}
+
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  /* cursor: default; */
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button;
+  /* for input */
+  -webkit-user-select: none;
+  /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.abcRioButton:hover {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.25) !important;
+}

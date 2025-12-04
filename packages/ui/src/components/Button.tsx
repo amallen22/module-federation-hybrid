@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: 'primary' | 'secondary';
@@ -9,14 +9,18 @@ export interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({ 
   children, 
   onClick, 
-  variant = 'primary' 
+  variant = 'primary',
+  className = '',
+  style,
+  ...props
 }) => {
-  const baseStyles = {
+  const baseStyles: React.CSSProperties = {
     padding: '8px 16px',
     borderRadius: '4px',
     border: 'none',
     cursor: 'pointer',
     fontSize: '16px',
+    ...style
   };
 
   const variantStyles = {
@@ -34,7 +38,9 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
+      className={className}
       style={{ ...baseStyles, ...variantStyles[variant] }}
+      {...props}
     >
       {children}
     </button>

@@ -36,53 +36,74 @@ const fixAuthManagerPlugin = () => {
   }
 }
 
+// Plugin para arreglar `var _global = this` en librerías legacy (amazon-cognito-identity-js)
+const fixGlobalThisPlugin = () => {
+  return {
+    name: 'fix-global-this',
+    transform(code, id) {
+      if (code.includes('var _global = this;') || code.includes('var _global=this')) {
+        console.log('🔧 [SHELL] Arreglando _global = this en:', id.split('node_modules/').pop() || id);
+        const fixedCode = code
+          .replace(/var _global\s*=\s*this\s*;/g, 'var _global = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : {};')
+          .replace(/var _global=this/g, 'var _global=typeof globalThis!=="undefined"?globalThis:typeof window!=="undefined"?window:{}');
+        return {
+          code: fixedCode,
+          map: null
+        };
+      }
+      return null;
+    }
+  }
+}
+
 // https://vitejs.dev/config/
+// En desarrollo local, desactivar Module Federation para evitar conflictos con login
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+// Configuración de Module Federation (solo para producción o cuando se necesite MF real)
+const federationPlugin = !isDevelopment ? federation({
+  name: 'shell',
+  remotes: useProductionUrls
+    ? {
+      product: `${productionRemoteBaseUrl}/product/assets/remoteEntry.js`,
+      ui: `${productionRemoteBaseUrl}/ui/assets/remoteEntry.js`,
+      login: `${productionRemoteBaseUrl}/login/assets/remoteEntry.js`
+    }
+    : {
+      // En modo preview (producción local), con /dist/
+      product: 'http://localhost:5001/dist/assets/remoteEntry.js',
+      ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
+      login: 'http://localhost:5003/dist/assets/remoteEntry.js'
+    },
+  exposes: {
+    './App': './src/App.tsx',
+  },
+  shared: {
+    'react': {
+      singleton: true,
+      shareScope: 'default',
+      requiredVersion: '^18.3.1',
+    },
+    'react-dom': {
+      singleton: true,
+      shareScope: 'default', 
+      requiredVersion: '^18.3.1',
+    },
+    'react-router-dom': {
+      singleton: true,
+      shareScope: 'default',
+      requiredVersion: '^6.30.0',
+    }
+  }
+}) : null;
+
 export default defineConfig({
   plugins: [
-    fixAuthManagerPlugin(), // Agregar el plugin personalizado al inicio
+    fixAuthManagerPlugin(), // Arreglar const -> let en AuthManager.js
+    fixGlobalThisPlugin(),  // Arreglar var _global = this en amazon-cognito-identity-js
     react(),
-    federation({
-      name: 'shell',
-      remotes: useProductionUrls
-      ? {
-        product: `${productionRemoteBaseUrl}/product/assets/remoteEntry.js`,
-        ui: `${productionRemoteBaseUrl}/ui/assets/remoteEntry.js`,
-        login: `${productionRemoteBaseUrl}/login/assets/remoteEntry.js`
-      }
-      : process.env.NODE_ENV === 'development'
-      ? {
-        // En modo desarrollo, directamente desde la raíz
-        product: 'http://localhost:5001/remoteEntry.js',
-        ui: 'http://localhost:5002/remoteEntry.js',
-        login: 'http://localhost:5003/remoteEntry.js'
-      }
-      : {
-        // En modo preview (producción local), con /dist/
-        product: 'http://localhost:5001/dist/assets/remoteEntry.js',
-        ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
-        login: 'http://localhost:5003/dist/assets/remoteEntry.js'
-      },
-      exposes: {
-        './App': './src/App.tsx',
-      },
-      shared: {
-        'react': {
-          import: false,
-          shareScope: 'default',
-          requiredVersion: '^18.3.1',
-        },
-        'react-dom': {
-          import: false,
-          shareScope: 'default', 
-          requiredVersion: '^18.3.1',
-        },
-        'react-router-dom': {
-          import: false,
-          shareScope: 'default',
-          requiredVersion: '^6.30.0',
-        }
-      }
-    })
+    // Solo incluir federation si está configurado (no en desarrollo)
+    ...(federationPlugin ? [federationPlugin] : [])
   ],
   build: {
     modulePreload: false,
@@ -118,9 +139,15 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: [
-      // Excluir la librería problemática para evitar errores de sintaxis
+      // Excluir librerías problemáticas para evitar errores de sintaxis
       '@npm_leadtech/cv-lib-auth'
-    ]
+    ],
+    include: [
+      // Incluir librerías que necesitan ser optimizadas para ESM
+      'buffer',
+      'amazon-cognito-identity-js'
+    ],
+    force: true // Forzar reconstrucción
   },
   define: {
     global: "globalThis"

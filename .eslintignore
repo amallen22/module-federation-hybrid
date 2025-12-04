@@ -1,0 +1,14 @@
+# Ignore root-level config files
+.cursorrules
+*.md
+*.json
+
+# Ignore node_modules
+node_modules/
+**/node_modules/
+
+# Ignore build outputs
+dist/
+build/
+*.log
+

@@ -1,0 +1,22 @@
+$time_transition: 0.2s;
+
+.FlashMessage {
+  text-align: left;
+  color: black;
+  background: #ffb7b6 url('/images/icons/error.svg') 15px center no-repeat;
+  background-size: 25px;
+  padding: 10px 15px 10px 55px;
+  border-radius: 10px;
+  -webkit-transform-origin : 50% 50%;
+  -moz-transform-origin : 50% 50%;
+  -o-transform-origin : 50% 50%;
+  -ms-transform-origin : 50% 50%;
+  transform-origin : 50% 50%;
+  transform: none;
+  -webkit-transition: all $time_transition ease-out;
+  -moz-transition: all $time_transition ease-out;
+  -ms-transition: all $time_transition ease-out;
+  -o-transition: all $time_transition ease-out;
+  transition: all $time_transition ease-out;
+  opacity: 0.6;
+}

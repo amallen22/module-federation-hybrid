@@ -1,0 +1,1185 @@
+# CV-Hibrid - Cursor AI Rules
+
+## Arquitectura de Microservicios con Vite Module Federation
+
+### Contexto del Proyecto
+
+Este es un proyecto de migración y modernización de una arquitectura de repositorios legacy independientes conectados por cookies a microservicios conectados con Module Federation.
+
+Leer readme.md en la raiz
+
+### Objetivos principales:
+
+1. Migrar de Webpack a Vite + Module Federation
+2. Refactorizar código React legacy a versiones modernas (React 18+)
+3. Eliminar completamente Material-UI (MUI)
+4. Migrar Redux a Zustand para gestión de estado
+5. Migrar Jest a Vitest para testing
+6. Implementar arquitectura de microfrontends
+
+### Stack Tecnológico:
+
+- **Framework**: React 18.3+
+- **Build Tool**: Vite 6+ con @module-federation/vite
+- **Lenguaje**: TypeScript 5+
+- **Estilos**: Sass (NO usar CSS-in-JS como styled-components o emotion) Organizado con sistema atómico
+- **Estado**: Zustand (migrar desde Redux/Redux Toolkit)
+- **Testing**: Vitest + React Testing Library
+- **Documentación**: Storybook (para packages/ui)
+- **Monorepo**: pnpm workspaces
+
+---
+
+## Estructura del Proyecto
+
+```
+cv-hibrid/
+├── apps/
+│   ├── shell/      # Host principal (Vite MF) - Puerto 5000
+│   ├── user/       # Microfrontend usuario (LEGACY - Webpack, pendiente migración) - Puerto 5004
+│   ├── product/    # Microfrontend producto (Vite MF) - Puerto 5001
+│   ├── login/      # App login (LEGACY - Webpack, pendiente migración)
+│   └── ...
+├── packages/
+│   └── ui/         # UI Kit compartido + Storybook
+│       ├── src/
+│       │   ├── components/  # Componentes reutilizables
+│       │   ├── styles/      # Sass globales y variables
+│       │   └── theme/       # Theme tokens
+│       ├── .storybook/      # Configuración Storybook
+│       └── package.json
+└── pnpm-workspace.yaml
+```
+
+---
+
+## REGLAS CRÍTICAS
+
+### NO hacer bajo ninguna circunstancia:
+
+- NO usar Material-UI (@mui/material, @mui/icons-material, @mui/styles, @mui/system)
+- NO usar styled-components ni @emotion/styled para nuevos componentes
+- NO usar Redux o Redux Toolkit para nuevo código
+- NO usar Webpack para nuevas apps o migraciones
+- NO usar Jest para nuevos tests
+- NO usar class components de React
+- NO usar PropTypes (usar TypeScript)
+- NO usar imports por defecto innecesarios cuando hay named exports
+
+### SÍ hacer siempre:
+
+- Usar Vite + @module-federation/vite
+- Usar functional components con hooks
+- Usar TypeScript con tipado estricto
+- Usar Sass/SCSS para estilos
+- Usar Zustand para gestión de estado
+- Usar Vitest para testing
+- Usar React 18+ features (Suspense, lazy loading, etc.)
+- Usar preferiblemente versiones estables (LTS)
+
+---
+
+## Patrones de Código
+
+### 1. Componentes React
+
+**✅ CORRECTO - Componente Funcional Moderno:**
+
+```typescript
+import { FC } from 'react';
+import styles from './Button.module.scss';
+
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+}
+
+export const Button: FC<ButtonProps> = ({
+  label,
+  onClick,
+  variant = 'primary',
+  disabled = false
+}) => {
+  return (
+    <button
+      className={`${styles.button} ${styles[variant]}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {label}
+    </button>
+  );
+};
+```
+
+**❌ INCORRECTO - No usar:**
+
+```typescript
+// NO: Class components
+class Button extends React.Component { }
+
+// NO: PropTypes
+Button.propTypes = { }
+
+// NO: Material-UI
+import { Button } from '@mui/material';
+
+// NO: styled-components
+const StyledButton = styled.button`...`;
+```
+
+### 2. Gestión de Estado con Zustand
+
+**✅ CORRECTO - Store con Zustand:**
+
+```typescript
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+
+interface UserState {
+  user: User | null;
+  isAuthenticated: boolean;
+  setUser: (user: User) => void;
+  logout: () => void;
+}
+
+export const useUserStore = create<UserState>()(
+  devtools(
+    persist(
+      (set) => ({
+        user: null,
+        isAuthenticated: false,
+        setUser: (user) => set({ user, isAuthenticated: true }),
+        logout: () => set({ user: null, isAuthenticated: false }),
+      }),
+      { name: 'user-storage' }
+    )
+  )
+);
+
+// Uso en componente
+const UserProfile = () => {
+  const { user, logout } = useUserStore();
+  return <div>{user?.name}</div>;
+};
+```
+
+**❌ INCORRECTO - No usar Redux:**
+
+```typescript
+// NO: Redux Toolkit
+import { createSlice } from '@reduxjs/toolkit';
+const userSlice = createSlice({ ... });
+
+// NO: Redux tradicional
+const reducer = (state, action) => { ... };
+```
+
+### 3. Estilos con Sass
+
+**✅ CORRECTO - Sass Modules:**
+
+```scss
+// Button.module.scss
+.button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &.primary {
+    background-color: var(--color-primary);
+    color: white;
+
+    &:hover {
+      background-color: var(--color-primary-dark);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--color-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+```
+
+```typescript
+// Uso en componente
+import styles from './Button.module.scss';
+
+<button className={`${styles.button} ${styles.primary}`}>
+```
+
+**❌ INCORRECTO:**
+
+```typescript
+// NO: styled-components
+const Button = styled.button`
+  padding: 12px 24px;
+`;
+
+// NO: emotion
+const Button = styled('button')`...`;
+
+// NO: inline styles
+<button style={{ padding: '12px' }}>
+```
+
+### 4. Vite Module Federation
+
+**✅ CORRECTO - Configuración vite.config.ts:**
+
+```typescript
+import { federation } from '@module-federation/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+
+export default defineConfig({
+  plugins: [
+    react({
+      include: /\.(js|jsx|ts|tsx)$/,
+      jsxRuntime: 'automatic'
+    }),
+    federation({
+      name: 'user',
+      manifest: true,
+      exposes: {
+        './App': './src/app/main.tsx',
+        './UserProfile': './src/components/UserProfile.tsx'
+      },
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: '^18.3.1'
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: '^18.3.1'
+        }
+      }
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+      '@packages/ui': resolve(__dirname, '../../packages/ui/src')
+    }
+  },
+  server: {
+    port: 5004,
+    strictPort: true,
+    cors: true
+  }
+});
+```
+
+**Consumir en Shell:**
+
+```typescript
+import { lazy, Suspense } from 'react';
+
+const UserApp = lazy(() => import('user/App'));
+
+function Shell() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserApp />
+    </Suspense>
+  );
+}
+```
+
+### 5. Storybook para Documentación de Componentes
+
+**✅ CORRECTO - Story de componente:**
+
+```typescript
+// Button.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './Button';
+
+const meta: Meta<typeof Button> = {
+  title: 'Components/Button',
+  component: Button,
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'outline'],
+      description: 'Visual style of the button'
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable button interaction'
+    },
+    onClick: { action: 'clicked' }
+  }
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  args: {
+    label: 'Primary Button',
+    variant: 'primary',
+    disabled: false
+  }
+};
+
+export const Secondary: Story = {
+  args: {
+    label: 'Secondary Button',
+    variant: 'secondary'
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Disabled Button',
+    disabled: true
+  }
+};
+
+export const WithLongText: Story = {
+  args: {
+    label: 'This is a very long button text to test overflow behavior'
+  }
+};
+```
+
+**Configuración .storybook/main.ts:**
+
+```typescript
+import type { StorybookConfig } from '@storybook/react-vite';
+import { mergeConfig } from 'vite';
+
+const config: StorybookConfig = {
+  stories: ['../src/**/*.stories.@(ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y'
+  ],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {}
+  },
+  docs: {
+    autodocs: 'tag'
+  },
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      // Añadir configuraciones personalizadas de Vite
+    });
+  }
+};
+
+export default config;
+```
+
+**Configuración .storybook/preview.ts:**
+
+```typescript
+import type { Preview } from '@storybook/react';
+import '../src/styles/globals.scss';
+
+const preview: Preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/
+      }
+    },
+    backgrounds: {
+      default: 'light',
+      values: [
+        { name: 'light', value: '#ffffff' },
+        { name: 'dark', value: '#1a1a1a' }
+      ]
+    }
+  }
+};
+
+export default preview;
+```
+
+**Reglas para Stories:**
+
+- Usar TypeScript estricto en todas las stories
+- Incluir tag `'autodocs'` para documentación automática
+- Definir `argTypes` con descripciones claras
+- Crear múltiples variantes (Primary, Secondary, Disabled, Error, etc.)
+- Documentar casos edge (textos largos, sin datos, etc.)
+- Usar `action` para eventos interactivos
+- Agrupar componentes lógicamente con `title` (ej: 'Components/Button', 'Forms/Input')
+- NO incluir lógica de negocio en stories
+- NO usar datos reales o sensibles
+- NO importar Material-UI en stories
+
+### 6. Testing con Vitest
+
+**✅ CORRECTO - Test con Vitest:**
+
+```typescript
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
+
+describe('Button', () => {
+  it('renders with correct label', () => {
+    render(<Button label="Click me" onClick={() => {}} />);
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+  });
+
+  it('calls onClick when clicked', () => {
+    const handleClick = vi.fn();
+    render(<Button label="Click me" onClick={handleClick} />);
+    fireEvent.click(screen.getByText('Click me'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('is disabled when disabled prop is true', () => {
+    render(<Button label="Click me" onClick={() => {}} disabled />);
+    expect(screen.getByText('Click me')).toBeDisabled();
+  });
+});
+```
+
+**Configuración vitest.config.ts:**
+
+```typescript
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html']
+    }
+  }
+});
+```
+
+---
+
+## Diseño Atómico (Atomic Design)
+
+### ¿Qué es el Diseño Atómico?
+
+Sistema de organización de componentes inspirado en la química, que estructura los componentes UI en una jerarquía de complejidad creciente.
+
+### Niveles de Componentes:
+
+#### **Átomos** (`src/atoms/`)
+
+**Definición**: Componentes básicos e indivisibles. Son los bloques de construcción más pequeños.
+
+**Características:**
+
+- No pueden dividirse en componentes más pequeños
+- Generalmente sin estado o con estado mínimo
+- Altamente reutilizables
+- Mínima o ninguna lógica de negocio
+
+**Ejemplos:**
+
+- `Button` - Botón básico
+- `Icon` - Iconos SVG
+- `Checkbox` - Casilla de verificación
+- `RadioButton` - Botón de radio
+- `Tag` - Etiqueta/badge
+- `CircularProgress` - Spinner/loader
+- `ButtonIcon` - Botón solo con icono
+
+**Cuándo crear un átomo:**
+
+```typescript
+// ES un átomo si:
+// - Es un elemento HTML estilizado simple
+// - No contiene otros componentes custom
+// - Tiene una única responsabilidad
+// - Es reutilizable en múltiples contextos
+
+// Ejemplo: Button.tsx
+export const Button: FC<ButtonProps> = ({ label, onClick, variant }) => (
+  <button className={styles[variant]} onClick={onClick}>
+    {label}
+  </button>
+);
+```
+
+---
+
+#### **Moléculas** (`src/molecules/`)
+
+**Definición**: Combinaciones de 2-3 átomos que forman una unidad funcional simple.
+
+**Características:**
+
+- Combinan 2-3 átomos
+- Tienen un propósito específico
+- Pueden tener estado interno
+- Lógica de presentación simple
+
+**Ejemplos:**
+
+- `Textfield` = Input + Label + ErrorMessage
+- `Select` = Input + Dropdown + Icon
+- `MenuItem` = Icon + Text + Badge
+- `Tab` = Button + Icon (opcional)
+- `FileUploader` = Input + Button + Icon
+
+**Cuándo crear una molécula:**
+
+```typescript
+// ES una molécula si:
+// - Combina 2-3 átomos
+// - Tiene una función específica
+// - Es reutilizable en diferentes contextos
+// - La separación de sus partes pierde sentido
+
+// Ejemplo: Textfield.tsx
+export const Textfield: FC<TextfieldProps> = ({
+  label,
+  error,
+  value,
+  onChange
+}) => (
+  <div className={styles.container}>
+    <label className={styles.label}>{label}</label>
+    <input
+      className={styles.input}
+      value={value}
+      onChange={onChange}
+    />
+    {error && <span className={styles.error}>{error}</span>}
+  </div>
+);
+```
+
+---
+
+#### **Organismos** (`src/organisms/`)
+
+**Definición**: Componentes complejos que combinan moléculas y átomos. Forman secciones completas de UI.
+
+**Características:**
+
+- Combinan múltiples moléculas y/o átomos
+- Tienen lógica de negocio compleja
+- Pueden tener estado complejo
+- Específicos de dominio
+- Menos reutilizables que átomos/moléculas
+
+**Ejemplos:**
+
+- `Card` - Tarjeta con header, content, actions
+- `ProductCard` - Card específica para productos
+- `Dialog` - Modal completo con overlay, header, body, footer
+- `Tabs` - Sistema completo de pestañas
+- `AccordionCard` - Card expandible con animación
+- `LanguageSelector` - Selector de idioma con dropdown
+- `Wysiwyg` - Editor de texto rico completo
+
+**Cuándo crear un organismo:**
+
+```typescript
+// ES un organismo si:
+// - Combina múltiples moléculas/átomos
+// - Tiene lógica de negocio compleja
+// - Representa una sección completa de UI
+// - Es específico de un dominio/contexto
+
+// Ejemplo: Dialog.tsx
+export const Dialog: FC<DialogProps> = ({
+  title,
+  content,
+  actions,
+  isOpen,
+  onClose
+}) => {
+  const handleOverlayClick = () => onClose();
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      <div className={styles.overlay} onClick={handleOverlayClick} />
+      <div className={styles.dialog}>
+        <header className={styles.header}>
+          <h2>{title}</h2>
+          <ButtonIcon icon="close" onClick={onClose} />
+        </header>
+        <div className={styles.content}>{content}</div>
+        <footer className={styles.actions}>
+          {actions.map(action => (
+            <Button key={action.id} {...action} />
+          ))}
+        </footer>
+      </div>
+    </>
+  );
+};
+```
+
+---
+
+### Reglas de Clasificación
+
+**Árbol de decisión:**
+
+```
+¿Es un elemento HTML básico estilizado?
+├─ SÍ → ÁTOMO
+└─ NO → ¿Combina 2-3 componentes simples?
+    ├─ SÍ → MOLÉCULA
+    └─ NO → ¿Es complejo con múltiples componentes?
+        ├─ SÍ → ORGANISMO
+        └─ NO → Revisar diseño
+```
+
+**Criterios específicos:**
+
+| Criterio | Átomo | Molécula | Organismo |
+|----------|-------|----------|----------|
+| Complejidad | Mínima | Baja-Media | Alta |
+| Componentes hijos | 0 | 2-3 | 3+ |
+| Lógica de negocio | Ninguna | Mínima | Compleja |
+| Estado | Ninguno/Mínimo | Simple | Complejo |
+| Reutilización | Muy alta | Alta | Media-Baja |
+| Dependencias | Ninguna | Átomos | Átomos + Moléculas |
+
+---
+
+### Exports y Uso
+
+**Export por nivel:**
+
+```typescript
+// src/atoms/index.ts
+export * from './Button';
+export * from './Icon';
+export * from './Checkbox';
+
+// src/molecules/index.ts
+export * from './Textfield';
+export * from './Select';
+
+// src/organisms/index.ts
+export * from './Card';
+export * from './Dialog';
+
+// src/index.tsx (Main export)
+export * from './atoms';
+export * from './molecules';
+export * from './organisms';
+export * from './hooks';
+export * from './utils';
+```
+
+**Uso en apps:**
+
+```typescript
+// Importar desde el nivel correcto
+import { Button, Icon } from '@packages/ui/atoms';
+import { Textfield } from '@packages/ui/molecules';
+import { Dialog } from '@packages/ui/organisms';
+
+// O importar todo desde el root
+import { Button, Textfield, Dialog } from '@packages/ui';
+```
+
+---
+
+### Mejores Prácticas
+
+1. **No saltarse niveles**: Un organismo debe usar moléculas, no crear su propia molécula inline
+2. **Dependencias unidireccionales**: Átomo ← Molécula ← Organismo (nunca al revés)
+3. **Reutilización**: Si lo usas 3+ veces, probablemente debería estar en un nivel inferior
+4. **Storybook para todos**: Todos los componentes (átomo, molécula, organismo) deben tener stories
+5. **Tests obligatorios**: Especialmente en moléculas y organismos
+6. **Props claras**: Interfaces bien documentadas con JSDoc
+7. **Sin lógica de negocio en átomos**: Máxima simplicidad
+
+---
+
+### Antipatrones
+
+```typescript
+// MAL: Átomo con lógica compleja
+const Button = () => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  // ... mucha lógica
+};
+
+// BIEN: Átomo simple
+const Button = ({ loading, onClick }) => (
+  <button onClick={onClick} disabled={loading}>
+    {loading ? <Spinner /> : children}
+  </button>
+);
+
+// MAL: Molécula accediendo a organismos
+import { Dialog } from '../organisms/Dialog';
+
+// BIEN: Molécula solo usa átomos
+import { Button, Icon } from '../atoms';
+
+// MAL: Todo en la misma carpeta
+src/components/Button
+src/components/Dialog
+src/components/Input
+
+// BIEN: Organizado por complejidad
+src/atoms/Button
+src/organisms/Dialog
+src/molecules/Input
+```
+
+---
+
+## Workflow de Desarrollo de Componentes (packages/ui)
+
+### 1. Crear nuevo componente
+
+**Pasos:**
+
+1. Crear carpeta del componente: `packages/ui/src/components/Button/`
+2. Crear archivos:
+   - `Button.tsx` (componente)
+   - `Button.module.scss` (estilos)
+   - `Button.stories.tsx` (documentación Storybook)
+   - `Button.test.tsx` (tests)
+   - `index.ts` (export)
+3. Desarrollar en Storybook: `pnpm --filter ui storybook`
+4. Escribir tests: `pnpm --filter ui test`
+5. Exportar en `src/components/index.ts`
+6. Usar en apps: `import { Button } from '@packages/ui'`
+
+**Ejemplo de export (index.ts):**
+
+```typescript
+// src/components/Button/index.ts
+export { Button } from './Button';
+export type { ButtonProps } from './Button';
+
+// src/components/index.ts (barrel)
+export * from './Button';
+export * from './Input';
+export * from './Card';
+```
+
+### 2. Desarrollo Component-Driven
+
+**Orden recomendado:**
+
+1. **Story primero**: Define casos de uso en Storybook
+2. **Implementa componente**: Desarrolla viendo cambios en tiempo real
+3. **Escribe tests**: Cubre funcionalidad y edge cases
+4. **Documenta**: Añade JSDoc y descripciones en argTypes
+5. **Integra**: Usa el componente en las apps
+
+**Beneficios:**
+
+- Desarrollo aislado sin dependencias de apps
+- Documentación visual automática
+- Testing visual de variantes
+- Reutilización fácil entre apps
+
+---
+
+## Guía de Migración
+
+Orden migración:
+1- apps/login
+2- apps/user
+3- ...
+
+### Migrar componente de MUI a Sass
+
+**ANTES (MUI):**
+
+```typescript
+import { Button, TextField, Box } from '@mui/material';
+
+const LoginForm = () => {
+  return (
+    <Box sx={{ p: 2 }}>
+      <TextField label="Email" />
+      <Button variant="contained">Login</Button>
+    </Box>
+  );
+};
+```
+
+**DESPUÉS (Sass):**
+
+```typescript
+// LoginForm.tsx
+import { FC, useState } from 'react';
+import styles from './LoginForm.module.scss';
+
+export const LoginForm: FC = () => {
+  const [email, setEmail] = useState('');
+
+  return (
+    <div className={styles.container}>
+      <input
+        type="email"
+        className={styles.input}
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button className={styles.button}>Login</button>
+    </div>
+  );
+};
+```
+
+```scss
+// LoginForm.module.scss
+.container {
+  padding: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-primary-dark);
+  }
+}
+```
+
+### Migrar Redux a Zustand
+
+**ANTES (Redux Toolkit):**
+
+```typescript
+// userSlice.ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: { user: null },
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    }
+  }
+});
+
+// Component
+import { useDispatch, useSelector } from 'react-redux';
+const dispatch = useDispatch();
+const user = useSelector((state: RootState) => state.user.user);
+dispatch(setUser(userData));
+```
+
+**DESPUÉS (Zustand):**
+
+```typescript
+// userStore.ts
+import { create } from 'zustand';
+
+interface UserState {
+  user: User | null;
+  setUser: (user: User) => void;
+}
+
+export const useUserStore = create<UserState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user })
+}));
+
+// Component
+import { useUserStore } from './userStore';
+const { user, setUser } = useUserStore();
+setUser(userData);
+```
+
+### Migrar de Webpack a Vite
+
+**Pasos:**
+
+1. Eliminar webpack.config.js y dependencias de Webpack
+2. Crear vite.config.ts con configuración Module Federation
+3. Actualizar package.json scripts
+4. Ajustar imports (no más `require`, usar `import`)
+5. Convertir variables de entorno (`process.env.XXX` → `import.meta.env.VITE_XXX`)
+6. Actualizar index.html (Vite lo gestiona directamente)
+
+---
+
+## Convenciones de Código
+
+### Nomenclatura:
+
+- **Componentes**: PascalCase (`UserProfile.tsx`)
+- **Hooks**: camelCase con prefijo `use` (`useUserData.ts`)
+- **Utilidades**: camelCase (`formatDate.ts`)
+- **Constantes**: UPPER_SNAKE_CASE (`API_BASE_URL`)
+- **Tipos/Interfaces**: PascalCase (`interface UserData`)
+- **Archivos Sass**: kebab-case o PascalCase.module.scss
+
+### Estructura de carpetas por app:
+
+```
+user/
+├── src/
+│   ├── app/
+│   │   ├── components/  # Componentes de UI -> NO!! se usan desde packages/ui
+│   │   ├── pages/       # Páginas/Vistas
+│   │   ├── hooks/       # Custom hooks
+│   │   ├── stores/      # Zustand stores
+│   │   ├── services/    # API calls
+│   │   ├── utils/       # Utilidades
+│   │   ├── types/       # TypeScript types
+│   │   ├── styles/      # Sass globales y variables
+│   │   └── main.tsx     # Entry point
+│   └── test/
+│       └── setup.ts
+├── vite.config.ts
+├── vitest.config.ts
+├── tsconfig.json
+└── package.json
+```
+
+### Estructura de packages/ui (UI Kit) - Diseño Atómico:
+
+```
+packages/ui/
+├── src/
+│   ├── atoms/           # Componentes básicos indivisibles
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Button.module.scss
+│   │   │   ├── Button.stories.tsx  # Storybook story
+│   │   │   ├── Button.test.tsx     # Tests
+│   │   │   └── index.ts            # Export
+│   │   ├── ButtonIcon/
+│   │   ├── Icon/
+│   │   ├── Checkbox/
+│   │   ├── RadioButton/
+│   │   ├── Tag/
+│   │   ├── CircularProgress/
+│   │   └── index.ts                # Barrel export
+│   │
+│   ├── molecules/       # Combinaciones simples de átomos
+│   │   ├── Textfield/
+│   │   ├── Select/
+│   │   ├── MenuItem/
+│   │   ├── Tab/
+│   │   ├── FileUploader/
+│   │   └── index.ts                # Barrel export
+│   │
+│   ├── organisms/       # Componentes complejos
+│   │   ├── Card/
+│   │   ├── ProductCard/
+│   │   ├── AccordionCard/
+│   │   ├── Dialog/
+│   │   ├── Tabs/
+│   │   ├── LanguageSelector/
+│   │   ├── Wysiwyg/
+│   │   └── index.ts                # Barrel export
+│   │
+│   ├── hooks/           # Custom hooks compartidos
+│   │   ├── useClickOutside/
+│   │   └── index.ts
+│   │
+│   ├── utils/           # Utilidades
+│   │   ├── TruncateText/
+│   │   ├── PasteTextCleaner/
+│   │   ├── FileUploader/
+│   │   └── index.ts
+│   │
+│   ├── styles/          # Estilos globales
+│   │   ├── _variables.scss    # Variables CSS
+│   │   ├── _mixins.scss       # Mixins reutilizables
+│   │   ├── _tokens.scss       # Design tokens
+│   │   └── globals.scss       # Estilos globales
+│   │
+│   ├── theme/
+│   │   └── theme.ts     # Theme tokens
+│   │
+│   └── index.tsx        # Main export
+├── .storybook/
+│   ├── main.ts          # Config Storybook
+│   └── preview.ts       # Preview config
+├── vite.config.ts
+├── vitest.config.ts
+└── package.json
+```
+
+### Imports:
+
+```typescript
+// 1. External dependencies
+import { FC, useState } from 'react';
+import { create } from 'zustand';
+
+// 2. Internal dependencies (alias)
+import { Button } from '@/components/Button';
+import { useUserStore } from '@/stores/userStore';
+
+// 3. Relative imports
+import { formatDate } from '../utils/formatDate';
+
+// 4. Styles (siempre al final)
+import styles from './Component.module.scss';
+```
+
+---
+
+## Code Review Checklist
+
+Antes de considerar un código como completo, verificar:
+
+- [ ] No hay imports de Material-UI (@mui/*)
+- [ ] No hay uso de styled-components o @emotion/styled
+- [ ] No hay Redux (createSlice, useDispatch, useSelector)
+- [ ] Los componentes son funcionales (no class components)
+- [ ] Hay tests unitarios con Vitest
+- [ ] Los estilos usan Sass modules
+- [ ] TypeScript sin errores ni `any`
+- [ ] Interfaces/tipos definidos correctamente
+- [ ] Gestión de estado con Zustand si es necesario
+- [ ] Module Federation configurado correctamente
+- [ ] No hay console.log en código de producción
+- [ ] Componentes de packages/ui tienen story en Storybook
+- [ ] Stories documentan todos los estados y variantes
+- [ ] Stories incluyen casos edge (textos largos, vacíos, etc.)
+
+---
+
+## Comandos útiles
+
+```bash
+# Desarrollo
+pnpm dev                    # Inicia todos los microfrontends
+pnpm --filter user dev       # Solo app user
+
+# Build
+pnpm build                  # Build de todo el monorepo
+pnpm --filter user build     # Build solo app user
+
+# Testing
+pnpm test                   # Todos los tests
+pnpm test:watch             # Tests en modo watch
+pnpm test:coverage          # Tests con cobertura
+
+# Storybook (packages/ui)
+pnpm --filter ui storybook           # Inicia Storybook dev server
+pnpm --filter ui build-storybook     # Build Storybook estático
+
+# Linting
+pnpm eslint                 # Lint
+pnpm eslint:fix            # Fix automático
+```
+
+---
+
+## Referencias
+
+- Vite Module Federation: https://github.com/module-federation/vite
+- Zustand: https://github.com/pmndrs/zustand
+- Vitest: https://vitest.dev/
+- Storybook: https://storybook.js.org/
+- Storybook + Vite: https://storybook.js.org/docs/builders/vite
+- React 18: https://react.dev/
+
+---
+
+## Tips de Rendimiento
+
+1. **Lazy loading**: Usar `React.lazy()` y `Suspense` para componentes grandes
+2. **Memoización**: Usar `useMemo` y `useCallback` con criterio (no abusar)
+3. **Code splitting**: Aprovechar Module Federation para cargar bajo demanda
+4. **Optimización de builds**: Configurar `rollupOptions` en vite.config.ts
+5. **Tree shaking**: Importar solo lo necesario (named imports)
+
+---
+
+## Troubleshooting Common Issues
+
+### Error: "Cannot find module '@mui/material'"
+
+- **Solución**: Eliminar completamente MUI, refactorizar componente a Sass
+
+### Error: Module Federation no carga remoto
+
+- **Verificar**: Puerto correcto, CORS habilitado, manifest:true en config
+
+### Error: Tests fallan con Vitest
+
+- **Verificar**: vitest.config.ts, setup.ts, environment: 'jsdom'
+
+### Error: TypeScript no encuentra alias @/*
+
+- **Verificar**: tsconfig.json paths y vite.config.ts resolve.alias
+
+### Error: Storybook no carga estilos Sass
+
+- **Solución**: Importar globals.scss en .storybook/preview.ts
+- **Verificar**: sass y sass-loader instalados en devDependencies
+
+### Error: Storybook no encuentra componentes
+
+- **Verificar**: Pattern en .storybook/main.ts stories: ['../src/**/*.stories.@(ts|tsx)']
+- **Verificar**: Archivos .stories.tsx en la ubicación correcta
+
+---
+
+## Prioridades de Refactorización
+
+Cuando refactorices código legacy, sigue este orden:
+
+1. Eliminar MUI → Sass
+2. Migrar class components → functional components
+3. Migrar Redux → Zustand
+4. Migrar Jest → Vitest
+5. Migrar Webpack → Vite
+6. Añadir TypeScript types
+7. Optimizar rendimiento
+
+---
+
+**Última actualización**: Diciembre 2025  
+**Versión**: 1.0.0

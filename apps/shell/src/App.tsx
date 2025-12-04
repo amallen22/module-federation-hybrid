@@ -6,7 +6,9 @@ const RemoteButton = React.lazy(() => import('@packages/ui/components/Button'));
 
 const RemoteProduct = React.lazy(() => import('@apps/product/App.tsx'));
 
-const RemoteLogin = React.lazy(() => import('@apps/login/app/App.jsx'));
+// En desarrollo, cargar login vía path alias (como product)
+// En producción, usar Module Federation: import('login/App')
+const RemoteLogin = React.lazy(() => import('@apps/login/app/App.tsx'));
 
 // Components for each route
 const HomePage = () => (
