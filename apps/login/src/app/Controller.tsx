@@ -133,20 +133,26 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
     }
 
     handleVisitor(): void {
+        console.log('[Controller] handleVisitor called');
         this.cookiesStorage = StoragePackage.StorageManager();
 
         new HandleVisitorUseCase(queryStringService, cookieGenerator, this.cookiesStorage, amplitude.getDeviceId())
             .invoke()
             .then(() => {
+                console.log('[Controller] HandleVisitorUseCase completed');
                 this.cvSessionStore = StoragePackage.sessionStoreCookie({
                     apiTimeout: 10,
                     apiEndpoint: '',
                 });
                 this.authManager = this.buildAuthManager();
 
-                return SetLanguage(this.cvSessionStore.getLanguage());
+                const language = this.cvSessionStore.getLanguage();
+                console.log('[Controller] Language from sessionStore:', language);
+                console.log('[Controller] Calling SetLanguage...');
+                return SetLanguage(language);
             })
             .then(() => {
+                console.log('[Controller] SetLanguage completed successfully');
                 this.setState({
                     initialLoading: false,
                     route: this.getHash(),
@@ -161,6 +167,19 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
                 this.stopLoading();
             })
             .catch((err: any) => {
+                console.error('[Controller] Error in handleVisitor:', err);
+                console.error('[Controller] Error message:', err?.message);
+                console.error('[Controller] Error stack:', err?.stack);
+                console.error('[Controller] Error details:', JSON.stringify(err, null, 2));
+                
+                // Intentar ejecutar SetLanguage incluso si HandleVisitorUseCase falla
+                // para que las traducciones se carguen
+                const language = this.cvSessionStore?.getLanguage?.() || 'en-US';
+                console.log('[Controller] Attempting to load translations despite error, language:', language);
+                SetLanguage(language).catch((i18nErr: any) => {
+                    console.error('[Controller] Error loading translations:', i18nErr);
+                });
+                
                 FrontLogService.logAjaxResponse({ className: 'Controller', funcName: 'HandleVisitorUseCase', err });
                 this.setState({ initialLoading: false });
                 this.forceRedirectOnSession();

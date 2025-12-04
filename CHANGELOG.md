@@ -7,6 +7,38 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - apps/login
+
+#### Solución del problema de traducciones (i18n)
+- **config/appConfig.js**: Añadida variable `I18N_BASE_URL`
+  - Detecta automáticamente si la app se carga desde el shell (localhost:5000)
+  - En desarrollo, cuando se carga desde shell, usa `http://localhost:5003` para i18n
+  - Permite override vía variable de entorno `VITE_I18N_BASE_URL`
+  - Resuelve el problema de que las traducciones no se cargaban cuando login se ejecutaba dentro del shell
+
+- **services/api/GetLanguage/GetLanguageHandler.js**: Actualizado para usar `I18N_BASE_URL`
+  - Reemplaza `document.location.origin` por `I18N_BASE_URL` como `apiPrefix`
+  - Asegura que las peticiones de traducción se hagan al servidor correcto
+
+- **vite.config.ts**: Mejoras en el middleware CORS del plugin `copyI18nPlugin`
+  - Añadidos headers adicionales permitidos: `Expires`, `If-Modified-Since`, `Last-Modified`, `ETag`
+  - Resuelve errores de CORS preflight cuando la librería `@npm_leadtech/jsr-lib-http` envía estos headers
+  - Métodos HTTP permitidos: `GET, HEAD, OPTIONS, POST, PUT, DELETE`
+
+- **services/SetupTranslations.js**: Añadidos logs de depuración
+  - Logs detallados para rastrear el flujo de carga de traducciones
+  - Mejora la visibilidad de errores durante el desarrollo
+
+- **Controller.tsx**: Mejoras en el manejo de errores
+  - `SetLanguage` se ejecuta incluso si `HandleVisitorUseCase` falla
+  - Asegura que las traducciones se carguen independientemente del estado de la sesión
+  - Logs adicionales para debugging
+
+#### Resultado
+- Las traducciones ahora se cargan correctamente cuando login se ejecuta dentro del shell
+- Los textos se muestran correctamente en lugar de "missing translation"
+- Las peticiones a `/dist/i18n/en-US.json` se completan exitosamente con status 200
+
 ## [1.1.0] - 2025-12-04
 
 ### Added - apps/login
@@ -152,9 +184,9 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Error `createRoot() on a container that has already been passed`: Eliminado auto-mount de UI Kit
 
 #### Limitaciones conocidas
-- Las traducciones (i18n) no se cargan cuando login se ejecuta dentro del shell en desarrollo
 - Service Worker intenta registrarse en /serviceWorker.js que no existe en el shell
 - Requests CORS a stage.resumecoach.com bloqueados en desarrollo local
+- Algunos textos muestran duplicación (ej: "Google Google", "LinkedIn LinkedIn") - pendiente de revisión
 
 ---
 

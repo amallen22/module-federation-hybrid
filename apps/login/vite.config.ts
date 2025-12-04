@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
 import { resolve } from 'path';
-import { copyFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'fs';
+import { copyFileSync, mkdirSync, existsSync, readdirSync, statSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 // Plugin personalizado para arreglar el código problemático tanto en dev como build
@@ -57,7 +57,7 @@ const copyI18nPlugin = () => {
   return {
     name: 'copy-i18n',
     configureServer(server) {
-      // Middleware para servir archivos i18n en desarrollo
+      // Middleware para servir archivos i18n en desarrollo desde src/app/i18n
       server.middlewares.use('/dist/i18n', (req, res, next) => {
         // Configurar cabeceras CORS
         const origin = req.headers.origin;
@@ -67,14 +67,26 @@ const copyI18nPlugin = () => {
           res.setHeader('Access-Control-Allow-Origin', origin);
         }
         res.setHeader('Access-Control-Allow-Credentials', 'true');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT, DELETE');
+        // Permitir todos los headers comunes que las librerías HTTP pueden enviar
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cache-Control, X-Requested-With, Pragma, Accept, Origin, Expires, If-Modified-Since, Last-Modified, ETag');
         
         // Manejar preflight requests
         if (req.method === 'OPTIONS') {
           res.statusCode = 200;
           res.end();
           return;
+        }
+        
+        // En desarrollo, servir desde src/app/i18n
+        const fileName = req.url.split('/').pop(); // ej: "en-US.json"
+        if (fileName && fileName.endsWith('.json')) {
+          const i18nPath = resolve(__dirname, 'src/app/i18n', fileName);
+          if (existsSync(i18nPath)) {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(readFileSync(i18nPath, 'utf-8'));
+            return;
+          }
         }
         
         next();

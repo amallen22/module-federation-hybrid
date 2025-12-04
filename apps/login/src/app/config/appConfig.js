@@ -17,3 +17,35 @@ console.log('APP_CONFIG', APP_CONFIG);
 export const API_URL = GetApiUrl(APP_CONFIG);
 
 export const API_EDITOR_URL = GetApiEditorUrl(APP_CONFIG);
+
+/**
+ * URL base para cargar archivos de traducción (i18n)
+ * 
+ * En desarrollo:
+ * - Si login se carga desde shell (localhost:5000), usa el servidor de login (localhost:5003)
+ * - Si login está standalone (localhost:5003), usa el origin actual
+ * 
+ * En producción:
+ * - Usa el origin actual (los archivos estarán en el mismo servidor)
+ * - O puede configurarse vía variable de entorno VITE_I18N_BASE_URL
+ */
+export const I18N_BASE_URL = (() => {
+    if (typeof window === 'undefined') {
+        return '';
+    }
+    
+    const origin = window.location.origin;
+    const hostname = window.location.hostname;
+    
+    // Detectar si estamos en desarrollo (localhost)
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+    const isInShell = origin.includes('localhost:5000');
+    
+    // En desarrollo, si estamos en shell, usar servidor de login
+    if (isLocalhost && isInShell) {
+        return 'http://localhost:5003';
+    }
+    
+    // Por defecto, usar el origin actual
+    return origin;
+})();
