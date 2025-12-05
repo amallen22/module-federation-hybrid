@@ -10,7 +10,7 @@ export default defineConfig({
       name: "ui",
       filename: "remoteEntry.js",
       exposes: {
-        "./Button": "./src/components/Button",
+        "./Button": "./src/atoms/Button",
         "./ErrorBoundary": "./src/components/ErrorBoundary",
         "./theme": "./src/theme/theme.ts"
       },

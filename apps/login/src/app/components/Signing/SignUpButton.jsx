@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import translate from 'counterpart';
 
-import { StyledBlockerDiv, StyledButton } from './ButtonStyles';
+import { StyledBlockerDiv, StyledButton } from './ButtonStyles.jsx';
 
 export class SignUpButton extends Component {
 
@@ -12,7 +12,7 @@ export class SignUpButton extends Component {
     render() {
         return (
             <StyledBlockerDiv>
-                <StyledButton data-qa='sign-up-button' color='primary' id='sign-up' onClick={this.props.attemptSignUp} style={{ width: '100%' }}>
+                <StyledButton data-qa='sign-up-button' variant='primary' id='sign-up' onClick={this.props.attemptSignUp} isFullWidth>
                     {translate('Sign Up')}
                 </StyledButton>      
             </StyledBlockerDiv>

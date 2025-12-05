@@ -7,6 +7,33 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Changed - apps/login y apps/shell
+
+#### Migración de botones al nuevo Button de packages/ui
+- **Sustitución de botones**: Todos los botones del proyecto ahora usan el nuevo `Button` de `@packages/ui/atoms/Button`
+  - `GoogleLogin.tsx`: Actualizado para usar el nuevo Button con `variant='secondary'`
+  - `LinkedInLogin.tsx`: Actualizado para usar el nuevo Button con `variant='secondary'`
+  - `PasswordRescue.jsx`: Actualizado para usar el nuevo Button con `variant='secondary'` y `isFullWidth`
+  - `PasswordReset.jsx`: Actualizado para usar el nuevo Button con `variant='secondary'` y `isFullWidth`
+  - `ButtonStyles.jsx`: Renombrado de `.js` a `.jsx` y actualizado para usar el nuevo Button
+  - `SignInButton.jsx`: Actualizado para usar el nuevo Button con `variant='primary'` y `isFullWidth`
+  - `SignUpButton.jsx`: Actualizado para usar el nuevo Button con `variant='primary'` y `isFullWidth`
+- **Actualización de imports**: Todos los imports cambiados de `@npm_leadtech/cv-lib-app-components` a `@packages/ui/atoms/Button`
+- **Actualización de props**: Cambiado `color='primary'` → `variant='primary'` y `color='secondary'` → `variant='secondary'`
+- **Actualización de estilos**: Cambiado `style={{ width: '100%' }}` → `isFullWidth` prop
+
+#### Fixes - apps/shell
+- **`apps/shell/src/App.tsx`**: Corregido el import de `RemoteButton` para usar correctamente el named export `Button` con `React.lazy()`
+  - Cambiado de `import('@packages/ui/atoms/Button')` a `import('@packages/ui/atoms/Button').then(module => ({ default: module.Button }))`
+- **`apps/shell/vite.config.ts`**: Añadido polyfill para `process` en la configuración de `define` para resolver errores de "process is not defined"
+
+#### Changed - apps/login
+- **`apps/login/src/app/components/Signing/ButtonStyles.js`**: Renombrado a `ButtonStyles.jsx` porque contenía JSX
+- **`apps/login/src/app/components/Signing/SignInButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
+- **`apps/login/src/app/components/Signing/SignUpButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
+
+## [Unreleased]
+
 ### Fixed - apps/login
 
 #### Solución del warning de ESLint sobre babel-eslint deprecado

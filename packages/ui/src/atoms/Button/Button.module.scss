@@ -1,0 +1,119 @@
+.cv-button {
+  --cv-button-background: none;
+  --cv-button-border: none;
+  --cv-button-content-color: none;
+  --cv-button-cursor: pointer;
+
+  align-items: center;
+  background: var(--cv-button-background);
+  border: var(--cv-button-border);
+  cursor: var(--cv-button-cursor);
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--gap-s, 8px);
+  justify-content: center;
+  padding: var(--padding-tb-s, 8px) var(--padding-rl-m, 16px);
+
+  color: var(--cv-button-content-color);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+
+  svg * {
+    fill: var(--cv-button-content-color);
+  }
+
+  &--rounded {
+    border-radius: var(--radius-s, 8px);
+  }
+
+  &--S {
+    font-size: 14px;
+    padding: var(--padding-tb-xs, 4px) var(--padding-rl-m, 16px);
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--primary {
+    --cv-button-background: var(--primary-bg-default, #006dcc);
+    --cv-button-border: none;
+    --cv-button-content-color: var(--primary-fg-focus, #fff);
+
+    &:hover {
+      --cv-button-background: var(--primary-bg-hover, #0057a3);
+    }
+
+    &:active {
+      --cv-button-background: var(--primary-bg-active, #00417a);
+    }
+
+    &:focus {
+      outline-offset: 4px;
+      outline: 2px solid var(--cv-button-background);
+    }
+
+    &:disabled {
+      --cv-button-background: var(--primary-bg-disabled, #c2e2ff);
+      --cv-button-cursor: default;
+    }
+  }
+
+  &--secondary {
+    --cv-button-background: var(--primary-fg-focus, #fff);
+    --cv-button-border: 1px solid var(--secondary-outline-default, #006dcc);
+    --cv-button-content-color: var(--primary-bg-default, #006dcc);
+
+    &:hover {
+      --cv-button-border: 1px solid var(--secondary-outline-hover, #0057a3);
+      --cv-button-content-color: var(--primary-bg-default, #0057a3);
+    }
+
+    &:active {
+      --cv-button-border: 1px solid var(--secondary-outline-active, #00417a);
+      --cv-button-content-color: var(--primary-bg-default, #00417a);
+    }
+
+    &:focus {
+      outline-offset: 4px;
+      outline: var(--cv-button-border);
+    }
+
+    &:disabled {
+      --cv-button-border: 1px solid var(--secondary-outline-disabled, #c2e2ff);
+      --cv-button-content-color: var(--primary-bg-default, #c2e2ff);
+      --cv-button-cursor: default;
+    }
+  }
+
+  &--gradient {
+    --cv-button-background: linear-gradient(241deg, #d21fff -10.04%, #0058a3 96.91%);
+    --cv-button-border: none;
+    --cv-button-content-color: var(--primary-fg-focus, #fff);
+
+    &:hover {
+      --cv-button-background: linear-gradient(292deg, #d21fff -24.6%, #0058a3 78.54%);
+    }
+
+    &:active {
+      --cv-button-background: linear-gradient(292deg, #0058a3 -24.6%, #0058a3 78.54%);
+    }
+
+    &:focus {
+      --cv-button-background: linear-gradient(292deg, #d21fff -24.6%, #0058a3 78.54%);
+
+      outline-offset: 4px;
+      outline: 2px solid var(--secondary-outline-default, #006dcc);
+    }
+
+    &:disabled {
+      --cv-button-background: var(--primary-bg-disabled, #c2e2ff);
+      --cv-button-cursor: default;
+    }
+  }
+}
+

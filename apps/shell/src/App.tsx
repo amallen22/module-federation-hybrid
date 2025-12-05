@@ -2,7 +2,9 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 
-const RemoteButton = React.lazy(() => import('@packages/ui/components/Button'));
+const RemoteButton = React.lazy(() => 
+  import('@packages/ui/atoms/Button').then(module => ({ default: module.Button }))
+);
 
 const RemoteProduct = React.lazy(() => import('@apps/product/App.tsx'));
 

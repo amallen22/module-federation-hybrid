@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import translate from 'counterpart';
 import { validate as VALIDATE } from 'revalidator';
-import { Button } from '@npm_leadtech/cv-lib-app-components';
+import { Button } from '@packages/ui/atoms/Button';
 
 import { LabelPassword } from '../Label/LabelPassword';
 import { LowerCasedLabelForm } from '../Label/LowerCasedLabelForm';
@@ -134,9 +134,10 @@ class PasswordReset extends React.Component {
                                                 onChange={ this.onChange }
                                             />
                                             <Button
-                                                style={{ width: '100%', marginBottom: 32, marginTop: 10 }}
+                                                style={{ marginBottom: 32, marginTop: 10 }}
                                                 id='password-reset'
-                                                color='secondary'
+                                                variant='secondary'
+                                                isFullWidth
                                                 onClick={ this.rescuePassword }>
                                                 { translate('Rescue password') }
                                             </Button>

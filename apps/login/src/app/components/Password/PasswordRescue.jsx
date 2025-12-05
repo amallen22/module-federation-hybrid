@@ -2,7 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import translate from 'counterpart';
 import { validate as VALIDATE } from 'revalidator';
-import { Button, dsmColors } from '@npm_leadtech/cv-lib-app-components';
+import { Button } from '@packages/ui/atoms/Button';
+import { dsmColors } from '@npm_leadtech/cv-lib-app-components';
 
 import { LowerCasedLabelForm } from '../Label/LowerCasedLabelForm';
 import FlashMessage from '../lib/FlashMessage';
@@ -104,9 +105,10 @@ class PasswordRescue extends React.Component {
                                             prefilledEmail={ this.props.prefilledEmail }
                                         />
                                         <Button
-                                            style={{ width: '100%', marginBottom: 32, marginTop: 10 }}
+                                            style={{ marginBottom: 32, marginTop: 10 }}
                                             id='password-rescue'
-                                            color='secondary'
+                                            variant='secondary'
+                                            isFullWidth
                                             name='action'
                                             onClick={ this.rescuePassword }>
                                             { translate('Send Email') }

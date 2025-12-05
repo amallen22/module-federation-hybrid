@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import translate from 'counterpart';
 
 import { APP_CONFIG } from '../../config/appConfig';
-import { StyledBlockerDiv, StyledButton } from './ButtonStyles';
+import { StyledBlockerDiv, StyledButton } from './ButtonStyles.jsx';
 
 export class SignInButton extends Component {
 
@@ -13,7 +13,7 @@ export class SignInButton extends Component {
     render() {
         return (
             <StyledBlockerDiv>
-                <StyledButton color='primary' data-qa='sign-in-button' id='sign-in' onClick={this.props.attemptSignIn} style={{ width: '100%' }}>
+                <StyledButton variant='primary' data-qa='sign-in-button' id='sign-in' onClick={this.props.attemptSignIn} isFullWidth>
                     {translate('Log in to %(appName)s', { appName: APP_CONFIG.appName })}
                 </StyledButton>            
             </StyledBlockerDiv>

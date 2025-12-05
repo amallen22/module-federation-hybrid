@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { Button } from '@packages/ui';
+import { Button } from '@packages/ui/atoms/Button';
 import translate from 'counterpart';
 
 import { APP_CONFIG } from '../../config/appConfig';

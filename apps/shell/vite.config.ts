@@ -150,7 +150,10 @@ export default defineConfig({
     force: true // Forzar reconstrucción
   },
   define: {
-    global: "globalThis"
+    global: "globalThis",
+    'process.env': '{}',
+    'process.browser': 'true',
+    'process.version': '"v18.0.0"'
   },
   resolve: {
     alias: {

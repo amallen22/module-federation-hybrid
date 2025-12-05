@@ -5,17 +5,29 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview --port 5002"
+    "preview": "vite preview --port 5002",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
+    "@storybook/addon-a11y": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "@storybook/test": "^8.6.14",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.5.0",
+    "sass": "^1.89.2",
+    "storybook": "^8.6.14",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   },
   "dependencies": {
+    "classnames": "2.2.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }
