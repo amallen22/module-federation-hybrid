@@ -1,7 +1,5 @@
 /* eslint-disable no-prototype-builtins */
 // Polyfills DEBEN ser el primer import (side-effect import)
-import '../polyfills';
-
 import React from 'react';
 import { AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool } from 'amazon-cognito-identity-js';
 import sha1 from 'sha1';
@@ -30,6 +28,8 @@ import { AppNavigatorService } from './services/NavigatorService/AppNavigatorSer
 import { AppRedirectReaderService } from './services/RedirectReaderService/AppRedirectReaderService';
 import { SetLanguage } from './services/SetupTranslations';
 import { DeepLinkingUseCase } from './usecase/DeepLinkingUseCase';
+
+import '../polyfills';
 
 function setupFavIcons() {
     const favIconInjector = new FavIconInjector({
@@ -137,53 +137,53 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
         this.cookiesStorage = StoragePackage.StorageManager();
 
         new HandleVisitorUseCase(queryStringService, cookieGenerator, this.cookiesStorage, amplitude.getDeviceId())
-            .invoke()
-            .then(() => {
-                console.log('[Controller] HandleVisitorUseCase completed');
-                this.cvSessionStore = StoragePackage.sessionStoreCookie({
-                    apiTimeout: 10,
-                    apiEndpoint: '',
-                });
-                this.authManager = this.buildAuthManager();
-
-                const language = this.cvSessionStore.getLanguage();
-                console.log('[Controller] Language from sessionStore:', language);
-                console.log('[Controller] Calling SetLanguage...');
-                return SetLanguage(language);
-            })
-            .then(() => {
-                console.log('[Controller] SetLanguage completed successfully');
-                this.setState({
-                    initialLoading: false,
-                    route: this.getHash(),
-                    params: this.getParams(),
-                    hasAccess: !!this.cvSessionStore.get('access'),
-                    hasSession: !!this.cvSessionStore.get('visitor')
-                });
-
-                this.attachWindowEvents();
-                this.executeWhenAccessTokenPresent();
-                this.forceRedirectOnSession();
-                this.stopLoading();
-            })
-            .catch((err: any) => {
-                console.error('[Controller] Error in handleVisitor:', err);
-                console.error('[Controller] Error message:', err?.message);
-                console.error('[Controller] Error stack:', err?.stack);
-                console.error('[Controller] Error details:', JSON.stringify(err, null, 2));
-                
-                // Intentar ejecutar SetLanguage incluso si HandleVisitorUseCase falla
-                // para que las traducciones se carguen
-                const language = this.cvSessionStore?.getLanguage?.() || 'en-US';
-                console.log('[Controller] Attempting to load translations despite error, language:', language);
-                SetLanguage(language).catch((i18nErr: any) => {
-                    console.error('[Controller] Error loading translations:', i18nErr);
-                });
-                
-                FrontLogService.logAjaxResponse({ className: 'Controller', funcName: 'HandleVisitorUseCase', err });
-                this.setState({ initialLoading: false });
-                this.forceRedirectOnSession();
+        .invoke()
+        .then(() => {
+            console.log('[Controller] HandleVisitorUseCase completed');
+            this.cvSessionStore = StoragePackage.sessionStoreCookie({
+                apiTimeout: 10,
+                apiEndpoint: '',
             });
+            this.authManager = this.buildAuthManager();
+
+            const language = this.cvSessionStore.getLanguage();
+            console.log('[Controller] Language from sessionStore:', language);
+            console.log('[Controller] Calling SetLanguage...');
+            return SetLanguage(language);
+        })
+        .then(() => {
+            console.log('[Controller] SetLanguage completed successfully');
+            this.setState({
+                initialLoading: false,
+                route: this.getHash(),
+                params: this.getParams(),
+                hasAccess: !!this.cvSessionStore.get('access'),
+                hasSession: !!this.cvSessionStore.get('visitor')
+            });
+
+            this.attachWindowEvents();
+            this.executeWhenAccessTokenPresent();
+            this.forceRedirectOnSession();
+            this.stopLoading();
+        })
+        .catch((err: any) => {
+            console.error('[Controller] Error in handleVisitor:', err);
+            console.error('[Controller] Error message:', err?.message);
+            console.error('[Controller] Error stack:', err?.stack);
+            console.error('[Controller] Error details:', JSON.stringify(err, null, 2));
+                
+            // Intentar ejecutar SetLanguage incluso si HandleVisitorUseCase falla
+            // para que las traducciones se carguen
+            const language = this.cvSessionStore?.getLanguage?.() || 'en-US';
+            console.log('[Controller] Attempting to load translations despite error, language:', language);
+            SetLanguage(language).catch((i18nErr: any) => {
+                console.error('[Controller] Error loading translations:', i18nErr);
+            });
+                
+            FrontLogService.logAjaxResponse({ className: 'Controller', funcName: 'HandleVisitorUseCase', err });
+            this.setState({ initialLoading: false });
+            this.forceRedirectOnSession();
+        });
     }
 
     sendAnalyticsData(): React.ReactElement | null {
@@ -213,7 +213,7 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
             flashType: undefined,
             flashMessage: undefined
         });
-    }
+    };
 
     flashDisplayError = (error: string | Error | any): void => {
         let errorMessage: string;
@@ -287,33 +287,33 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
                 userPostParams.operation = operation;
             }
             new PostAuthTokenHandler().customAction(userPostParams)
-                .then(({ authToken, isNewUser, user }: { authToken: string; isNewUser: boolean; user?: string }) => {
-                    let sha1User = '';
+            .then(({ authToken, isNewUser, user }: { authToken: string; isNewUser: boolean; user?: string }) => {
+                let sha1User = '';
 
-                    if (user) {
-                        sha1User = sha1(user);
-                    }
-                    this.cvSessionStore.put('provider', provider);
-                    this.cvSessionStore.put('access', authToken);
-                    this.cvSessionStore.put('userid', sha1User);
-                    this.cvSessionStore.put('user', user || '');
-                    const sessionItems = this.getStateSessionItems();
+                if (user) {
+                    sha1User = sha1(user);
+                }
+                this.cvSessionStore.put('provider', provider);
+                this.cvSessionStore.put('access', authToken);
+                this.cvSessionStore.put('userid', sha1User);
+                this.cvSessionStore.put('user', user || '');
+                const sessionItems = this.getStateSessionItems();
 
-                    this.setState(sessionItems);
+                this.setState(sessionItems);
 
-                    if (!!callback && !!isNewUser) {
-                        callback();
-                    }
-                    else {
-                        this.forceRedirectOnSession();
-                    }
+                if (!!callback && !!isNewUser) {
+                    callback();
+                }
+                else {
+                    this.forceRedirectOnSession();
+                }
 
-                })
-                .catch((err: any) => {
-                    const handleErrorAuthToken = new HandleErrorAuthToken();
-                    const errorMessage = handleErrorAuthToken.extractErrorMessage(err);
-                    this.flashDisplayError(errorMessage.replace(/^[ A-Za-z0-9]*(: )/, ''));
-                });
+            })
+            .catch((err: any) => {
+                const handleErrorAuthToken = new HandleErrorAuthToken();
+                const errorMessage = handleErrorAuthToken.extractErrorMessage(err);
+                this.flashDisplayError(errorMessage.replace(/^[ A-Za-z0-9]*(: )/, ''));
+            });
 
         } else {
             this.stopLoading();

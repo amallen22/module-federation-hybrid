@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import translate from 'counterpart';
 import { Button } from '@packages/ui';
+import translate from 'counterpart';
 
 import { APP_CONFIG } from '../../config/appConfig';
 import { withLoginComponent } from '../../hoc/withLoginComponent';
 import LinkedinIcon from '../../public_common/login/images/icons/linkedin-icon.svg';
+
 import styles from './LinkedInLogin.module.scss';
 
 interface LinkedInLoginProps {
@@ -14,32 +15,32 @@ interface LinkedInLoginProps {
 }
 
 const LinkedInLogin: FC<LinkedInLoginProps> = ({ setRenderedComponent }) => {
-  const [linkedInClientId] = useState(APP_CONFIG.linkedInLoginConfig?.clientId);
+    const [linkedInClientId] = useState(APP_CONFIG.linkedInLoginConfig?.clientId);
 
-  useEffect(() => {
-    if (!linkedInClientId) return;
+    useEffect(() => {
+        if (!linkedInClientId) return;
 
-    setRenderedComponent({
-      name: 'linkedinButton',
-      node: document.getElementById('sign-in-linkedin')
-    });
-  }, [linkedInClientId, setRenderedComponent]);
+        setRenderedComponent({
+            name: 'linkedinButton',
+            node: document.getElementById('sign-in-linkedin')
+        });
+    }, [linkedInClientId, setRenderedComponent]);
 
-  if (!linkedInClientId) {
-    return null;
-  }
+    if (!linkedInClientId) {
+        return null;
+    }
 
-  return (
-    <Button
-      data-qa="signin-linkedin-modal-button"
-      id="sign-in-linkedin"
-      className={styles.linkedInButton}
-      variant="secondary"
-    >
-      <img src={LinkedinIcon} alt="LinkedIn" className={styles.icon} />
-      {translate('LinkedIn')}
-    </Button>
-  );
+    return (
+        <Button
+            data-qa="signin-linkedin-modal-button"
+            id="sign-in-linkedin"
+            className={styles.linkedInButton}
+            variant="secondary"
+        >
+            <img src={LinkedinIcon} alt="LinkedIn" className={styles.icon} />
+            {translate('LinkedIn')}
+        </Button>
+    );
 };
 
 const EnhancedLinkedInLogin = withLoginComponent(LinkedInLogin);

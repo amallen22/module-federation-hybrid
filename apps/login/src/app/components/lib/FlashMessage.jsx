@@ -19,7 +19,7 @@ class FlashMessage extends React.PureComponent {
             return null;
         }
         return parse(translate(this.props.flashMessage, { fallback: FlashMessage.fallback }));
-    }
+    };
 
     render () {
         if(!this.props.flashMessage){

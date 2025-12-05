@@ -1,6 +1,4 @@
 // Polyfills DEBEN ser el primer import (side-effect import)
-import '../polyfills';
-
 import React, { useEffect } from 'react';
 import values from 'object.values';
 import { analyticsClient } from '@npm_leadtech/cv-lib-app-analytics';
@@ -12,6 +10,8 @@ import Controller from './Controller';
 import { trackAppInstalls } from './trackAppInstalls';
 
 import './styles/cv.scss';
+
+import '../polyfills';
 
 const App = () => {
     useEffect(() => {
