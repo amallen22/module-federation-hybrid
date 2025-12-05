@@ -9,6 +9,35 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Fixed - apps/login
 
+#### Solución del warning de ESLint sobre babel-eslint deprecado
+- **.eslintrc.json**: Actualizado parser de ESLint
+  - Reemplazado `babel-eslint` (deprecado) por `@babel/eslint-parser`
+  - Configurado `requireConfigFile: true` para usar `babel.config.cjs`
+  - Añadida configuración de `overrides` para usar `@typescript-eslint/parser` en archivos `.ts` y `.tsx`
+  - Mantiene compatibilidad con archivos `.js` y `.jsx` usando `@babel/eslint-parser`
+
+- **babel.config.js**: Renombrado a `babel.config.cjs`
+  - Compatibilidad con proyectos ES modules (`"type": "module"` en package.json)
+  - Evita errores de parsing cuando Babel intenta cargar la configuración
+
+- **package.json**: Añadidas dependencias de Babel
+  - `@babel/core`: ^7.26.0
+  - `@babel/eslint-parser`: ^7.26.0
+  - `@babel/preset-react`: ^7.26.0
+  - `@babel/preset-env`: ^7.26.0
+  - `@babel/plugin-proposal-class-properties`: ^7.18.6
+  - `@babel/plugin-proposal-object-rest-spread`: ^7.20.7
+  - `@babel/plugin-syntax-dynamic-import`: ^7.8.3
+  - `@babel/plugin-transform-classes`: ^7.23.0
+  - `@emotion/babel-plugin`: ^11.11.0
+  - `@typescript-eslint/parser`: ^8.0.0
+  - `@typescript-eslint/eslint-plugin`: ^8.0.0
+
+#### Resultado
+- El warning "Deprecated ESLint parser 'babel-eslint' used instead of '@babel/eslint-parser'" ha sido eliminado
+- ESLint funciona correctamente con archivos JavaScript y TypeScript
+- No hay errores de parsing relacionados con la configuración de Babel
+
 #### Solución del problema de traducciones (i18n)
 - **config/appConfig.js**: Añadida variable `I18N_BASE_URL`
   - Detecta automáticamente si la app se carga desde el shell (localhost:5000)
