@@ -179,7 +179,7 @@ importers:
         version: 0.24.0(rollup@4.45.1)(vite@6.3.5(@types/node@22.16.5)(sass@1.89.2))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.1(@types/node@22.16.5)(@vitest/browser@3.2.4)(jsdom@23.2.0)(sass@1.89.2)
+        version: 1.6.1(@types/node@22.16.5)(@vitest/browser@3.2.4(playwright@1.57.0)(vite@6.3.5(@types/node@22.16.5)(sass@1.89.2))(vitest@3.2.4))(jsdom@23.2.0)(sass@1.89.2)
 
   apps/product:
     dependencies:
@@ -242,6 +242,67 @@ importers:
       vite:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.16.5)(sass@1.89.2)
+
+  apps/user:
+    dependencies:
+      '@packages/query':
+        specifier: workspace:*
+        version: link:../../packages/query
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.28.0
+        version: 6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zustand:
+        specifier: ^5.0.2
+        version: 5.0.9(@types/react@18.3.23)(react@18.3.1)
+    devDependencies:
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.4.1
+        version: 1.4.1
+      '@testing-library/jest-dom':
+        specifier: ^6.1.5
+        version: 6.9.1
+      '@testing-library/react':
+        specifier: ^14.1.2
+        version: 14.3.1(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: ^18.3.23
+        version: 18.3.23
+      '@types/react-dom':
+        specifier: ^18.3.7
+        version: 18.3.7(@types/react@18.3.23)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.0.0
+        version: 8.48.1(@typescript-eslint/parser@8.48.1(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: ^8.0.0
+        version: 8.48.1(eslint@8.57.1)(typescript@5.8.3)
+      '@vitejs/plugin-react':
+        specifier: ^4.4.1
+        version: 4.7.0(vite@6.3.5(@types/node@22.16.5)(sass@1.89.2))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      eslint-plugin-react:
+        specifier: ^7.34.1
+        version: 7.37.5(eslint@8.57.1)
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.16.5)(sass@1.89.2)
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@22.16.5)(@vitest/browser@3.2.4(playwright@1.57.0)(vite@6.3.5(@types/node@22.16.5)(sass@1.89.2))(vitest@3.2.4))(jsdom@23.2.0)(sass@1.89.2)
 
   packages/query:
     dependencies:
@@ -7442,6 +7503,24 @@ packages:
   yocto-queue@1.2.2:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
+
+  zustand@5.0.9:
+    resolution: {integrity: sha512-ALBtUj0AfjJt3uNRQoL1tL2tMvj6Gp/6e39dnfT6uzpelGru8v1tPOGBzayOWbPJvujM8JojDk3E1LxeFisBNg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
 
 snapshots:
 
@@ -15971,7 +16050,7 @@ snapshots:
       fsevents: 2.3.3
       sass: 1.89.2
 
-  vitest@1.6.1(@types/node@22.16.5)(@vitest/browser@3.2.4)(jsdom@23.2.0)(sass@1.89.2):
+  vitest@1.6.1(@types/node@22.16.5)(@vitest/browser@3.2.4(playwright@1.57.0)(vite@6.3.5(@types/node@22.16.5)(sass@1.89.2))(vitest@3.2.4))(jsdom@23.2.0)(sass@1.89.2):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -16336,3 +16415,8 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yocto-queue@1.2.2: {}
+
+  zustand@5.0.9(@types/react@18.3.23)(react@18.3.1):
+    optionalDependencies:
+      '@types/react': 18.3.23
+      react: 18.3.1

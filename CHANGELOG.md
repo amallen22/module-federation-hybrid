@@ -7,6 +7,37 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - apps/user
+
+#### Setup inicial de microfrontend cv-app-user
+- **Estructura base creada**: Microfrontend configurado con Vite + Module Federation
+  - Puerto 5004 configurado
+  - Module Federation exponiendo `./App`
+  - TypeScript configurado con strict mode
+  - Vitest configurado para testing
+  - ESLint configurado
+  
+- **Integración de TanStack Query**: Configurado desde el inicio
+  - `QueryProvider` integrado en `main.tsx`
+  - Usa `@packages/query` compartido
+  - DevTools habilitado en desarrollo
+  
+- **Dependencias modernas**:
+  - React 18.3.1
+  - React Router DOM 6.28.0
+  - Zustand 5.0.2 (para estado UI)
+  - TanStack Query vía `@packages/query`
+  
+- **Archivos creados**:
+  - `package.json` con todas las dependencias necesarias
+  - `vite.config.ts` con Module Federation configurado
+  - `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`
+  - `vitest.config.ts` para testing
+  - `index.html` entry point
+  - `src/main.tsx` con QueryProvider
+  - `src/App.tsx` componente básico con React Router
+  - `src/test/setup.ts` para configuración de tests
+
 ### Changed - apps/login
 
 #### Refactorización completa de Controller.tsx a React moderno
