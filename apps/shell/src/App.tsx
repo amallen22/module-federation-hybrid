@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const RemoteButton = React.lazy(() => 
@@ -11,6 +12,10 @@ const RemoteProduct = React.lazy(() => import('@apps/product/App.tsx'));
 // En desarrollo, cargar login vía path alias (como product)
 // En producción, usar Module Federation: import('login/App')
 const RemoteLogin = React.lazy(() => import('@apps/login/app/App.tsx'));
+
+// En desarrollo, cargar user vía path alias
+// En producción, usar Module Federation: import('user/App')
+const RemoteUser = React.lazy(() => import('@apps/user/App.tsx'));
 
 // Components for each route
 const HomePage = () => (
@@ -26,9 +31,10 @@ const HomePage = () => (
       <ul style={{ marginLeft: '20px' }}>
         <li><strong>🔐 Login:</strong> Módulo de autenticación y login</li>
         <li><strong>📦 Product:</strong> Módulo de gestión de productos</li>
+        <li><strong>👤 User:</strong> Módulo de gestión de usuario (dashboard, perfil, documentos, suscripción)</li>
         <li><strong>🎨 UI Kit:</strong> Componentes compartidos y librería de diseño</li>
       </ul>
-      <p>Navega a /login, /signin, /signup o /product para acceder a los módulos.</p>
+      <p>Navega a /login, /signin, /signup, /product o /user para acceder a los módulos.</p>
     </div>
     <div style={{ backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px 0' }}>
       <Suspense fallback={<div>Loading Button...</div>}>
@@ -52,6 +58,7 @@ const HomePage = () => (
         <li>✅ UI Kit: Disponible en puerto 5002</li>
         <li>✅ Product: Disponible en puerto 5001</li>
         <li>✅ Login: Disponible en puerto 5003</li>
+        <li>✅ User: Disponible en puerto 5004</li>
       </ul>
     </div>
   </div>
@@ -85,6 +92,40 @@ const UIKitPage = () => (
       </Suspense>
     </div>
   </div>
+);
+
+const UserPage = () => (
+  <ErrorBoundary
+    fallback={
+      <div style={{ padding: '20px' }}>
+        <h2>⚠️ Error al cargar User Module</h2>
+        <p>Por favor, verifica que el servidor de user esté corriendo en el puerto 5004.</p>
+      </div>
+    }
+  >
+    <Suspense fallback={
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '400px',
+        flexDirection: 'column',
+        gap: '10px'
+      }}>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '4px solid #f3f3f3',
+          borderTop: '4px solid #007bff',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+        <p>Cargando User Module...</p>
+      </div>
+    }>
+      <RemoteUser />
+    </Suspense>
+  </ErrorBoundary>
 );
 
 const Navigation = () => {
@@ -146,6 +187,20 @@ const Navigation = () => {
           📦 Product
         </Link>
         <Link 
+          to="/user"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: isActive('/user') || location.pathname.startsWith('/user/') ? '#007bff' : '#f8f9fa',
+            color: isActive('/user') || location.pathname.startsWith('/user/') ? 'white' : '#333',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            display: 'inline-block'
+          }}
+        >
+          👤 User
+        </Link>
+        <Link 
           to="/ui"
           style={{
             padding: '10px 20px',
@@ -183,6 +238,7 @@ function App() {
           <Route path="/signin" element={<LoginPage />} />
           <Route path="/signup" element={<LoginPage />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/user/*" element={<UserPage />} />
           <Route path="/ui" element={<UIKitPage />} />
         </Routes>
       </main>

@@ -1,14 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useUserProfile } from '../../hooks/queries/useUser';
 import { useDocuments } from '../../hooks/queries/useDocuments';
 import { useSubscription } from '../../hooks/queries/useSubscription';
 import styles from './Dashboard.module.scss';
 
 const Dashboard: React.FC = () => {
+  const location = useLocation();
   const { data: profile, isLoading: profileLoading } = useUserProfile();
   const { data: documents, isLoading: documentsLoading } = useDocuments();
   const { data: subscription, isLoading: subscriptionLoading } = useSubscription();
+
+  // Detectar si estamos en modo standalone (no desde shell)
+  // Si el pathname NO empieza con /user, estamos en modo standalone
+  const isStandalone = !location.pathname.startsWith('/user');
+  
+  // Función para normalizar rutas
+  // En modo standalone: /dashboard, /profile, etc.
+  // Desde shell: /user/dashboard, /user/profile, etc.
+  const getRoute = (path: string) => {
+    if (isStandalone) {
+      return path.startsWith('/') ? path : `/${path}`;
+    }
+    // Desde shell, usar rutas absolutas con prefijo /user
+    return `/user/${path}`;
+  };
 
   return (
     <div className={styles.dashboard}>
@@ -21,7 +37,7 @@ const Dashboard: React.FC = () => {
       
       <div className={styles.content}>
         <div className={styles.grid}>
-          <Link to="/profile" className={styles.card}>
+          <Link to={getRoute('profile')} className={styles.card}>
             <h2>Perfil</h2>
             <p>Gestiona tu información personal</p>
             {profile && (
@@ -31,7 +47,7 @@ const Dashboard: React.FC = () => {
             )}
           </Link>
           
-          <Link to="/documents" className={styles.card}>
+          <Link to={getRoute('documents')} className={styles.card}>
             <h2>Documentos</h2>
             <p>Administra tus CVs y documentos</p>
             {documentsLoading ? (
@@ -43,7 +59,7 @@ const Dashboard: React.FC = () => {
             )}
           </Link>
           
-          <Link to="/subscription" className={styles.card}>
+          <Link to={getRoute('subscription')} className={styles.card}>
             <h2>Suscripción</h2>
             <p>Gestiona tu plan y facturación</p>
             {subscriptionLoading ? (

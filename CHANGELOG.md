@@ -9,6 +9,41 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Added - apps/user
 
+#### Semana 4-5: Integración y Testing
+- **Integración con shell (Module Federation)**:
+  - Añadido alias `@apps/user` en `vite.config.ts` del shell
+  - Configurado remote `user` en Module Federation para producción
+  - Añadido puerto 5004 a configuración CORS del shell
+  - Componente `UserPage` con lazy loading y Suspense boundaries
+  
+- **Configuración de rutas en shell**:
+  - Ruta `/user/*` configurada en `App.tsx` del shell
+  - Navegación entre microfrontends funcionando
+  - Enlace "User" añadido a la navegación principal del shell
+  
+- **Error boundaries implementados**:
+  - Componente `ErrorBoundary` creado en `apps/shell/src/components/`
+  - Manejo de errores con fallback UI informativo
+  - Mensajes de error claros para debugging
+  
+- **Loading states consistentes**:
+  - Spinner de carga con animación CSS
+  - Mensajes de carga claros durante la carga del módulo
+  
+- **Soporte dual (standalone y microfrontend)**:
+  - `App.tsx` de User soporta modo standalone y microfrontend
+  - Rutas absolutas que funcionan en ambos contextos
+  - `QueryProvider` integrado automáticamente cuando se carga desde shell
+  - Sin conflictos de `BrowserRouter` (solo se usa en modo standalone)
+  - Función `getRoute()` para normalizar rutas según el contexto
+
+### Added - apps/shell
+- **Componente ErrorBoundary**: Manejo de errores para microfrontends
+- **Integración de User**: Configuración completa para cargar `apps/user` como microfrontend
+- **Animación de spinner**: CSS keyframes para loading states
+
+### Added - apps/user
+
 #### Semana 3-4: Migración de Estado (Redux → Zustand + TanStack Query)
 - **Store de Zustand para estado UI**: `uiStore.ts` creado
   - Estado de modals (isModalOpen, activeModal)

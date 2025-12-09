@@ -6,7 +6,7 @@ import App from './App';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryProvider>
-      <App />
+      <App standalone={true} />
     </QueryProvider>
   </React.StrictMode>
 );
