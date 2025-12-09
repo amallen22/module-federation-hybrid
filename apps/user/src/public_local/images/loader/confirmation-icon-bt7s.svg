@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+    <defs>
+        <filter id="dpq2osk19a" width="137.5%" height="137.5%" x="-18.8%" y="-18.8%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.852078431 0 0 0 0 0.867890196 0 0 0 0 0.878431373 0 0 0 1 0"/>
+        </filter>
+        <path id="jxmzk4icsb" d="M74.286 0H5.714C2.558 0 0 2.558 0 5.714v68.572C0 77.442 2.558 80 5.714 80h68.572C77.442 80 80 77.442 80 74.286V5.714C80 2.558 77.442 0 74.286 0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g fill-rule="nonzero">
+            <g>
+                <g>
+                    <g>
+                        <g transform="translate(-482.000000, -300.000000) translate(450.000000, 266.000000) translate(0.000000, 0.000599) translate(32.000000, 34.000000)">
+                            <use fill="#000" filter="url(#dpq2osk19a)" xlink:href="#jxmzk4icsb"/>
+                            <use fill="#FFF" xlink:href="#jxmzk4icsb"/>
+                        </g>
+                        <path fill="#92CFF9" d="M14 44h20c1.105 0 2 .895 2 2v20c0 1.105-.895 2-2 2H14c-1.105 0-2-.895-2-2V46c0-1.105.895-2 2-2z" transform="translate(-482.000000, -300.000000) translate(450.000000, 266.000000) translate(0.000000, 0.000599) translate(32.000000, 34.000000)"/>
+                        <path fill="#D4ECFD" d="M46 44h20c1.105 0 2 .895 2 2v20c0 1.105-.895 2-2 2H46c-1.105 0-2-.895-2-2V46c0-1.105.895-2 2-2z" transform="translate(-482.000000, -300.000000) translate(450.000000, 266.000000) translate(0.000000, 0.000599) translate(32.000000, 34.000000)"/>
+                        <path fill="#26A0F4" d="M14 12h20c1.105 0 2 .895 2 2v20c0 1.105-.895 2-2 2H14c-1.105 0-2-.895-2-2V14c0-1.105.895-2 2-2z" transform="translate(-482.000000, -300.000000) translate(450.000000, 266.000000) translate(0.000000, 0.000599) translate(32.000000, 34.000000)"/>
+                        <path fill="#92CFF9" d="M67.49 14.303l2.83 2.828c.78.781.78 2.048 0 2.829L55.336 34.942c-.78.781-2.047.781-2.828 0l-8.495-8.495c-.781-.781-.781-2.047 0-2.828l2.828-2.829c.781-.78 2.048-.78 2.829 0l4.252 4.252 10.74-10.74c.78-.78 2.047-.78 2.828 0z" transform="translate(-482.000000, -300.000000) translate(450.000000, 266.000000) translate(0.000000, 0.000599) translate(32.000000, 34.000000)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
