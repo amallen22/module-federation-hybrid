@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import values from 'object.values';
 import { analyticsClient } from '@npm_leadtech/cv-lib-app-analytics';
 import { getLogger, setupLog } from '@npm_leadtech/cv-lib-app-jsnlog';
+import { QueryProvider } from '@packages/query';
 
 import { API_URL, APP_CONFIG } from './config/appConfig';
 import { SetupTranslations } from './services/SetupTranslations';
@@ -55,7 +56,9 @@ const App = () => {
 
     return (
         <React.StrictMode>
-            <Controller />
+            <QueryProvider>
+                <Controller />
+            </QueryProvider>
         </React.StrictMode>
     );
 };

@@ -19,7 +19,7 @@ import { SignIn } from './components/Signing/SignIn';
 import SignOut from './components/Signing/SignOut';
 import { SignUp } from './components/Signing/SignUp';
 import { API_URL, APP_CONFIG } from './config/appConfig';
-import { PostAuthTokenHandler } from './internals/ajax/PostAuthToken/handlers';
+import { postAuthToken } from './services/api/authApi';
 import { AnalyticsLayer } from './internals/analytics-layer/AnalyticsLayer';
 import { forceLoginByCRM } from './services/forceLoginByCRM';
 import { FrontLogService } from './services/FrontLogService';
@@ -28,6 +28,7 @@ import { AppNavigatorService } from './services/NavigatorService/AppNavigatorSer
 import { AppRedirectReaderService } from './services/RedirectReaderService/AppRedirectReaderService';
 import { SetLanguage } from './services/SetupTranslations';
 import { DeepLinkingUseCase } from './usecase/DeepLinkingUseCase';
+import { useAuthActions } from './hooks/queries/useAuthActions';
 
 import '../polyfills';
 
@@ -63,7 +64,13 @@ interface ControllerState {
     hasSession?: boolean;
 }
 
-interface ControllerProps {}
+interface ControllerProps {
+    onSignInWithCognito?: (email: string, password: string) => Promise<any>;
+    onSignInWithProvider?: (params: { provider: string; providerToken: string; callback?: () => void; operation?: string }) => Promise<any>;
+    onPasswordRescue?: (email: string) => Promise<void>;
+    onPasswordReset?: (verificationCode: string, newPassword: string) => Promise<void>;
+    isLoading?: boolean;
+}
 
 class Controller extends React.Component<ControllerProps, ControllerState> {
     private cookiesStorage: any;
@@ -181,7 +188,22 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
             });
                 
             FrontLogService.logAjaxResponse({ className: 'Controller', funcName: 'HandleVisitorUseCase', err });
-            this.setState({ initialLoading: false });
+            
+            // Initialize cvSessionStore if not already initialized
+            if (!this.cvSessionStore) {
+                this.cvSessionStore = StoragePackage.sessionStoreCookie({
+                    apiTimeout: 10,
+                    apiEndpoint: '',
+                });
+            }
+            
+            this.setState({ 
+                initialLoading: false,
+                route: this.getHash(),
+                params: this.getParams(),
+                hasAccess: false,
+                hasSession: false
+            });
             this.forceRedirectOnSession();
         });
     }
@@ -278,42 +300,67 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
         if (provider && providerToken) {
             this.beforeOnSuccess();
 
-            const userPostParams: any = {
-                provider: provider,
-                providerToken: providerToken
-            };
+            // Use TanStack Query hook if available, otherwise fallback to direct API call
+            if (this.props.onSignInWithProvider) {
+                console.log('[Controller] Using TanStack Query for sign in with provider:', provider);
+                this.props.onSignInWithProvider({ provider, providerToken, callback, operation })
+                    .then((result: any) => {
+                        const sessionItems = this.getStateSessionItems();
+                        this.setState(sessionItems);
+                        if (!!callback && !!result.isNewUser) {
+                            callback();
+                        } else {
+                            this.forceRedirectOnSession();
+                        }
+                        this.stopLoading();
+                    })
+                    .catch((err: any) => {
+                        const handleErrorAuthToken = new HandleErrorAuthToken();
+                        const errorMessage = handleErrorAuthToken.extractErrorMessage(err);
+                        this.flashDisplayError(errorMessage.replace(/^[ A-Za-z0-9]*(: )/, ''));
+                        this.stopLoading();
+                    });
+            } else {
+                // Fallback to direct API call
+                console.log('[Controller] Using direct API call for sign in (fallback)');
+                const userPostParams: any = {
+                    provider: provider,
+                    providerToken: providerToken
+                };
 
-            if (!!operation) {
-                userPostParams.operation = operation;
+                if (!!operation) {
+                    userPostParams.operation = operation;
+                }
+                
+                postAuthToken(userPostParams)
+                .then(({ authToken, isNewUser, user }: { authToken: string; isNewUser: boolean; user?: string }) => {
+                    let sha1User = '';
+
+                    if (user) {
+                        sha1User = sha1(user);
+                    }
+                    this.cvSessionStore.put('provider', provider);
+                    this.cvSessionStore.put('access', authToken);
+                    this.cvSessionStore.put('userid', sha1User);
+                    this.cvSessionStore.put('user', user || '');
+                    const sessionItems = this.getStateSessionItems();
+
+                    this.setState(sessionItems);
+
+                    if (!!callback && !!isNewUser) {
+                        callback();
+                    }
+                    else {
+                        this.forceRedirectOnSession();
+                    }
+
+                })
+                .catch((err: any) => {
+                    const handleErrorAuthToken = new HandleErrorAuthToken();
+                    const errorMessage = handleErrorAuthToken.extractErrorMessage(err);
+                    this.flashDisplayError(errorMessage.replace(/^[ A-Za-z0-9]*(: )/, ''));
+                });
             }
-            new PostAuthTokenHandler().customAction(userPostParams)
-            .then(({ authToken, isNewUser, user }: { authToken: string; isNewUser: boolean; user?: string }) => {
-                let sha1User = '';
-
-                if (user) {
-                    sha1User = sha1(user);
-                }
-                this.cvSessionStore.put('provider', provider);
-                this.cvSessionStore.put('access', authToken);
-                this.cvSessionStore.put('userid', sha1User);
-                this.cvSessionStore.put('user', user || '');
-                const sessionItems = this.getStateSessionItems();
-
-                this.setState(sessionItems);
-
-                if (!!callback && !!isNewUser) {
-                    callback();
-                }
-                else {
-                    this.forceRedirectOnSession();
-                }
-
-            })
-            .catch((err: any) => {
-                const handleErrorAuthToken = new HandleErrorAuthToken();
-                const errorMessage = handleErrorAuthToken.extractErrorMessage(err);
-                this.flashDisplayError(errorMessage.replace(/^[ A-Za-z0-9]*(: )/, ''));
-            });
 
         } else {
             this.stopLoading();
@@ -346,16 +393,42 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
     };
 
     onPasswordRescue = (email: string, onSuccess: () => void, onFailure: (error: any) => void): void => {
-        this.authManager?.rescuePassword(email, onSuccess, onFailure);
+        if (this.props.onPasswordRescue) {
+            this.props.onPasswordRescue(email)
+                .then(() => {
+                    onSuccess();
+                    this.stopLoading();
+                })
+                .catch((error) => {
+                    onFailure(error);
+                    this.stopLoading();
+                });
+        } else {
+            // Fallback to legacy AuthManager
+            this.authManager?.rescuePassword(email, onSuccess, onFailure);
+        }
     };
 
     onPasswordReset = (verification: string, newPassword: string, onSuccess: () => void, onFailure: (error: any) => void): void => {
-        this.authManager?.resetPassword(
-            verification,
-            newPassword,
-            onSuccess,
-            onFailure
-        );
+        if (this.props.onPasswordReset) {
+            this.props.onPasswordReset(verification, newPassword)
+                .then(() => {
+                    onSuccess();
+                    this.stopLoading();
+                })
+                .catch((error) => {
+                    onFailure(error);
+                    this.stopLoading();
+                });
+        } else {
+            // Fallback to legacy AuthManager
+            this.authManager?.resetPassword(
+                verification,
+                newPassword,
+                onSuccess,
+                onFailure
+            );
+        }
     };
 
     onSignOutSuccess = (): void => {
@@ -370,6 +443,41 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
         this.handleVisitor();
 
         Controller.goUrl(ROUTE.signIn);
+    };
+
+    // Method to handle Cognito login directly (for use with TanStack Query)
+    handleCognitoLogin = (email: string, password: string): void => {
+        console.log('[Controller] handleCognitoLogin called with email:', email);
+        this.startLoading();
+        if (this.props.onSignInWithCognito) {
+            console.log('[Controller] Using TanStack Query for Cognito login');
+            this.props.onSignInWithCognito(email, password)
+                .then((result: any) => {
+                    console.log('[Controller] Cognito login successful, calling onSignInSuccess');
+                    // After successful login, call onSignInSuccess with the token
+                    this.onSignInSuccess({ 
+                        provider: 'cognito', 
+                        providerToken: result.token 
+                    });
+                })
+                .catch((error: any) => {
+                    console.error('[Controller] Cognito login error:', error);
+                    this.flashDisplayError(error);
+                    this.stopLoading();
+                });
+        } else {
+            // Fallback to legacy AuthManager
+            console.log('[Controller] Using legacy AuthManager for Cognito login (fallback)');
+            this.authManager?.signIn(
+                email,
+                password,
+                (token: string) => this.onSignInSuccess({ provider: 'cognito', providerToken: token }),
+                (message: string) => {
+                    this.stopLoading();
+                    this.flashDisplayError(message);
+                }
+            );
+        }
     };
 
     onHashChange(): void {
@@ -467,6 +575,7 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
                         clientId={this.clientId}
                         onSignInErrorHandler={this.onSignInErrorHandler}
                         cognitoLoginConfig={APP_CONFIG.cognitoLoginConfig}
+                        onCognitoLogin={this.handleCognitoLogin}
                     />;
                 break;
             case ROUTE.signOut:
@@ -534,5 +643,20 @@ class Controller extends React.Component<ControllerProps, ControllerState> {
     }
 }
 
-export default Controller;
+// ControllerWrapper: Functional component that uses hooks and passes them to Controller
+const ControllerWrapper: React.FC = () => {
+    const { signInWithCognito, signInWithProvider, handlePasswordRescue, handlePasswordReset, isLoading } = useAuthActions();
+
+    return (
+        <Controller
+            onSignInWithCognito={signInWithCognito}
+            onSignInWithProvider={signInWithProvider}
+            onPasswordRescue={handlePasswordRescue}
+            onPasswordReset={handlePasswordReset}
+            isLoading={isLoading}
+        />
+    );
+};
+
+export default ControllerWrapper;
 

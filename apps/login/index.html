@@ -16,11 +16,91 @@
         }
     </style>
 
-    <!-- Polyfills for global and crypto (required for amazon-cognito-identity-js) -->
+    <!-- Polyfills for global, crypto, process, and require (required for amazon-cognito-identity-js) -->
+    <script type="module">
+        // Importar Buffer y hacerlo disponible globalmente
+        import { Buffer } from 'buffer';
+        window.Buffer = Buffer;
+        if (typeof global !== 'undefined') {
+            global.Buffer = Buffer;
+        }
+        if (typeof globalThis !== 'undefined') {
+            globalThis.Buffer = Buffer;
+        }
+    </script>
     <script>
         // Polyfill for global
         if (typeof global === 'undefined') {
             var global = globalThis;
+        }
+
+        // Polyfill for process
+        if (typeof process === 'undefined') {
+            window.process = {
+                env: {},
+                platform: 'browser',
+                version: 'v20.10.0',
+                browser: true
+            };
+            if (typeof global !== 'undefined') {
+                global.process = window.process;
+            }
+            if (typeof globalThis !== 'undefined') {
+                globalThis.process = window.process;
+            }
+        }
+
+        // Polyfill for exports and module (para módulos CommonJS)
+        if (typeof exports === 'undefined') {
+            window.exports = {};
+            if (typeof global !== 'undefined') {
+                global.exports = window.exports;
+            }
+            if (typeof globalThis !== 'undefined') {
+                globalThis.exports = window.exports;
+            }
+        }
+        if (typeof module === 'undefined') {
+            window.module = { exports: window.exports || {} };
+            if (typeof global !== 'undefined') {
+                global.module = window.module;
+            }
+            if (typeof globalThis !== 'undefined') {
+                globalThis.module = window.module;
+            }
+        }
+
+        // Polyfill for require (básico, para módulos legacy)
+        if (typeof require === 'undefined') {
+            window.require = function(module) {
+                // Intentar resolver módulos comunes
+                if (module === 'buffer' || module === 'buffer/') {
+                    try {
+                        // Buffer debería estar disponible a través de Vite
+                        var BufferClass = window.Buffer || globalThis.Buffer;
+                        if (BufferClass) {
+                            return { Buffer: BufferClass, default: { Buffer: BufferClass } };
+                        }
+                    } catch (e) {
+                        console.warn('No se pudo cargar buffer:', e);
+                    }
+                }
+                // Para módulos relativos (./sha, ./sha256, etc.), retornar objeto vacío
+                // Estos módulos deberían ser manejados por Vite en tiempo de compilación
+                if (module.startsWith('./') || module.startsWith('../')) {
+                    console.warn('require() llamado para módulo relativo:', module, '- Debería ser transformado por Vite.');
+                    return {};
+                }
+                // Para otros módulos, solo loguear y retornar un objeto vacío
+                console.warn('require() llamado para:', module, '- Esto puede no funcionar correctamente en ESM.');
+                return {};
+            };
+            if (typeof global !== 'undefined') {
+                global.require = window.require;
+            }
+            if (typeof globalThis !== 'undefined') {
+                globalThis.require = window.require;
+            }
         }
 
         // Polyfill for crypto (required for amazon-cognito-identity-js)
