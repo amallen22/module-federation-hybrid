@@ -9,6 +9,43 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Added - apps/user
 
+#### Semana 3-4: Migración de Estado (Redux → Zustand + TanStack Query)
+- **Store de Zustand para estado UI**: `uiStore.ts` creado
+  - Estado de modals (isModalOpen, activeModal)
+  - Estado de sidebar (sidebarOpen)
+  - Estado de loading (isLoading)
+  - Actions: openModal, closeModal, toggleSidebar, setLoading
+  - DevTools integrado para debugging
+  
+- **Servicios API creados**: `userApi.ts` con funciones para datos del servidor
+  - `fetchUserProfile`, `updateUserProfile` - Gestión de perfil de usuario
+  - `fetchUserSettings`, `updateUserSettings` - Configuración de usuario
+  - `fetchDocuments`, `fetchDocument` - Gestión de documentos
+  - `fetchSubscription` - Información de suscripción
+  - Implementaciones mock (listas para reemplazar con llamadas reales)
+  - Tipos TypeScript definidos para todas las entidades
+  
+- **Hooks de TanStack Query implementados**:
+  - `useUser.ts`: hooks para profile y settings con cache optimizado
+    - `useUserProfile`, `useUpdateUserProfile`
+    - `useUserSettings`, `useUpdateUserSettings`
+  - `useDocuments.ts`: hooks para lista y detalle de documentos
+    - `useDocuments`, `useDocument`
+    - `useCreateDocument`, `useDeleteDocument` (mutations)
+  - `useSubscription.ts`: hooks para información de suscripción
+    - `useSubscription`, `useUpdateSubscription`
+  - Estrategias de cache configuradas (staleTime, gcTime)
+  - Optimistic updates implementados en mutations
+  - Query keys organizados jerárquicamente
+  
+- **Componentes actualizados con datos reales**:
+  - `Dashboard`: Muestra datos de user profile, documents count y subscription plan
+  - `Profile`: Muestra información personal y configuración con loading/error states
+  - `Documents`: Lista de documentos con estados de carga y error
+  - `Subscription`: Información de suscripción con badges de estado
+  - Todos los componentes usando hooks de TanStack Query
+  - Estados de loading y error manejados correctamente
+
 #### Semana 2-3: Migración de Componentes Core
 - **Estructura de páginas creada**: Componentes principales migrados a TypeScript
   - `Dashboard`: Página principal con cards de navegación
