@@ -9,6 +9,32 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Added - apps/user
 
+#### Semana 2-3: Migración de Componentes Core
+- **Estructura de páginas creada**: Componentes principales migrados a TypeScript
+  - `Dashboard`: Página principal con cards de navegación
+  - `Profile`: Página de perfil de usuario
+  - `Documents`: Página de gestión de documentos
+  - `Subscription`: Página de suscripción
+  - Todas las páginas con TypeScript estricto y Sass modules
+  
+- **Layout y navegación implementados**:
+  - Componente `Layout` con navbar responsive
+  - Navegación entre páginas con React Router v6
+  - Indicador visual de página activa
+  - Estilos con Sass modules (sin dependencias de MUI)
+  
+- **Routing configurado**:
+  - React Router v6 con lazy loading de páginas
+  - Suspense boundaries para loading states
+  - Redirects y rutas catch-all configurados
+  - Rutas: `/dashboard`, `/profile`, `/documents`, `/subscription`
+  
+- **Estilos modernos**:
+  - Sass modules en todos los componentes
+  - Diseño responsive y accesible
+  - Sin dependencias de Material-UI
+  - Variables CSS y mixins organizados
+
 #### Setup inicial de microfrontend cv-app-user
 - **Estructura base creada**: Microfrontend configurado con Vite + Module Federation
   - Puerto 5004 configurado
