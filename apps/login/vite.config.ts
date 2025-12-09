@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { resolve } from 'path';
 import { copyFileSync, mkdirSync, existsSync, readdirSync, statSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -43,6 +44,65 @@ const fixGlobalThisPlugin = () => {
             .replace(/var _global=this/g, 'var _global=typeof globalThis!=="undefined"?globalThis:typeof window!=="undefined"?window:typeof global!=="undefined"?global:{}');
           return {
             code: fixedCode,
+            map: null
+          };
+        }
+      }
+      return null;
+    }
+  };
+};
+
+// Plugin personalizado para añadir polyfills y arreglar require()
+const bufferPolyfillPlugin = () => {
+  return {
+    name: 'buffer-polyfill',
+    resolveId(source: string) {
+      // Interceptar imports de 'buffer' en módulos específicos
+      if (source === 'buffer' && this.getModuleInfo) {
+        return { id: '\0buffer-polyfill', external: false };
+      }
+      return null;
+    },
+    load(id: string) {
+      // Proporcionar el polyfill de Buffer
+      if (id === '\0buffer-polyfill') {
+        return `
+          import { Buffer } from 'buffer';
+          export { Buffer };
+          export default { Buffer };
+        `;
+      }
+      return null;
+    },
+    transform(code: string, id: string) {
+      // Solo transformar módulos que realmente necesitan buffer (amazon-cognito-identity-js y dependencias)
+      // NO tocar módulos de React u otros que ya están optimizados
+      if (
+        (id.includes('amazon-cognito-identity-js') || 
+         id.includes('node_modules/buffer') ||
+         id.includes('@npm_leadtech/cv-lib-auth')) &&
+        !id.includes('react') &&
+        !id.includes('node_modules/.vite/deps')
+      ) {
+        let modifiedCode = code;
+        
+        // Reemplazar require('buffer') por import
+        if (code.includes("require('buffer')") || code.includes('require("buffer")')) {
+          modifiedCode = modifiedCode
+            .replace(/const\s+Buffer\s*=\s*require\(['"]buffer['"]\)/g, "import { Buffer } from 'buffer'")
+            .replace(/var\s+Buffer\s*=\s*require\(['"]buffer['"]\)/g, "import { Buffer } from 'buffer'")
+            .replace(/let\s+Buffer\s*=\s*require\(['"]buffer['"]\)/g, "import { Buffer } from 'buffer'");
+          
+          // Si no hay import de Buffer al inicio, añadirlo
+          if (!modifiedCode.includes("import") && !modifiedCode.includes("from 'buffer'")) {
+            modifiedCode = `import { Buffer } from 'buffer';\n${modifiedCode}`;
+          }
+        }
+        
+        if (modifiedCode !== code) {
+          return {
+            code: modifiedCode,
             map: null
           };
         }
@@ -143,6 +203,9 @@ const copyI18nPlugin = () => {
 
 export default defineConfig({
   plugins: [
+    // NO usar nodePolyfills aquí - causa conflictos con módulos optimizados
+    // En su lugar, usamos un plugin personalizado más específico
+    bufferPolyfillPlugin(),
     fixAuthManagerPlugin(),
     fixGlobalThisPlugin(), // Arreglar `var _global = this` en amazon-cognito-identity-js
     react({
@@ -179,7 +242,9 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: true,
     commonjsOptions: {
-      transformMixedEsModules: true
+      transformMixedEsModules: true,
+      strictRequires: false,
+      requireReturnsDefault: 'auto'
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
@@ -233,12 +298,18 @@ export default defineConfig({
     }
   },
   define: {
-    global: 'globalThis'
+    global: 'globalThis',
+    'process.env': '{}',
+    'process.platform': '"browser"',
+    'process.version': '"v20.10.0"'
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      '@packages/ui': resolve(__dirname, '../../packages/ui/src')
+      '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
+      '@packages/query': resolve(__dirname, '../../packages/query/src'),
+      // Alias para buffer que apunta al polyfill
+      'buffer': 'buffer'
     },
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.mts', '.json']
   },

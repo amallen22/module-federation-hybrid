@@ -49,10 +49,13 @@ class SignIn extends React.Component {
     componentDidMount() {
         let submitBtn = document.getElementById('sign-in');
         this.setState({ submitButton: submitBtn });
-        this.props.setRenderedComponent({
-            name: 'signInButton',
-            node: submitBtn
-        });
+        // Only register with SignUpModule if onCognitoLogin is not available (legacy mode)
+        if (!this.props.onCognitoLogin && this.props.setRenderedComponent) {
+            this.props.setRenderedComponent({
+                name: 'signInButton',
+                node: submitBtn
+            });
+        }
         document.addEventListener('keypress', this.handleKeyPress);
     }
 
@@ -116,7 +119,31 @@ class SignIn extends React.Component {
     };
 
     signIn = () => {
-        this.state.submitButton.click();
+        // Use TanStack Query via Controller if available, otherwise fallback to SignUpModule
+        if (this.props.onCognitoLogin) {
+            console.log('[SignIn] Using TanStack Query for Cognito login');
+            // Get email and password directly from the form inputs
+            const emailInput = document.getElementsByName('email')[0];
+            const passwordInput = document.getElementsByName('password')[0];
+            const email = emailInput ? emailInput.value.toLowerCase() : '';
+            const password = passwordInput ? passwordInput.value : '';
+            
+            console.log('[SignIn] Email:', email, 'Password length:', password.length);
+            
+            if (!email || !password) {
+                console.error('[SignIn] Email or password is empty');
+                this.props.onFailure('Email and password are required');
+                return;
+            }
+            
+            this.props.onCognitoLogin(email, password);
+        } else {
+            // Fallback to SignUpModule (legacy)
+            console.log('[SignIn] Using SignUpModule for Cognito login (fallback)');
+            if (this.state.submitButton) {
+                this.state.submitButton.click();
+            }
+        }
     };
 
     renderSignInInputs() {
@@ -227,4 +254,5 @@ class SignIn extends React.Component {
 const EnhancedSignIn = withLoginComponent(SignIn);
 
 export { EnhancedSignIn as SignIn };
+export default EnhancedSignIn;
 
