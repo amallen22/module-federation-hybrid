@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="165" height="213" viewBox="0 0 165 213">
+    <defs>
+        <filter id="pzno2q09sa" width="167%" height="147.2%" x="-33.5%" y="-22.4%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="12.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.116470588 0 0 0 0 0.124235294 0 0 0 0 0.129411765 0 0 0 0.247650787 0"/>
+        </filter>
+        <rect id="fsy386kqmb" width="115" height="163" x="0" y="0" rx="3.791"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-459 -361) translate(466 384)">
+                <circle cx="76" cy="82" r="76" fill="#F0F3F5"/>
+                <g>
+                    <g transform="translate(18)">
+                        <g>
+                            <use fill="#000" filter="url(#pzno2q09sa)" xlink:href="#fsy386kqmb"/>
+                            <use fill="#FFF" xlink:href="#fsy386kqmb"/>
+                        </g>
+                        <path fill="#26A0F4" d="M3.79 0h107.42c2.093 0 3.79 1.697 3.79 3.79V41H0V3.79C0 1.698 1.697 0 3.79 0z"/>
+                        <circle cx="20" cy="20" r="11" fill="#FFF" opacity=".3"/>
+                        <rect width="31" height="4" x="36" y="24" fill="#FFF" opacity=".3" rx="1.895"/>
+                        <rect width="65" height="4" x="36" y="16" fill="#FFF" opacity=".3" rx="1.895"/>
+                        <rect width="44" height="4" x="26" y="53" fill="#D9DDE0" rx="1.895"/>
+                        <rect width="44" height="4" x="26" y="97" fill="#D9DDE0" rx="1.895"/>
+                        <rect width="44" height="4" x="26" y="125" fill="#D9DDE0" rx="1.895"/>
+                        <rect width="76" height="4" x="26" y="61" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="76" height="4" x="26" y="105" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="76" height="4" x="26" y="133" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="68" height="4" x="26" y="69" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="68" height="4" x="26" y="113" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="68" height="4" x="26" y="141" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="76" height="4" x="26" y="77" fill="#E7EBEE" rx="1.895"/>
+                        <rect width="68" height="4" x="26" y="85" fill="#E7EBEE" rx="1.895"/>
+                        <path fill="#D9DDE0" d="M15 56H16V127H15z"/>
+                        <circle cx="15.5" cy="54.5" r="3.5" fill="#D9DDE0"/>
+                        <circle cx="15.5" cy="99.5" r="3.5" fill="#D9DDE0"/>
+                        <circle cx="15.5" cy="126.5" r="3.5" fill="#D9DDE0"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

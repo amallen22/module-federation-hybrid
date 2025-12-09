@@ -7,6 +7,100 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - apps/user
+
+#### Semana 3-4: Migración de Estado (Redux → Zustand + TanStack Query)
+- **Store de Zustand para estado UI**: `uiStore.ts` creado
+  - Estado de modals (isModalOpen, activeModal)
+  - Estado de sidebar (sidebarOpen)
+  - Estado de loading (isLoading)
+  - Actions: openModal, closeModal, toggleSidebar, setLoading
+  - DevTools integrado para debugging
+  
+- **Servicios API creados**: `userApi.ts` con funciones para datos del servidor
+  - `fetchUserProfile`, `updateUserProfile` - Gestión de perfil de usuario
+  - `fetchUserSettings`, `updateUserSettings` - Configuración de usuario
+  - `fetchDocuments`, `fetchDocument` - Gestión de documentos
+  - `fetchSubscription` - Información de suscripción
+  - Implementaciones mock (listas para reemplazar con llamadas reales)
+  - Tipos TypeScript definidos para todas las entidades
+  
+- **Hooks de TanStack Query implementados**:
+  - `useUser.ts`: hooks para profile y settings con cache optimizado
+    - `useUserProfile`, `useUpdateUserProfile`
+    - `useUserSettings`, `useUpdateUserSettings`
+  - `useDocuments.ts`: hooks para lista y detalle de documentos
+    - `useDocuments`, `useDocument`
+    - `useCreateDocument`, `useDeleteDocument` (mutations)
+  - `useSubscription.ts`: hooks para información de suscripción
+    - `useSubscription`, `useUpdateSubscription`
+  - Estrategias de cache configuradas (staleTime, gcTime)
+  - Optimistic updates implementados en mutations
+  - Query keys organizados jerárquicamente
+  
+- **Componentes actualizados con datos reales**:
+  - `Dashboard`: Muestra datos de user profile, documents count y subscription plan
+  - `Profile`: Muestra información personal y configuración con loading/error states
+  - `Documents`: Lista de documentos con estados de carga y error
+  - `Subscription`: Información de suscripción con badges de estado
+  - Todos los componentes usando hooks de TanStack Query
+  - Estados de loading y error manejados correctamente
+
+#### Semana 2-3: Migración de Componentes Core
+- **Estructura de páginas creada**: Componentes principales migrados a TypeScript
+  - `Dashboard`: Página principal con cards de navegación
+  - `Profile`: Página de perfil de usuario
+  - `Documents`: Página de gestión de documentos
+  - `Subscription`: Página de suscripción
+  - Todas las páginas con TypeScript estricto y Sass modules
+  
+- **Layout y navegación implementados**:
+  - Componente `Layout` con navbar responsive
+  - Navegación entre páginas con React Router v6
+  - Indicador visual de página activa
+  - Estilos con Sass modules (sin dependencias de MUI)
+  
+- **Routing configurado**:
+  - React Router v6 con lazy loading de páginas
+  - Suspense boundaries para loading states
+  - Redirects y rutas catch-all configurados
+  - Rutas: `/dashboard`, `/profile`, `/documents`, `/subscription`
+  
+- **Estilos modernos**:
+  - Sass modules en todos los componentes
+  - Diseño responsive y accesible
+  - Sin dependencias de Material-UI
+  - Variables CSS y mixins organizados
+
+#### Setup inicial de microfrontend cv-app-user
+- **Estructura base creada**: Microfrontend configurado con Vite + Module Federation
+  - Puerto 5004 configurado
+  - Module Federation exponiendo `./App`
+  - TypeScript configurado con strict mode
+  - Vitest configurado para testing
+  - ESLint configurado
+  
+- **Integración de TanStack Query**: Configurado desde el inicio
+  - `QueryProvider` integrado en `main.tsx`
+  - Usa `@packages/query` compartido
+  - DevTools habilitado en desarrollo
+  
+- **Dependencias modernas**:
+  - React 18.3.1
+  - React Router DOM 6.28.0
+  - Zustand 5.0.2 (para estado UI)
+  - TanStack Query vía `@packages/query`
+  
+- **Archivos creados**:
+  - `package.json` con todas las dependencias necesarias
+  - `vite.config.ts` con Module Federation configurado
+  - `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`
+  - `vitest.config.ts` para testing
+  - `index.html` entry point
+  - `src/main.tsx` con QueryProvider
+  - `src/App.tsx` componente básico con React Router
+  - `src/test/setup.ts` para configuración de tests
+
 ### Changed - apps/login
 
 #### Refactorización completa de Controller.tsx a React moderno
