@@ -7,6 +7,57 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Changed - apps/login
+
+#### Refactorización completa de Controller.tsx a React moderno
+- **Migración de class component a functional component**: `Controller.tsx` completamente refactorizado
+  - Convertido de React class component a functional component con hooks
+  - Eliminado `componentDidMount` → reemplazado por `useEffect`
+  - Eliminado `this.state` → reemplazado por múltiples `useState` hooks
+  - Eliminado variables privadas de clase → reemplazado por `useRef` hooks
+  - Eliminado métodos de clase → reemplazado por funciones con `useCallback`
+  - Todas las promesas convertidas de `.then()/.catch()` a `async/await`
+  
+- **Funciones utilitarias extraídas**: Métodos estáticos convertidos a funciones puras exportables
+  - `navigatePublicly`, `goUrl`, `getRoute`, `getDomain` ahora son funciones exportables
+  - `buildAuthManager`, `buildStateRequest`, `getHash`, `getParams`, `getStateSessionItems` como funciones helper puras
+  
+- **Optimizaciones de rendimiento**:
+  - `useCallback` para todas las funciones que se pasan como props o dependencias
+  - `useMemo` para `displayLoading` y `sendAnalyticsData`
+  - Dependencias correctamente especificadas en todos los hooks
+  
+- **Compatibilidad mantenida**:
+  - `ControllerWrapper` mantiene la integración con TanStack Query
+  - Compatibilidad con código legacy (AuthManager, SignUpModule)
+  - Todos los flujos de autenticación funcionan correctamente
+
+- **Mejoras en manejo de errores**:
+  - `handleVisitor` ahora usa `async/await` con mejor manejo de errores
+  - Logs mejorados para debugging
+  - Fallback a traducciones incluso si HandleVisitorUseCase falla
+
+#### Integración de TanStack Query
+- **Package compartido `packages/query`**: Creado para configuración centralizada de TanStack Query
+  - `QueryClient` configurado con opciones por defecto
+  - `QueryProvider` reutilizable para todas las apps
+  - Utilidades para manejo de errores consistentes
+  
+- **Hooks de autenticación**: Creados hooks personalizados para todos los flujos
+  - `useLogin()` para login con email/password
+  - `useSignUp()` para registro
+  - `useGoogleAuth()` y `useLinkedInAuth()` para OAuth
+  - `usePasswordRescue()` y `usePasswordReset()` para recuperación de contraseña
+  - `useAuthActions()` hook consolidado que expone todas las acciones
+  
+- **Servicios API**: Abstracción de llamadas API en `authApi.ts`
+  - Funciones puras que pueden ser usadas por TanStack Query
+  - Wrappers de `PostAuthTokenHandler` y `AuthManager`
+  
+- **Integración en Controller**: `ControllerWrapper` usa hooks de TanStack Query
+  - Props opcionales para mantener compatibilidad con código legacy
+  - Fallback automático si TanStack Query no está disponible
+
 ### Changed - apps/login y apps/shell
 
 #### Migración de botones al nuevo Button de packages/ui
