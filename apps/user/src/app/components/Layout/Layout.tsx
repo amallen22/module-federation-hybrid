@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Layout.module.scss';
 
@@ -6,30 +6,40 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = memo(({ children }) => {
   const location = useLocation();
 
   // Detectar si estamos en modo standalone (no desde shell)
   // Si el pathname NO empieza con /user, estamos en modo standalone
-  const isStandalone = !location.pathname.startsWith('/user');
+  const isStandalone = useMemo(
+    () => !location.pathname.startsWith('/user'),
+    [location.pathname]
+  );
   
-  // Función para normalizar rutas
+  // Función para normalizar rutas - memoizada
   // En modo standalone: /dashboard, /profile, etc.
   // Desde shell: /user/dashboard, /user/profile, etc.
-  const getRoute = (path: string) => {
-    if (isStandalone) {
-      return path.startsWith('/') ? path : `/${path}`;
-    }
-    // Desde shell, usar rutas absolutas con prefijo /user
-    return `/user/${path}`;
-  };
+  const getRoute = useMemo(
+    () => (path: string) => {
+      if (isStandalone) {
+        return path.startsWith('/') ? path : `/${path}`;
+      }
+      // Desde shell, usar rutas absolutas con prefijo /user
+      return `/user/${path}`;
+    },
+    [isStandalone]
+  );
 
-  const isActive = (path: string) => {
-    const normalizedPath = getRoute(path);
-    return location.pathname === normalizedPath || 
-           location.pathname.endsWith(normalizedPath) ||
-           (normalizedPath === 'dashboard' && (location.pathname.endsWith('/user') || location.pathname.endsWith('/user/')));
-  };
+  // Helper to determine if a link is active - memoizado
+  const isActive = useMemo(
+    () => (path: string) => {
+      const normalizedPath = getRoute(path);
+      return location.pathname === normalizedPath || 
+             location.pathname.endsWith(normalizedPath) ||
+             (normalizedPath === 'dashboard' && (location.pathname.endsWith('/user') || location.pathname.endsWith('/user/')));
+    },
+    [location.pathname, getRoute]
+  );
 
   return (
     <div className={styles.layout}>
@@ -81,7 +91,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
     </div>
   );
-};
+});
+
+Layout.displayName = 'Layout';
 
 export default Layout;
 

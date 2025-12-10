@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useMemo, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useUserProfile } from '../../hooks/queries/useUser';
 import { useDocuments } from '../../hooks/queries/useDocuments';
 import { useSubscription } from '../../hooks/queries/useSubscription';
 import styles from './Dashboard.module.scss';
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = memo(() => {
   const location = useLocation();
   const { data: profile, isLoading: profileLoading } = useUserProfile();
   const { data: documents, isLoading: documentsLoading } = useDocuments();
@@ -13,26 +13,46 @@ const Dashboard: React.FC = () => {
 
   // Detectar si estamos en modo standalone (no desde shell)
   // Si el pathname NO empieza con /user, estamos en modo standalone
-  const isStandalone = !location.pathname.startsWith('/user');
+  const isStandalone = useMemo(
+    () => !location.pathname.startsWith('/user'),
+    [location.pathname]
+  );
   
-  // Función para normalizar rutas
+  // Función para normalizar rutas - memoizada
   // En modo standalone: /dashboard, /profile, etc.
   // Desde shell: /user/dashboard, /user/profile, etc.
-  const getRoute = (path: string) => {
-    if (isStandalone) {
-      return path.startsWith('/') ? path : `/${path}`;
-    }
-    // Desde shell, usar rutas absolutas con prefijo /user
-    return `/user/${path}`;
-  };
+  const getRoute = useMemo(
+    () => (path: string) => {
+      if (isStandalone) {
+        return path.startsWith('/') ? path : `/${path}`;
+      }
+      // Desde shell, usar rutas absolutas con prefijo /user
+      return `/user/${path}`;
+    },
+    [isStandalone]
+  );
+
+  // Memoizar valores calculados
+  const welcomeMessage = useMemo(
+    () => profileLoading ? 'Cargando...' : `Bienvenido, ${profile?.firstName || 'Usuario'}`,
+    [profileLoading, profile?.firstName]
+  );
+
+  const documentsCount = useMemo(
+    () => documents?.length || 0,
+    [documents?.length]
+  );
+
+  const subscriptionPlan = useMemo(
+    () => subscription?.plan || 'N/A',
+    [subscription?.plan]
+  );
 
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
         <h1 className={styles.title}>Dashboard</h1>
-        <p className={styles.subtitle}>
-          {profileLoading ? 'Cargando...' : `Bienvenido, ${profile?.firstName || 'Usuario'}`}
-        </p>
+        <p className={styles.subtitle}>{welcomeMessage}</p>
       </header>
       
       <div className={styles.content}>
@@ -54,7 +74,7 @@ const Dashboard: React.FC = () => {
               <div className={styles.cardInfo}>Cargando...</div>
             ) : (
               <div className={styles.cardInfo}>
-                <span>{documents?.length || 0} documentos</span>
+                <span>{documentsCount} documentos</span>
               </div>
             )}
           </Link>
@@ -66,7 +86,7 @@ const Dashboard: React.FC = () => {
               <div className={styles.cardInfo}>Cargando...</div>
             ) : (
               <div className={styles.cardInfo}>
-                <span className={styles.badge}>{subscription?.plan || 'N/A'}</span>
+                <span className={styles.badge}>{subscriptionPlan}</span>
               </div>
             )}
           </Link>
@@ -79,7 +99,9 @@ const Dashboard: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+Dashboard.displayName = 'Dashboard';
 
 export default Dashboard;
 

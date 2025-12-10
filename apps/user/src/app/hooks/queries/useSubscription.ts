@@ -17,6 +17,8 @@ export const useSubscription = () => {
     queryFn: fetchSubscription,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes
+    refetchOnWindowFocus: false, // Evitar refetch innecesario
+    refetchOnMount: false, // Usar cache si está disponible
   });
 };
 

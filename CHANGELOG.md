@@ -10,6 +10,17 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - apps/user
 
 #### Semana 4-5: Integración y Testing
+- **Optimizaciones de Performance**:
+  - Code splitting implementado: react-vendor, query-vendor, router-vendor separados
+  - Lazy loading de todas las páginas (incluyendo Dashboard)
+  - Memoización de componentes con React.memo
+  - useMemo y useCallback para evitar recálculos innecesarios
+  - Optimización de TanStack Query: refetchOnWindowFocus y refetchOnMount deshabilitados
+  - CSS code splitting activado
+  - Minificación con esbuild
+  - Bundle size optimizado: archivos más pequeños y mejor organizados
+  - Mejora significativa en tiempos de carga inicial
+  
 - **Tests E2E con Playwright implementados**:
   - `user-navigation.spec.ts`: 5 tests para navegación entre páginas
   - `user-data-loading.spec.ts`: 4 tests para carga de datos

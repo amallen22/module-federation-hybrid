@@ -22,6 +22,8 @@ export const useUserProfile = () => {
     queryFn: fetchUserProfile,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes (formerly cacheTime)
+    refetchOnWindowFocus: false, // Evitar refetch innecesario
+    refetchOnMount: false, // Usar cache si está disponible
   });
 };
 
@@ -46,6 +48,8 @@ export const useUserSettings = () => {
     queryFn: fetchUserSettings,
     staleTime: 1000 * 60 * 10, // 10 minutes (settings change less frequently)
     gcTime: 1000 * 60 * 60, // 1 hour
+    refetchOnWindowFocus: false, // Evitar refetch innecesario
+    refetchOnMount: false, // Usar cache si está disponible
   });
 };
 
