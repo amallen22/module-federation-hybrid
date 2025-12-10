@@ -9,6 +9,14 @@
     "dev:minimal": "pnpm --parallel --filter shell --filter product --filter ui --filter login dev",
     "build:all": "pnpm --filter ui build && pnpm --filter product build && pnpm --filter shell build && pnpm --filter user build",
     "preview:all": "pnpm --parallel --filter shell --filter product --filter ui --filter user preview",
-    "dev:build-preview": "pnpm build:all && pnpm preview:all"
+    "dev:build-preview": "pnpm build:all && pnpm preview:all",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "playwright": "^1.57.0"
   }
 }

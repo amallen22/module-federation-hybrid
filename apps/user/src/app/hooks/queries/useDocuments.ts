@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@packages/query';
 import {
   fetchDocuments,
   fetchDocument,
@@ -21,6 +21,8 @@ export const useDocuments = () => {
     queryFn: fetchDocuments,
     staleTime: 1000 * 60 * 2, // 2 minutes
     gcTime: 1000 * 60 * 15, // 15 minutes
+    refetchOnWindowFocus: false, // Evitar refetch innecesario
+    refetchOnMount: false, // Usar cache si está disponible
   });
 };
 

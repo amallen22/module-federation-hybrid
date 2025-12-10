@@ -9,6 +9,78 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Added - apps/user
 
+#### Semana 4-5: Integración y Testing
+- **Optimizaciones de Performance**:
+  - Code splitting implementado: react-vendor, query-vendor, router-vendor separados
+  - Lazy loading de todas las páginas (incluyendo Dashboard)
+  - Memoización de componentes con React.memo
+  - useMemo y useCallback para evitar recálculos innecesarios
+  - Optimización de TanStack Query: refetchOnWindowFocus y refetchOnMount deshabilitados
+  - CSS code splitting activado
+  - Minificación con esbuild
+  - Bundle size optimizado: archivos más pequeños y mejor organizados
+  - Mejora significativa en tiempos de carga inicial
+  
+- **Tests E2E con Playwright implementados**:
+  - `user-navigation.spec.ts`: 5 tests para navegación entre páginas
+  - `user-data-loading.spec.ts`: 4 tests para carga de datos
+  - `user-integration.spec.ts`: 4 tests para integración con shell
+  - Total: 13 tests E2E pasando
+  - Configuración de Playwright con webServer para shell y user
+  - Scripts npm añadidos: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:debug`
+  - Cobertura completa de flujos de usuario principales
+  
+- **Tests con Vitest implementados**:
+  - `uiStore.test.ts`: 7 tests para store de Zustand (modals, sidebar, loading)
+  - `useUser.test.tsx`: 4 tests para hooks de user profile y settings
+  - `useDocuments.test.tsx`: 4 tests para hooks de documentos (lista y detalle)
+  - `useSubscription.test.tsx`: 2 tests para hooks de suscripción
+  - `Layout.test.tsx`: 3 tests para componente Layout
+  - Total: 20 tests pasando
+  - Mocks configurados correctamente para APIs
+  - Tests de éxito y error para todos los hooks
+  - Cobertura de funcionalidad principal
+  
+- **Actualizaciones técnicas**:
+  - Hooks actualizados para usar `@packages/query` en lugar de import directo
+  - Añadida dependencia `@tanstack/react-query` como devDependency para tests
+  - Configuración de Vitest optimizada para tests de componentes React
+
+#### Semana 4-5: Integración y Testing
+- **Integración con shell (Module Federation)**:
+  - Añadido alias `@apps/user` en `vite.config.ts` del shell
+  - Configurado remote `user` en Module Federation para producción
+  - Añadido puerto 5004 a configuración CORS del shell
+  - Componente `UserPage` con lazy loading y Suspense boundaries
+  
+- **Configuración de rutas en shell**:
+  - Ruta `/user/*` configurada en `App.tsx` del shell
+  - Navegación entre microfrontends funcionando
+  - Enlace "User" añadido a la navegación principal del shell
+  
+- **Error boundaries implementados**:
+  - Componente `ErrorBoundary` creado en `apps/shell/src/components/`
+  - Manejo de errores con fallback UI informativo
+  - Mensajes de error claros para debugging
+  
+- **Loading states consistentes**:
+  - Spinner de carga con animación CSS
+  - Mensajes de carga claros durante la carga del módulo
+  
+- **Soporte dual (standalone y microfrontend)**:
+  - `App.tsx` de User soporta modo standalone y microfrontend
+  - Rutas absolutas que funcionan en ambos contextos
+  - `QueryProvider` integrado automáticamente cuando se carga desde shell
+  - Sin conflictos de `BrowserRouter` (solo se usa en modo standalone)
+  - Función `getRoute()` para normalizar rutas según el contexto
+
+### Added - apps/shell
+- **Componente ErrorBoundary**: Manejo de errores para microfrontends
+- **Integración de User**: Configuración completa para cargar `apps/user` como microfrontend
+- **Animación de spinner**: CSS keyframes para loading states
+
+### Added - apps/user
+
 #### Semana 3-4: Migración de Estado (Redux → Zustand + TanStack Query)
 - **Store de Zustand para estado UI**: `uiStore.ts` creado
   - Estado de modals (isModalOpen, activeModal)

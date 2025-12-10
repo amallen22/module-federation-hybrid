@@ -73,7 +73,8 @@ const federationPlugin = !isDevelopment ? federation({
       // En modo preview (producción local), con /dist/
       product: 'http://localhost:5001/dist/assets/remoteEntry.js',
       ui: 'http://localhost:5002/dist/assets/remoteEntry.js',
-      login: 'http://localhost:5003/dist/assets/remoteEntry.js'
+      login: 'http://localhost:5003/dist/assets/remoteEntry.js',
+      user: 'http://localhost:5004/dist/assets/remoteEntry.js'
     },
   exposes: {
     './App': './src/App.tsx',
@@ -160,6 +161,7 @@ export default defineConfig({
       '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
       '@apps/product': resolve(__dirname, '../../apps/product/src'),
       '@apps/login': resolve(__dirname, '../../apps/login/src'),
+      '@apps/user': resolve(__dirname, '../../apps/user/src'),
     }
   },
   server: {
@@ -167,7 +169,7 @@ export default defineConfig({
     strictPort: true,
     host: true,
     cors: {
-      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'],
+      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003', 'http://localhost:5004'],
       credentials: true
     }
   }
