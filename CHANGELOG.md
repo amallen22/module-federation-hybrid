@@ -10,6 +10,15 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - apps/user
 
 #### Semana 4-5: Integración y Testing
+- **Tests E2E con Playwright implementados**:
+  - `user-navigation.spec.ts`: 5 tests para navegación entre páginas
+  - `user-data-loading.spec.ts`: 4 tests para carga de datos
+  - `user-integration.spec.ts`: 4 tests para integración con shell
+  - Total: 13 tests E2E pasando
+  - Configuración de Playwright con webServer para shell y user
+  - Scripts npm añadidos: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:debug`
+  - Cobertura completa de flujos de usuario principales
+  
 - **Tests con Vitest implementados**:
   - `uiStore.test.ts`: 7 tests para store de Zustand (modals, sidebar, loading)
   - `useUser.test.tsx`: 4 tests para hooks de user profile y settings
