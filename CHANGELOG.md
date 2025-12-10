@@ -10,6 +10,23 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - apps/user
 
 #### Semana 4-5: Integración y Testing
+- **Tests con Vitest implementados**:
+  - `uiStore.test.ts`: 7 tests para store de Zustand (modals, sidebar, loading)
+  - `useUser.test.tsx`: 4 tests para hooks de user profile y settings
+  - `useDocuments.test.tsx`: 4 tests para hooks de documentos (lista y detalle)
+  - `useSubscription.test.tsx`: 2 tests para hooks de suscripción
+  - `Layout.test.tsx`: 3 tests para componente Layout
+  - Total: 20 tests pasando
+  - Mocks configurados correctamente para APIs
+  - Tests de éxito y error para todos los hooks
+  - Cobertura de funcionalidad principal
+  
+- **Actualizaciones técnicas**:
+  - Hooks actualizados para usar `@packages/query` en lugar de import directo
+  - Añadida dependencia `@tanstack/react-query` como devDependency para tests
+  - Configuración de Vitest optimizada para tests de componentes React
+
+#### Semana 4-5: Integración y Testing
 - **Integración con shell (Module Federation)**:
   - Añadido alias `@apps/user` en `vite.config.ts` del shell
   - Configurado remote `user` en Module Federation para producción
