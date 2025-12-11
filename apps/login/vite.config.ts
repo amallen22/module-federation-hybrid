@@ -308,6 +308,7 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
       '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
       '@packages/query': resolve(__dirname, '../../packages/query/src'),
+      '@packages/auth': resolve(__dirname, '../../packages/auth/src'),
       // Alias para buffer que apunta al polyfill
       'buffer': 'buffer'
     },

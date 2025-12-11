@@ -35,7 +35,8 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, 'src'),
       '@packages/ui': resolve(__dirname, '../../packages/ui/src'),
-      '@packages/query': resolve(__dirname, '../../packages/query/src')
+      '@packages/query': resolve(__dirname, '../../packages/query/src'),
+      '@packages/auth': resolve(__dirname, '../../packages/auth/src')
     }
   },
   build: {

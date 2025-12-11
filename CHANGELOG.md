@@ -7,9 +7,50 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - packages/auth
+
+#### Implementación de Package Compartido de Autenticación
+
+- **Nuevo package `@packages/auth` creado**:
+  - Store de Zustand con persistencia en localStorage para estado de autenticación compartido
+  - Hooks de React: `useAuth()`, `useIsAuthenticated()`, `useUser()`, `useAuthToken()`
+  - Servicios de autenticación: `loginWithEmail()`, `loginWithProvider()`, `signUpWithEmail()`, `logout()`
+  - Función `initializeFromLegacySession()` para migración desde cookies legacy
+  - Tipos TypeScript completos: `AuthProvider`, `User`, `AuthState`
+  - Función `createMockUser()` para desarrollo y testing
+  - README completo con ejemplos de uso
+
+- **Integración en apps/login**:
+  - `useAuthActions` modificado para guardar estado en store compartido después del login
+  - Compatibilidad mantenida con sistema legacy de cookies
+  - Redirección a `/user` después de login exitoso
+  - Alias de Vite configurado: `@packages/auth`
+
+- **Integración en apps/user**:
+  - `Dashboard` y `Profile` leen datos del usuario desde store compartido
+  - Protección de rutas: redirección a `/login` si no está autenticado
+  - Prioriza datos del store de autenticación sobre datos de API
+  - Alias de Vite configurado: `@packages/auth`
+
+- **Configuración**:
+  - Dependencias añadidas en `apps/login/package.json` y `apps/user/package.json`
+  - Zustand instalado en workspace root
+  - TypeScript configurado correctamente
+
+#### Resolución de Problemas de Hidratación
+
+- **Problema resuelto**: Zustand persist no estaba leyendo correctamente los datos de localStorage
+- **Solución implementada**: Fallback en `useAuth()` que lee directamente de localStorage cuando el store no está hidratado
+- **Mejoras adicionales**:
+  - Función `merge` añadida al store para combinar estados correctamente
+  - Logging mejorado para debugging de hidratación
+  - Verificación de discrepancia entre localStorage y store con actualización automática
+- **Resultado**: Flujo completo login → user funcionando correctamente con datos compartidos
+
 ### Added - apps/user
 
 #### Semana 4-5: Integración y Testing
+
 - **Optimizaciones de Performance**:
   - Code splitting implementado: react-vendor, query-vendor, router-vendor separados
   - Lazy loading de todas las páginas (incluyendo Dashboard)
@@ -20,7 +61,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Minificación con esbuild
   - Bundle size optimizado: archivos más pequeños y mejor organizados
   - Mejora significativa en tiempos de carga inicial
-  
 - **Tests E2E con Playwright implementados**:
   - `user-navigation.spec.ts`: 5 tests para navegación entre páginas
   - `user-data-loading.spec.ts`: 4 tests para carga de datos
@@ -29,7 +69,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Configuración de Playwright con webServer para shell y user
   - Scripts npm añadidos: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:debug`
   - Cobertura completa de flujos de usuario principales
-  
 - **Tests con Vitest implementados**:
   - `uiStore.test.ts`: 7 tests para store de Zustand (modals, sidebar, loading)
   - `useUser.test.tsx`: 4 tests para hooks de user profile y settings
@@ -40,33 +79,29 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Mocks configurados correctamente para APIs
   - Tests de éxito y error para todos los hooks
   - Cobertura de funcionalidad principal
-  
 - **Actualizaciones técnicas**:
   - Hooks actualizados para usar `@packages/query` en lugar de import directo
   - Añadida dependencia `@tanstack/react-query` como devDependency para tests
   - Configuración de Vitest optimizada para tests de componentes React
 
 #### Semana 4-5: Integración y Testing
+
 - **Integración con shell (Module Federation)**:
   - Añadido alias `@apps/user` en `vite.config.ts` del shell
   - Configurado remote `user` en Module Federation para producción
   - Añadido puerto 5004 a configuración CORS del shell
   - Componente `UserPage` con lazy loading y Suspense boundaries
-  
 - **Configuración de rutas en shell**:
   - Ruta `/user/*` configurada en `App.tsx` del shell
   - Navegación entre microfrontends funcionando
   - Enlace "User" añadido a la navegación principal del shell
-  
 - **Error boundaries implementados**:
   - Componente `ErrorBoundary` creado en `apps/shell/src/components/`
   - Manejo de errores con fallback UI informativo
   - Mensajes de error claros para debugging
-  
 - **Loading states consistentes**:
   - Spinner de carga con animación CSS
   - Mensajes de carga claros durante la carga del módulo
-  
 - **Soporte dual (standalone y microfrontend)**:
   - `App.tsx` de User soporta modo standalone y microfrontend
   - Rutas absolutas que funcionan en ambos contextos
@@ -75,6 +110,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Función `getRoute()` para normalizar rutas según el contexto
 
 ### Added - apps/shell
+
 - **Componente ErrorBoundary**: Manejo de errores para microfrontends
 - **Integración de User**: Configuración completa para cargar `apps/user` como microfrontend
 - **Animación de spinner**: CSS keyframes para loading states
@@ -82,13 +118,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - apps/user
 
 #### Semana 3-4: Migración de Estado (Redux → Zustand + TanStack Query)
+
 - **Store de Zustand para estado UI**: `uiStore.ts` creado
   - Estado de modals (isModalOpen, activeModal)
   - Estado de sidebar (sidebarOpen)
   - Estado de loading (isLoading)
   - Actions: openModal, closeModal, toggleSidebar, setLoading
   - DevTools integrado para debugging
-  
 - **Servicios API creados**: `userApi.ts` con funciones para datos del servidor
   - `fetchUserProfile`, `updateUserProfile` - Gestión de perfil de usuario
   - `fetchUserSettings`, `updateUserSettings` - Configuración de usuario
@@ -96,7 +132,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - `fetchSubscription` - Información de suscripción
   - Implementaciones mock (listas para reemplazar con llamadas reales)
   - Tipos TypeScript definidos para todas las entidades
-  
 - **Hooks de TanStack Query implementados**:
   - `useUser.ts`: hooks para profile y settings con cache optimizado
     - `useUserProfile`, `useUpdateUserProfile`
@@ -109,7 +144,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Estrategias de cache configuradas (staleTime, gcTime)
   - Optimistic updates implementados en mutations
   - Query keys organizados jerárquicamente
-  
 - **Componentes actualizados con datos reales**:
   - `Dashboard`: Muestra datos de user profile, documents count y subscription plan
   - `Profile`: Muestra información personal y configuración con loading/error states
@@ -119,25 +153,23 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Estados de loading y error manejados correctamente
 
 #### Semana 2-3: Migración de Componentes Core
+
 - **Estructura de páginas creada**: Componentes principales migrados a TypeScript
   - `Dashboard`: Página principal con cards de navegación
   - `Profile`: Página de perfil de usuario
   - `Documents`: Página de gestión de documentos
   - `Subscription`: Página de suscripción
   - Todas las páginas con TypeScript estricto y Sass modules
-  
 - **Layout y navegación implementados**:
   - Componente `Layout` con navbar responsive
   - Navegación entre páginas con React Router v6
   - Indicador visual de página activa
   - Estilos con Sass modules (sin dependencias de MUI)
-  
 - **Routing configurado**:
   - React Router v6 con lazy loading de páginas
   - Suspense boundaries para loading states
   - Redirects y rutas catch-all configurados
   - Rutas: `/dashboard`, `/profile`, `/documents`, `/subscription`
-  
 - **Estilos modernos**:
   - Sass modules en todos los componentes
   - Diseño responsive y accesible
@@ -145,24 +177,22 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Variables CSS y mixins organizados
 
 #### Setup inicial de microfrontend cv-app-user
+
 - **Estructura base creada**: Microfrontend configurado con Vite + Module Federation
   - Puerto 5004 configurado
   - Module Federation exponiendo `./App`
   - TypeScript configurado con strict mode
   - Vitest configurado para testing
   - ESLint configurado
-  
 - **Integración de TanStack Query**: Configurado desde el inicio
   - `QueryProvider` integrado en `main.tsx`
   - Usa `@packages/query` compartido
   - DevTools habilitado en desarrollo
-  
 - **Dependencias modernas**:
   - React 18.3.1
   - React Router DOM 6.28.0
   - Zustand 5.0.2 (para estado UI)
   - TanStack Query vía `@packages/query`
-  
 - **Archivos creados**:
   - `package.json` con todas las dependencias necesarias
   - `vite.config.ts` con Module Federation configurado
@@ -176,6 +206,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Changed - apps/login
 
 #### Refactorización completa de Controller.tsx a React moderno
+
 - **Migración de class component a functional component**: `Controller.tsx` completamente refactorizado
   - Convertido de React class component a functional component con hooks
   - Eliminado `componentDidMount` → reemplazado por `useEffect`
@@ -183,16 +214,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Eliminado variables privadas de clase → reemplazado por `useRef` hooks
   - Eliminado métodos de clase → reemplazado por funciones con `useCallback`
   - Todas las promesas convertidas de `.then()/.catch()` a `async/await`
-  
 - **Funciones utilitarias extraídas**: Métodos estáticos convertidos a funciones puras exportables
   - `navigatePublicly`, `goUrl`, `getRoute`, `getDomain` ahora son funciones exportables
   - `buildAuthManager`, `buildStateRequest`, `getHash`, `getParams`, `getStateSessionItems` como funciones helper puras
-  
 - **Optimizaciones de rendimiento**:
   - `useCallback` para todas las funciones que se pasan como props o dependencias
   - `useMemo` para `displayLoading` y `sendAnalyticsData`
   - Dependencias correctamente especificadas en todos los hooks
-  
 - **Compatibilidad mantenida**:
   - `ControllerWrapper` mantiene la integración con TanStack Query
   - Compatibilidad con código legacy (AuthManager, SignUpModule)
@@ -204,22 +232,20 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Fallback a traducciones incluso si HandleVisitorUseCase falla
 
 #### Integración de TanStack Query
+
 - **Package compartido `packages/query`**: Creado para configuración centralizada de TanStack Query
   - `QueryClient` configurado con opciones por defecto
   - `QueryProvider` reutilizable para todas las apps
   - Utilidades para manejo de errores consistentes
-  
 - **Hooks de autenticación**: Creados hooks personalizados para todos los flujos
   - `useLogin()` para login con email/password
   - `useSignUp()` para registro
   - `useGoogleAuth()` y `useLinkedInAuth()` para OAuth
   - `usePasswordRescue()` y `usePasswordReset()` para recuperación de contraseña
   - `useAuthActions()` hook consolidado que expone todas las acciones
-  
 - **Servicios API**: Abstracción de llamadas API en `authApi.ts`
   - Funciones puras que pueden ser usadas por TanStack Query
   - Wrappers de `PostAuthTokenHandler` y `AuthManager`
-  
 - **Integración en Controller**: `ControllerWrapper` usa hooks de TanStack Query
   - Props opcionales para mantener compatibilidad con código legacy
   - Fallback automático si TanStack Query no está disponible
@@ -227,6 +253,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Changed - apps/login y apps/shell
 
 #### Migración de botones al nuevo Button de packages/ui
+
 - **Sustitución de botones**: Todos los botones del proyecto ahora usan el nuevo `Button` de `@packages/ui/atoms/Button`
   - `GoogleLogin.tsx`: Actualizado para usar el nuevo Button con `variant='secondary'`
   - `LinkedInLogin.tsx`: Actualizado para usar el nuevo Button con `variant='secondary'`
@@ -240,11 +267,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **Actualización de estilos**: Cambiado `style={{ width: '100%' }}` → `isFullWidth` prop
 
 #### Fixes - apps/shell
+
 - **`apps/shell/src/App.tsx`**: Corregido el import de `RemoteButton` para usar correctamente el named export `Button` con `React.lazy()`
   - Cambiado de `import('@packages/ui/atoms/Button')` a `import('@packages/ui/atoms/Button').then(module => ({ default: module.Button }))`
 - **`apps/shell/vite.config.ts`**: Añadido polyfill para `process` en la configuración de `define` para resolver errores de "process is not defined"
 
 #### Changed - apps/login
+
 - **`apps/login/src/app/components/Signing/ButtonStyles.js`**: Renombrado a `ButtonStyles.jsx` porque contenía JSX
 - **`apps/login/src/app/components/Signing/SignInButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
 - **`apps/login/src/app/components/Signing/SignUpButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
@@ -254,6 +283,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Fixed - apps/login
 
 #### Solución del warning de ESLint sobre babel-eslint deprecado
+
 - **.eslintrc.json**: Actualizado parser de ESLint
   - Reemplazado `babel-eslint` (deprecado) por `@babel/eslint-parser`
   - Configurado `requireConfigFile: true` para usar `babel.config.cjs`
@@ -278,11 +308,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - `@typescript-eslint/eslint-plugin`: ^8.0.0
 
 #### Resultado
+
 - El warning "Deprecated ESLint parser 'babel-eslint' used instead of '@babel/eslint-parser'" ha sido eliminado
 - ESLint funciona correctamente con archivos JavaScript y TypeScript
 - No hay errores de parsing relacionados con la configuración de Babel
 
 #### Solución del problema de traducciones (i18n)
+
 - **config/appConfig.js**: Añadida variable `I18N_BASE_URL`
   - Detecta automáticamente si la app se carga desde el shell (localhost:5000)
   - En desarrollo, cuando se carga desde shell, usa `http://localhost:5003` para i18n
@@ -308,6 +340,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Logs adicionales para debugging
 
 #### Resultado
+
 - Las traducciones ahora se cargan correctamente cuando login se ejecuta dentro del shell
 - Los textos se muestran correctamente en lugar de "missing translation"
 - Las peticiones a `/dist/i18n/en-US.json` se completan exitosamente con status 200
@@ -317,6 +350,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - apps/login
 
 #### Migración completa de Webpack a Vite + Module Federation
+
 - **vite.config.ts**: Nueva configuración de Vite para el microfrontend de login
   - Configuración de Module Federation con `@originjs/vite-plugin-federation`
   - Puerto 5003 con CORS habilitado para todos los microfrontends
@@ -352,6 +386,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Mocks para objetos globales
 
 #### Componentes migrados a TypeScript y Sass
+
 - **Controller.tsx**: Migrado de .js a .tsx
   - Añadidos tipos TypeScript para props y state
   - Import del polyfill centralizado
@@ -381,6 +416,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Estilos con Sass modules
 
 #### Archivos renombrados de .js a .jsx
+
 - `components/Label/LabelPassword.jsx`
 - `components/Label/LowerCasedLabelForm.jsx`
 - `components/Loading/LoadingInitial.jsx`
@@ -445,18 +481,21 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Technical Notes
 
 #### Plugins de Vite creados
+
 1. **fixAuthManagerPlugin**: Transforma `const` a `let` en AuthManager.js para permitir reasignación
 2. **fixGlobalThisPlugin**: Transforma `var _global = this;` a `var _global = globalThis;` para compatibilidad con ES modules
 3. **copyI18nPlugin**: Copia archivos de traducción i18n en el build
 
 #### Problemas resueltos
+
 - Error `Cannot read properties of undefined (reading 'crypto')`: Polyfills añadidos
 - Error `This assignment will throw because "errorMessage" is a constant`: Plugin fixAuthManagerPlugin
-- Error `var _global = this` en strict mode: Plugin fixGlobalThisPlugin  
+- Error `var _global = this` en strict mode: Plugin fixGlobalThisPlugin
 - Error de múltiples instancias de React: Module Federation desactivado en dev
 - Error `createRoot() on a container that has already been passed`: Eliminado auto-mount de UI Kit
 
 #### Limitaciones conocidas
+
 - Service Worker intenta registrarse en /serviceWorker.js que no existe en el shell
 - Requests CORS a stage.resumecoach.com bloqueados en desarrollo local
 - Algunos textos muestran duplicación (ej: "Google Google", "LinkedIn LinkedIn") - pendiente de revisión
@@ -466,8 +505,8 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ## [1.0.0] - 2025-XX-XX
 
 ### Added
+
 - Configuración inicial del monorepo con pnpm workspaces
 - apps/shell: Host principal con Vite + Module Federation
 - apps/product: Microfrontend de ejemplo migrado a Vite
 - packages/ui: UI Kit compartido con Storybook
-

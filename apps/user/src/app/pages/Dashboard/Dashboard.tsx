@@ -1,5 +1,6 @@
 import React, { useMemo, memo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
+import { useAuth } from '@packages/auth';
 import { useUserProfile } from '../../hooks/queries/useUser';
 import { useDocuments } from '../../hooks/queries/useDocuments';
 import { useSubscription } from '../../hooks/queries/useSubscription';
@@ -7,9 +8,32 @@ import styles from './Dashboard.module.scss';
 
 const Dashboard: React.FC = memo(() => {
   const location = useLocation();
+  const { user: authUser, isAuthenticated, hasHydrated } = useAuth();
   const { data: profile, isLoading: profileLoading } = useUserProfile();
   const { data: documents, isLoading: documentsLoading } = useDocuments();
   const { data: subscription, isLoading: subscriptionLoading } = useSubscription();
+
+  // Esperar a que el store se hidrate antes de verificar autenticación
+  if (!hasHydrated) {
+    return (
+      <div className={styles.dashboard}>
+        <div className={styles.loading}>Cargando...</div>
+      </div>
+    );
+  }
+
+  // Show message if not authenticated (don't use Navigate to avoid infinite loops)
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.dashboard}>
+        <div className={styles.error}>
+          <h2>No autenticado</h2>
+          <p>Por favor, inicia sesión para acceder a esta página.</p>
+          <a href="/login">Ir a Login</a>
+        </div>
+      </div>
+    );
+  }
 
   // Detectar si estamos en modo standalone (no desde shell)
   // Si el pathname NO empieza con /user, estamos en modo standalone
@@ -33,9 +57,14 @@ const Dashboard: React.FC = memo(() => {
   );
 
   // Memoizar valores calculados
+  // Priorizar datos del store de autenticación si están disponibles
   const welcomeMessage = useMemo(
-    () => profileLoading ? 'Cargando...' : `Bienvenido, ${profile?.firstName || 'Usuario'}`,
-    [profileLoading, profile?.firstName]
+    () => {
+      if (profileLoading) return 'Cargando...';
+      const firstName = profile?.firstName || authUser?.firstName || 'Usuario';
+      return `Bienvenido, ${firstName}`;
+    },
+    [profileLoading, profile?.firstName, authUser?.firstName]
   );
 
   const documentsCount = useMemo(
@@ -60,11 +89,9 @@ const Dashboard: React.FC = memo(() => {
           <Link to={getRoute('profile')} className={styles.card}>
             <h2>Perfil</h2>
             <p>Gestiona tu información personal</p>
-            {profile && (
-              <div className={styles.cardInfo}>
-                <span>{profile.email}</span>
-              </div>
-            )}
+            <div className={styles.cardInfo}>
+              <span>{authUser?.email || profile?.email || 'No disponible'}</span>
+            </div>
           </Link>
           
           <Link to={getRoute('documents')} className={styles.card}>
