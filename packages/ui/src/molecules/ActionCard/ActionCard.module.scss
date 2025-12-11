@@ -1,0 +1,75 @@
+.actionCard {
+  position: relative;
+  min-height: 200px;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+
+  &--next-step {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  }
+
+  &--recommended {
+    background: linear-gradient(135deg, #ff6b9d 0%, #e8557f 100%);
+  }
+
+  &--essential {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  }
+}
+
+.content {
+  padding: 1.5rem;
+  padding-top: calc(1.5rem + 2.5rem); // Space for badge
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.actionButton {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: #006dcc;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &:hover {
+    color: #0057a3;
+  }
+
+  &:active {
+    color: #00417a;
+  }
+}
+

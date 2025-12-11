@@ -7,6 +7,18 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Dashboard redesign with new UI components
+
+- Created reusable Card component in `packages/ui/src/molecules/Card`
+- Created ActionCard component for action cards with badges (NEXT STEP, RECOMMENDED, ESSENTIAL)
+- Created DocumentPreview component for document previews with actions
+- Created ArticleList component for TOP READS section
+- Redesigned Dashboard page with new layout matching design specifications
+- Added personalized welcome message: "Hi! [Name] get ready to land your dream job"
+- Implemented responsive grid layout for dashboard cards
+- Integrated new components with existing user data (documents, profile)
+- Updated TypeScript path mappings for `@packages/ui` in `apps/user`
+
 ### Added - packages/auth
 
 #### Implementación de Package Compartido de Autenticación
