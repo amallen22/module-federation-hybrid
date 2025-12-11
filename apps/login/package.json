@@ -41,6 +41,7 @@
         "@npm_leadtech/cv-storage-js": "3.3.3-amplitude.2",
         "@npm_leadtech/cv-tests-app-common": "2.2.2",
         "@npm_leadtech/jsr-lib-http": "2.1.1-visitor.0",
+        "@packages/auth": "workspace:*",
         "@packages/query": "workspace:*",
         "amazon-cognito-identity-js": "~2.0",
         "buffer": "^6.0.3",

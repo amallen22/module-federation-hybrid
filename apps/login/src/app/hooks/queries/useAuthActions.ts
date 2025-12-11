@@ -10,6 +10,8 @@ import {
   usePasswordReset,
 } from './useAuth';
 import { formatErrorForDisplay } from '@packages/query';
+import { useAuth, createMockUser } from '@packages/auth';
+import type { AuthProvider } from '@packages/auth';
 
 /**
  * Hook that provides authentication action functions compatible with Controller callbacks
@@ -22,6 +24,9 @@ export function useAuthActions() {
   const linkedInAuthMutation = useLinkedInAuth();
   const passwordRescueMutation = usePasswordRescue();
   const passwordResetMutation = usePasswordReset();
+  
+  // Shared auth store
+  const { setAuth } = useAuth();
 
   /**
    * Sign in with email and password
@@ -70,6 +75,17 @@ export function useAuthActions() {
         cvSessionStore.put('userid', sha1User);
         cvSessionStore.put('user', result.user || '');
 
+        // Also save to shared auth store for cross-app state
+        const user = createMockUser(result.user || '', {
+          id: sha1User,
+        });
+        setAuth({
+          user,
+          token: result.authToken,
+          provider: provider as AuthProvider,
+          userId: sha1User,
+        });
+
         // Call callback if provided and user is new
         if (callback && result.isNewUser) {
           callback();
@@ -103,6 +119,17 @@ export function useAuthActions() {
         cvSessionStore.put('access', result.token);
         cvSessionStore.put('userid', sha1User);
         cvSessionStore.put('user', email);
+
+        // Also save to shared auth store for cross-app state
+        const user = createMockUser(email, {
+          id: sha1User,
+        });
+        setAuth({
+          user,
+          token: result.token,
+          provider: 'cognito',
+          userId: sha1User,
+        });
 
         return result;
       } catch (error) {

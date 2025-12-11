@@ -245,8 +245,15 @@ const Controller: React.FC<ControllerProps> = ({
     }, []);
 
     const onHashChange = useCallback((): void => {
-        const currentHash = getHash(cvSessionStoreRef.current, loadingLinkedInRef.current);
-        handleContent(currentHash);
+        // Cuando se dispara hashchange, leer directamente del hash de la URL
+        // en lugar de desde el sessionStore
+        let urlHash = location.hash || '#/signup';
+        // Normalizar el hash para que coincida con el formato de ROUTE (#/signin, #/signup, etc.)
+        if (!urlHash.startsWith('#/')) {
+            // Si el hash es #signin, convertirlo a #/signin
+            urlHash = urlHash.replace(/^#([^/])/, '#/$1');
+        }
+        handleContent(urlHash);
         flashClean();
     }, [handleContent, flashClean]);
 
@@ -388,7 +395,9 @@ const Controller: React.FC<ControllerProps> = ({
                 if (callback && result.isNewUser) {
                     callback();
                 } else {
-                    forceRedirectOnSession();
+                    // Redirect to /user after successful login
+                    // The auth state is already saved in the shared store by useAuthActions
+                    window.location.href = '/user';
                 }
                 stopLoading();
             } else {
@@ -422,7 +431,9 @@ const Controller: React.FC<ControllerProps> = ({
                 if (callback && isNewUser) {
                     callback();
                 } else {
-                    forceRedirectOnSession();
+                    // Redirect to /user after successful login
+                    // The auth state is already saved in the shared store by useAuthActions
+                    window.location.href = '/user';
                 }
             }
         } catch (err: any) {
@@ -636,9 +647,8 @@ const Controller: React.FC<ControllerProps> = ({
                 break;
             default:
                 setRoute(ROUTE.signUp);
-                history.pushState(null, '', new URL(
-                    `https://${location.host}/${search}${ROUTE.signUp}`
-                ).toString());
+                // Usar location.origin en lugar de construir URL manualmente
+                history.pushState(null, '', `${location.origin}${location.pathname}${search}${ROUTE.signUp}`);
         }
 
         return content;

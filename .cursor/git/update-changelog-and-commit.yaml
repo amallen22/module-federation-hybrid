@@ -1,0 +1,63 @@
+rules:
+  - id: update-changelog-and-commit
+    description: >
+      Actualiza changelog.md, añade los archivos, crea un commit resumiendo
+      la sección más reciente del changelog y hace push a la rama actual.
+    triggers:
+      - "update changelog"
+      - "update changelog and commit"
+      - "publish changelog"
+    steps:
+      - name: Format changelog
+        run: |
+          npx prettier --write CHANGELOG.md || true
+
+      - name: Extract latest changelog entry
+        run: |
+          # Extraer el primer subtítulo después de "## [Unreleased]" (ej: "### Added - packages/auth")
+          LATEST_ENTRY=$(awk '/^## \[Unreleased\]/{found=1; next} found && /^### /{print; exit} found && /^## \[/{exit}' CHANGELOG.md | head -n 1)
+          # Si no hay subtítulo, usar "Unreleased"
+          if [ -z "$LATEST_ENTRY" ]; then
+            LATEST_ENTRY="## [Unreleased]"
+          fi
+          # Limpiar el título (remover ### y ##, convertir a formato de commit)
+          MSG=$(echo "$LATEST_ENTRY" | sed 's/^### //' | sed 's/^## //' | sed 's/^\[Unreleased\]/Unreleased/')
+          # Si el mensaje es muy largo, truncarlo
+          if [ ${#MSG} -gt 50 ]; then
+            MSG=$(echo "$MSG" | cut -c1-47)"..."
+          fi
+          echo "$MSG" > .cursor_last_changelog.txt
+
+      - name: Check for changes
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No hay cambios para commitear"
+            exit 0
+          fi
+
+      - name: Git add
+        run: git add .
+
+      - name: Create commit
+        run: |
+          MSG=$(cat .cursor_last_changelog.txt)
+          if [ -z "$MSG" ]; then
+            MSG="chore: update changelog"
+          else
+            MSG="chore: $MSG"
+          fi
+          git commit -m "$MSG" || echo "No hay cambios para commitear"
+
+      - name: Push to remote branch
+        run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          # Verificar si hay un remoto configurado
+          if git remote | grep -q "^origin$"; then
+            git push origin "$BRANCH" || echo "Push falló o no hay cambios para pushear"
+          else
+            echo "No hay remoto 'origin' configurado"
+          fi
+
+      - name: Cleanup
+        run: |
+          rm -f .cursor_last_changelog.txt
