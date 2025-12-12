@@ -7,6 +7,15 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Storybook stories for molecule components
+
+- Created Storybook story for `Card` component with multiple variants
+- Created Storybook story for `ActionCard` component demonstrating all badge types (NEXT STEP, RECOMMENDED, ESSENTIAL)
+- Created Storybook story for `DocumentPreview` component with editable and empty states
+- Created Storybook story for `ArticleList` component with sample articles
+- All stories include proper TypeScript types and interactive controls (argTypes)
+- Stories demonstrate all props and variants for each component
+
 ### Added - Dashboard redesign with new UI components
 
 - Created reusable Card component in `packages/ui/src/molecules/Card`

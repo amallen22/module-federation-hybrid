@@ -305,3 +305,5 @@ O importar directamente si están disponibles como variables CSS.
 - Componentes ya migrados: `GoogleLogin.tsx`, `LinkedInLogin.tsx`, `Divider.tsx`
 
 
+
+
