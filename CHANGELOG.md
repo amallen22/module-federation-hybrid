@@ -7,26 +7,26 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
-### Added - Storybook stories for molecule components
+### Added - Stories de Storybook para componentes moleculares
 
-- Created Storybook story for `Card` component with multiple variants
-- Created Storybook story for `ActionCard` component demonstrating all badge types (NEXT STEP, RECOMMENDED, ESSENTIAL)
-- Created Storybook story for `DocumentPreview` component with editable and empty states
-- Created Storybook story for `ArticleList` component with sample articles
-- All stories include proper TypeScript types and interactive controls (argTypes)
-- Stories demonstrate all props and variants for each component
+- Creada story de Storybook para componente `Card` con múltiples variantes
+- Creada story de Storybook para componente `ActionCard` demostrando todos los tipos de badges (NEXT STEP, RECOMMENDED, ESSENTIAL)
+- Creada story de Storybook para componente `DocumentPreview` con estados editables y vacíos
+- Creada story de Storybook para componente `ArticleList` con artículos de ejemplo
+- Todas las stories incluyen tipos TypeScript apropiados y controles interactivos (argTypes)
+- Las stories demuestran todas las props y variantes de cada componente
 
-### Added - Dashboard redesign with new UI components
+### Added - Rediseño del Dashboard con nuevos componentes UI
 
-- Created reusable Card component in `packages/ui/src/molecules/Card`
-- Created ActionCard component for action cards with badges (NEXT STEP, RECOMMENDED, ESSENTIAL)
-- Created DocumentPreview component for document previews with actions
-- Created ArticleList component for TOP READS section
-- Redesigned Dashboard page with new layout matching design specifications
-- Added personalized welcome message: "Hi! [Name] get ready to land your dream job"
-- Implemented responsive grid layout for dashboard cards
-- Integrated new components with existing user data (documents, profile)
-- Updated TypeScript path mappings for `@packages/ui` in `apps/user`
+- Creado componente reutilizable Card en `packages/ui/src/molecules/Card`
+- Creado componente ActionCard para tarjetas de acción con badges (NEXT STEP, RECOMMENDED, ESSENTIAL)
+- Creado componente DocumentPreview para vistas previas de documentos con acciones
+- Creado componente ArticleList para la sección TOP READS
+- Rediseñado el Dashboard con nuevo layout según especificaciones de diseño
+- Añadido mensaje de bienvenida personalizado: "Hi! [Name] get ready to land your dream job"
+- Implementado layout grid responsive para tarjetas del dashboard
+- Integrados nuevos componentes con datos existentes de usuario (documentos, perfil)
+- Actualizados los path mappings de TypeScript para `@packages/ui` en `apps/user`
 
 ### Added - packages/auth
 
