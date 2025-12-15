@@ -8,9 +8,6 @@
   "scripts": {
     "type-check": "tsc --noEmit"
   },
-  "dependencies": {
-    "zustand": "^5.0.2"
-  },
   "devDependencies": {
     "@types/node": "^22.16.5",
     "typescript": "~5.8.3"

@@ -7,6 +7,26 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - Problema de Hash Routing en apps/login
+
+- **Componente `SigningRedirection.jsx`**:
+  - Corregido el manejo de redirecciones que usaba `window.location.href` causando recargas de página
+  - Implementada detección de hash: si la redirección empieza con `#`, usa `window.location.hash`
+  - Eliminadas recargas innecesarias al cambiar entre formularios de signup/signin
+  - Mantiene retrocompatibilidad con URLs no-hash
+
+- **Controller.tsx**:
+  - Mejorado el callback `onHashChange` con validación de rutas válidas
+  - Añadido efecto de sincronización entre `route` state y `location.hash`
+  - Implementados logs de debug para facilitar troubleshooting: `[Controller] Hash changed to: #/signin`
+  - Prevención de hashes inválidos con fallback a ruta por defecto
+
+- **Resultado**:
+  - ✅ Transiciones instantáneas entre formularios sin recargas
+  - ✅ Mejor experiencia de usuario (UX)
+  - ✅ Mantiene el estado del componente durante navegación
+  - ✅ Verificado en navegador: signup ↔ signin funciona correctamente
+
 ### Added - Stories de Storybook para componentes moleculares
 
 - Creada story de Storybook para componente `Card` con múltiples variantes

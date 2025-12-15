@@ -1,0 +1,303 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.navbar {
+  background-color: $color-surface;
+  border-bottom: 2px solid $color-border;
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $container-padding;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-navbar;
+  width: 100%;
+}
+
+// =============================================================================
+// LEFT CONTENT
+// =============================================================================
+
+.leftContent {
+  display: flex;
+  align-items: center;
+  gap: $container-padding;
+  flex: 1;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoDefault {
+  display: flex;
+  align-items: center;
+  font-size: 16.254px;
+  font-weight: $font-weight-regular;
+  line-height: 1;
+
+  .resume {
+    color: $color-neutrals-900;
+    font-weight: $font-weight-regular;
+  }
+
+  .coach {
+    color: #ef4723; // Color naranja del logo original
+    font-weight: $font-weight-regular;
+    margin-left: 2px;
+  }
+}
+
+.menuItems {
+  display: flex;
+  align-items: center;
+  gap: $container-padding;
+  height: 100%;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+  padding-top: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  height: 100%;
+  transition: color $transition-fast;
+
+  &:hover {
+    .menuLabel {
+      color: $color-primary;
+    }
+  }
+}
+
+.menuLabel {
+  @include font-body-m;
+  font-size: 20px;
+  line-height: 28px;
+  color: $color-text-neutral-1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  position: relative;
+  transition: color $transition-fast;
+}
+
+.menuItem.active {
+  .menuLabel {
+    color: $color-primary-600;
+  }
+}
+
+.notificationDot {
+  position: absolute;
+  top: -4px;
+  right: -14px;
+  width: 10px;
+  height: 10px;
+  background-color: $color-primary;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px $color-surface;
+}
+
+.badge {
+  background-color: $color-primary-light;
+  color: $color-primary-600;
+  font-size: $font-size-overline;
+  font-weight: $font-weight-medium;
+  line-height: 16.8px;
+  letter-spacing: 0.4px;
+  padding: 1px 7px;
+  border-radius: $border-radius-sm;
+  min-width: 21px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activeIndicator {
+  width: 100%;
+  height: 4px;
+  background-color: $color-primary;
+  border-radius: 57px;
+  margin-top: 18px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+// =============================================================================
+// DIVIDER
+// =============================================================================
+
+.divider {
+  width: 2px;
+  height: $navbar-height;
+  background-color: $color-neutrals-900;
+  opacity: 0.15;
+}
+
+// =============================================================================
+// RIGHT CONTENT
+// =============================================================================
+
+.rightContent {
+  display: flex;
+  align-items: center;
+  gap: $container-padding;
+  justify-content: flex-end;
+}
+
+.languageSelector {
+  background-color: $color-border-subtle;
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 4px 12px 4px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $color-border;
+  }
+
+  .flag {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dropdownIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-neutral-2;
+  }
+}
+
+.upgradeButton {
+  @include button-primary;
+  height: 36px;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-border;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  @include font-title-s;
+  color: $color-text-neutral-1;
+  font-weight: $font-weight-medium;
+}
+
+.userName {
+  @include font-body-m;
+  color: $color-text-neutral-1;
+}
+
+.dropdownIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-neutral-2;
+  width: 24px;
+  height: 24px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// =============================================================================
+// RESPONSIVE
+// =============================================================================
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 $spacing-lg;
+  }
+
+  .leftContent,
+  .rightContent {
+    gap: $spacing-lg;
+  }
+
+  .menuItems {
+    gap: $spacing-lg;
+  }
+
+  .menuLabel {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 $spacing-md;
+  }
+
+  .leftContent,
+  .rightContent {
+    gap: $spacing-md;
+  }
+
+  .menuItems {
+    gap: $spacing-md;
+  }
+
+  .menuLabel {
+    font-size: 16px;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .upgradeButton {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+

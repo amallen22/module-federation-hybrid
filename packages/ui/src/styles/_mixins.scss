@@ -1,0 +1,230 @@
+// Mixins reutilizables basados en el diseño de Figma
+
+@import './variables';
+
+// =============================================================================
+// TIPOGRAFÍA
+// =============================================================================
+
+@mixin font-overline {
+  font-family: $font-family-base;
+  font-size: $font-size-overline;
+  font-weight: $font-weight-regular;
+  line-height: $font-line-height-overline;
+  letter-spacing: $font-letter-spacing-overline;
+  text-transform: uppercase;
+}
+
+@mixin font-body-s {
+  font-family: $font-family-base;
+  font-size: $font-size-body-s;
+  font-weight: $font-weight-regular;
+  line-height: $font-line-height-body-s;
+}
+
+@mixin font-body-m {
+  font-family: $font-family-base;
+  font-size: $font-size-body-m;
+  font-weight: $font-weight-regular;
+  line-height: $font-line-height-body-m;
+}
+
+@mixin font-title-s {
+  font-family: $font-family-base;
+  font-size: $font-size-title-s;
+  font-weight: $font-weight-medium;
+  line-height: $font-line-height-title-s;
+}
+
+@mixin font-title-l {
+  font-family: $font-family-base;
+  font-size: $font-size-title-l;
+  font-weight: $font-weight-medium;
+  line-height: $font-line-height-title-l;
+}
+
+@mixin font-title-xl {
+  font-family: $font-family-base;
+  font-size: $font-size-title-xl;
+  font-weight: $font-weight-medium;
+  line-height: $font-line-height-title-xl;
+}
+
+// =============================================================================
+// BADGES / TAGS
+// =============================================================================
+
+@mixin badge-base {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: $border-radius-full;
+  @include font-overline;
+  font-size: 11px;
+  line-height: 20px;
+  letter-spacing: 1.375px;
+  opacity: 0.9;
+}
+
+@mixin badge-next-step {
+  @include badge-base;
+  background-color: $color-primary;
+  color: $color-neutrals-00;
+}
+
+@mixin badge-recommended {
+  @include badge-base;
+  background-color: $color-primary;
+  color: $color-neutrals-00;
+}
+
+@mixin badge-essential {
+  @include badge-base;
+  background-color: transparent;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+}
+
+// =============================================================================
+// CARDS
+// =============================================================================
+
+@mixin card-base {
+  background-color: $color-surface;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  transition: transform $transition-base, box-shadow $transition-base;
+}
+
+@mixin card-hover {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $box-shadow-md;
+  }
+}
+
+// =============================================================================
+// DIVIDERS
+// =============================================================================
+
+@mixin divider-horizontal {
+  width: 100%;
+  height: 2px;
+  background-color: $color-neutrals-900;
+  opacity: 0.15;
+}
+
+@mixin divider-vertical {
+  width: 2px;
+  height: 100%;
+  background-color: $color-neutrals-900;
+  opacity: 0.15;
+}
+
+// =============================================================================
+// BOTONES / CTAs
+// =============================================================================
+
+@mixin cta-link {
+  @include font-title-s;
+  color: $color-text-base;
+  opacity: 0.6;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity $transition-fast;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $color-neutrals-900;
+    opacity: 0.15;
+    transition: opacity $transition-fast;
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+    &::after {
+      opacity: 0.3;
+    }
+  }
+}
+
+@mixin button-primary {
+  background-color: $color-primary-light;
+  border: 1px solid $color-primary-border;
+  color: $color-primary;
+  padding: 8px 32px;
+  border-radius: $border-radius-full;
+  @include font-title-s;
+  font-weight: $font-weight-medium;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-neutrals-00;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// =============================================================================
+// CONTAINER / LAYOUT
+// =============================================================================
+
+@mixin container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// =============================================================================
+// SCROLLBAR PERSONALIZADO
+// =============================================================================
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-neutrals-100;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-neutrals-400;
+    border-radius: 4px;
+
+    &:hover {
+      background: $color-neutrals-500;
+    }
+  }
+}
+
+
