@@ -273,9 +273,6 @@ importers:
       react-router-dom:
         specifier: ^6.28.0
         version: 6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      zustand:
-        specifier: ^5.0.2
-        version: 5.0.9(@types/react@18.3.23)(react@18.3.1)
     devDependencies:
       '@originjs/vite-plugin-federation':
         specifier: ^1.4.1
@@ -331,9 +328,6 @@ importers:
       react:
         specifier: ^18.3.1
         version: 18.3.1
-      zustand:
-        specifier: ^5.0.2
-        version: 5.0.9(@types/react@18.3.23)(react@18.3.1)
     devDependencies:
       '@types/node':
         specifier: ^22.16.5

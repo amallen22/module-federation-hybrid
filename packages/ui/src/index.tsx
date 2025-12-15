@@ -8,3 +8,6 @@ export * from './atoms';
 // Export molecules (Atomic Design)
 export * from './molecules';
 
+// Export organisms (Atomic Design)
+export * from './organisms';
+

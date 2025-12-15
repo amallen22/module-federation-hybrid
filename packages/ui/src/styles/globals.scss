@@ -1,0 +1,121 @@
+// Estilos globales para el UI Kit de ResumeCoach
+
+@import './variables';
+@import './mixins';
+
+// =============================================================================
+// RESET Y BASE
+// =============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: $font-family-base;
+  background-color: $color-background;
+  color: $color-text-base;
+  @include font-body-m;
+  min-height: 100vh;
+}
+
+// =============================================================================
+// TIPOGRAFÍA GLOBAL
+// =============================================================================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: $font-weight-medium;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// =============================================================================
+// CLASES UTILITARIAS
+// =============================================================================
+
+.container {
+  @include container;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+// =============================================================================
+// CUSTOM PROPERTIES (CSS Variables) PARA COMPATIBILIDAD
+// =============================================================================
+
+:root {
+  // Colores
+  --color-neutrals-00: #{$color-neutrals-00};
+  --color-neutrals-50: #{$color-neutrals-50};
+  --color-neutrals-100: #{$color-neutrals-100};
+  --color-neutrals-200: #{$color-neutrals-200};
+  --color-neutrals-400: #{$color-neutrals-400};
+  --color-neutrals-500: #{$color-neutrals-500};
+  --color-neutrals-600: #{$color-neutrals-600};
+  --color-neutrals-700: #{$color-neutrals-700};
+  --color-neutrals-900: #{$color-neutrals-900};
+
+  --color-primary-50: #{$color-primary-50};
+  --color-primary-100: #{$color-primary-100};
+  --color-primary-300: #{$color-primary-300};
+  --color-primary-400: #{$color-primary-400};
+  --color-primary-600: #{$color-primary-600};
+
+  --color-background: #{$color-background};
+  --color-surface: #{$color-surface};
+  --color-border: #{$color-border};
+  --color-text-base: #{$color-text-base};
+  --color-text-neutral-1: #{$color-text-neutral-1};
+  --color-text-neutral-2: #{$color-text-neutral-2};
+  --color-primary: #{$color-primary};
+
+  // Espaciado
+  --spacing-xs: #{$spacing-xs};
+  --spacing-sm: #{$spacing-sm};
+  --spacing-md: #{$spacing-md};
+  --spacing-lg: #{$spacing-lg};
+  --spacing-xl: #{$spacing-xl};
+  --spacing-xxl: #{$spacing-xxl};
+  --spacing-xxxl: #{$spacing-xxxl};
+
+  // Layout
+  --navbar-height: #{$navbar-height};
+  --container-max-width: #{$container-max-width};
+
+  // Border radius
+  --border-radius-sm: #{$border-radius-sm};
+  --border-radius-md: #{$border-radius-md};
+  --border-radius-lg: #{$border-radius-lg};
+  --border-radius-full: #{$border-radius-full};
+}
+
+

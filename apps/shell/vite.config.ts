@@ -94,6 +94,11 @@ const federationPlugin = !isDevelopment ? federation({
       singleton: true,
       shareScope: 'default',
       requiredVersion: '^6.30.0',
+    },
+    'zustand': {
+      singleton: true,
+      shareScope: 'default',
+      requiredVersion: '^5.0.9',
     }
   }
 }) : null;

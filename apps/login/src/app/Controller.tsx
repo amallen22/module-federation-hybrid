@@ -248,11 +248,20 @@ const Controller: React.FC<ControllerProps> = ({
         // Cuando se dispara hashchange, leer directamente del hash de la URL
         // en lugar de desde el sessionStore
         let urlHash = location.hash || '#/signup';
+        
         // Normalizar el hash para que coincida con el formato de ROUTE (#/signin, #/signup, etc.)
         if (!urlHash.startsWith('#/')) {
             // Si el hash es #signin, convertirlo a #/signin
             urlHash = urlHash.replace(/^#([^/])/, '#/$1');
         }
+        
+        // Validar que el hash sea una ruta válida, si no, usar signup por defecto
+        const validHashes = Object.values(ROUTE);
+        if (!validHashes.includes(urlHash)) {
+            urlHash = ROUTE.signUp;
+        }
+        
+        console.log('[Controller] Hash changed to:', urlHash);
         handleContent(urlHash);
         flashClean();
     }, [handleContent, flashClean]);
@@ -706,6 +715,17 @@ const Controller: React.FC<ControllerProps> = ({
             handleVisitor();
         });
     }, [handleVisitor]);
+
+    // Efecto para sincronizar el hash de la URL cuando la ruta cambia
+    useEffect(() => {
+        if (route && location.hash !== route) {
+            console.log('[Controller] Syncing route to hash:', route);
+            // Actualizar el hash sin causar recarga
+            if (route.startsWith('#')) {
+                window.location.hash = route;
+            }
+        }
+    }, [route]);
 
     // ========================================================================
     // RENDER

@@ -23,7 +23,12 @@ const RedirectionWrapper = styled.div`
 const SigningRedirection = ({ label, redirectionLabel, redirection, redirectionDataQa }) => {
 
     const handleRedirection = () => {
-        window.location.href = redirection;
+        // Si la redirección es un hash, usar window.location.hash para evitar recargas
+        if (redirection.startsWith('#')) {
+            window.location.hash = redirection;
+        } else {
+            window.location.href = redirection;
+        }
     };
 
     return(

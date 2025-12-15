@@ -1,193 +1,579 @@
-.dashboard {
-  width: 100%;
+// Importar variables y mixins usando rutas relativas absolutas desde packages/ui
+@import '../../../../../../packages/ui/src/styles/variables';
+@import '../../../../../../packages/ui/src/styles/mixins';
+
+// =============================================================================
+// CONTAINER
+// =============================================================================
+
+.container {
   min-height: 100vh;
-  padding: 2rem;
-  background-color: #f5f5f5;
-  max-width: 1400px;
-  margin: 0 auto;
+  background-color: $color-background;
+  display: flex;
+  flex-direction: column;
 }
 
-.header {
-  margin-bottom: 2rem;
+.loading,
+.error {
+  @include flex-center;
+  min-height: 100vh;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding: $spacing-xl;
+  text-align: center;
 }
 
-.welcome {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-  line-height: 1.3;
+// =============================================================================
+// MAIN CONTENT
+// =============================================================================
+
+.main {
+  flex: 1;
+  padding-top: $spacing-xxxl;
 }
 
 .content {
-  width: 100%;
+  @include container;
 }
+
+// =============================================================================
+// HERO
+// =============================================================================
+
+.hero {
+  @include font-title-xl;
+  text-align: center;
+  margin-bottom: $spacing-xxxl;
+  color: $color-text-base;
+}
+
+// =============================================================================
+// GRID LAYOUT
+// =============================================================================
 
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
+  gap: $spacing-xl;
+  max-width: 1296px; // 119px + 648px + 24px + 456px + 49px desde diseño
+  margin: 0 auto;
 }
 
-.cardRow {
-  // Primera fila: NEXT STEP (span 6) y Document Preview (span 6)
+// =============================================================================
+// PROMO LARGE (NEXT STEP)
+// =============================================================================
+
+.promoLarge {
+  grid-column: 1 / 9; // 8 columnas (648px aprox)
+  background: linear-gradient(135deg, #c6dced 0%, #d4e5f1 100%);
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  display: grid;
+  grid-template-columns: 288px 1fr;
+  gap: $spacing-xl;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.promoContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  z-index: 1;
+}
+
+.badgeNextStep {
+  @include badge-next-step;
+  width: fit-content;
+}
+
+.badgeRecommended {
+  @include badge-recommended;
+  width: fit-content;
+}
+
+.badgeEssential {
+  @include badge-essential;
+  width: fit-content;
+}
+
+.promoTitle {
+  @include font-title-l;
+  color: $color-text-base;
+  opacity: 0.9;
+  line-height: 32px;
+}
+
+.promoDescription {
+  @include font-body-m;
+  color: $color-text-base;
+  opacity: 0.6;
+  line-height: 24px;
+}
+
+.ctaLink {
+  @include cta-link;
+  width: fit-content;
+  background: none;
+  border: none;
+  padding: 0;
+  padding-bottom: 2px;
+}
+
+.promoIllustration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.reviewVisual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.documentPreview {
+  background: white;
+  border-radius: 8px;
+  padding: $spacing-lg;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+  width: 200px;
+  height: 260px;
+  position: relative;
+  z-index: 2;
+}
+
+.docHeader {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #e7ebee 0%, #f0f3f5 100%);
+  border-radius: 50%;
+  margin-bottom: $spacing-md;
+}
+
+.docLines {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.line {
+  height: 8px;
+  background-color: $color-neutrals-200;
+  border-radius: 4px;
+  opacity: 0.5;
+
   &:nth-child(1) {
-    grid-column: span 6;
+    width: 90%;
   }
 
   &:nth-child(2) {
-    grid-column: span 6;
+    width: 100%;
   }
 
-  // Segunda fila: RECOMMENDED (span 4), ESSENTIAL (span 4), TOP READS (span 4)
   &:nth-child(3) {
-    grid-column: span 4;
+    width: 70%;
   }
 
   &:nth-child(4) {
-    grid-column: span 4;
-  }
-
-  &:nth-child(5) {
-    grid-column: span 4;
+    width: 100%;
   }
 }
 
-// Responsive: en pantallas más pequeñas, hacer las cards de ancho completo
+.scanEffect {
+  position: absolute;
+  top: 0;
+  right: -20px;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(38, 160, 244, 0.2),
+    rgba(38, 160, 244, 0.85),
+    rgba(38, 160, 244, 0.5),
+    rgba(38, 160, 244, 0.2)
+  );
+  box-shadow: 0 0 20px rgba(38, 160, 244, 0.5);
+  animation: scan 3s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateX(-250px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// =============================================================================
+// DOC PREVIEW MODULE
+// =============================================================================
+
+.docPreviewModule {
+  grid-column: 9 / 13; // 4 columnas (456px aprox)
+  background-color: $color-neutrals-200;
+  opacity: 0.75;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.docPreviewHeader {
+  padding: $spacing-xl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.docTitle {
+  @include font-title-s;
+  color: $color-text-neutral-1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.editIcon {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $color-text-neutral-2;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.newResumeBtn {
+  @include font-title-s;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.docPreviewBody {
+  flex: 1;
+  padding: 0 $spacing-xl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.documentThumbnail {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+  padding: $spacing-lg;
+  width: 100%;
+  max-width: 272px;
+  min-height: 200px;
+}
+
+.thumbnailHeader {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $color-border;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c6dced 0%, #e7ebee 100%);
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.name {
+  @include font-body-s;
+  font-weight: $font-weight-bold;
+  color: $color-text-base;
+  margin-bottom: 4px;
+}
+
+.contact {
+  height: 8px;
+  background-color: $color-neutrals-200;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.thumbnailSections {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.section {
+  @include font-overline;
+  font-size: 10px;
+  color: $color-text-neutral-2;
+  padding: 4px 0;
+  border-bottom: 1px solid $color-border;
+}
+
+.emptyDoc {
+  text-align: center;
+  color: $color-text-neutral-2;
+  @include font-body-m;
+}
+
+.docToolbar {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.05) 100%);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-xl;
+}
+
+.docActions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.docAction {
+  @include font-title-s;
+  color: $color-text-neutral-1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $color-text-neutral-2;
+  }
+
+  &:hover {
+    color: $color-primary;
+
+    svg {
+      color: $color-primary;
+    }
+  }
+}
+
+.actionDivider {
+  width: 2px;
+  height: 32px;
+  background-color: $color-divider;
+  border-radius: $border-radius-full;
+}
+
+.moreOptions {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $color-text-neutral-2;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text-neutral-1;
+  }
+}
+
+// =============================================================================
+// PROMO ROW (2 MEDIUM PROMOS)
+// =============================================================================
+
+.promoRow {
+  grid-column: 1 / 9;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-xl;
+}
+
+.promoMedium {
+  background-color: $color-neutrals-200; // Cover letter
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  min-height: 280px;
+
+  &:first-child {
+    background-color: #dde7ef; // Cover letter
+  }
+
+  &:last-child {
+    background-color: $color-primary-light; // Online resume
+  }
+}
+
+.promoTitleMedium {
+  @include font-title-l;
+  color: $color-text-base;
+  opacity: 0.9;
+  line-height: 32px;
+  margin-top: $spacing-sm;
+}
+
+.promoDescriptionMedium {
+  @include font-body-m;
+  color: $color-text-base;
+  opacity: 0.6;
+  line-height: 24px;
+  flex: 1;
+}
+
+// =============================================================================
+// TOP READS MODULE
+// =============================================================================
+
+.topReadsModule {
+  grid-column: 9 / 13;
+}
+
+.topReadsTitle {
+  @include font-overline;
+  color: $color-text-neutral-1;
+  margin-bottom: $spacing-lg;
+}
+
+.articlesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.articleItem {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: $spacing-md;
+  align-items: center;
+  padding: $spacing-md 4px;
+  border-bottom: 2px solid $color-neutrals-900;
+  border-opacity: 0.15;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: rgba($color-primary, 0.05);
+  }
+}
+
+.articleIcon {
+  width: 24px;
+  height: 24px;
+  color: $color-text-neutral-2;
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.articleTitle {
+  @include font-title-s;
+  color: $color-text-neutral-1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.articleReadTime {
+  @include font-body-s;
+  color: $color-text-neutral-2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.75;
+  }
+}
+
+// =============================================================================
+// RESPONSIVE
+// =============================================================================
+
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: $spacing-lg;
   }
 
-  .cardRow {
-    grid-column: span 1 !important;
+  .promoLarge,
+  .docPreviewModule,
+  .promoRow,
+  .topReadsModule {
+    grid-column: 1 / -1;
   }
-}
 
-// Estilos para el visual de resume review
-.resumeReviewVisual {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #f9f9f9;
-  border-radius: 8px;
-}
+  .promoLarge {
+    grid-template-columns: 1fr;
+  }
 
-.personIcon {
-  font-size: 3rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.resumeIcon {
-  font-size: 2rem;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-height: 80px;
-}
-
-// Estilos para el preview del documento
-.documentPreviewContent {
-  padding: 1rem;
-  background: white;
-  border-radius: 8px;
-  min-height: 300px;
-}
-
-.documentHeader {
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e0e0e0;
-
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
+  .promoIllustration {
+    display: none;
   }
 }
 
-.documentBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-
-  p {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #f0f0f0;
-  }
-}
-
-.emptyDocument {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  color: #999;
-  text-align: center;
-
-  p {
-    margin: 0.5rem 0;
-    font-size: 0.875rem;
-  }
-}
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  font-size: 1rem;
-  color: #666;
-}
-
-.error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  text-align: center;
-
-  h2 {
-    font-size: 1.5rem;
-    color: #d32f2f;
-    margin: 0 0 1rem 0;
+@media (max-width: 768px) {
+  .main {
+    padding-top: $spacing-xl;
   }
 
-  p {
-    font-size: 1rem;
-    color: #666;
-    margin: 0 0 1rem 0;
+  .hero {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: $spacing-xl;
   }
 
-  a {
-    color: #006dcc;
-    text-decoration: none;
-    font-weight: 500;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  .promoRow {
+    grid-template-columns: 1fr;
   }
 }
 
