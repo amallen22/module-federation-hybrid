@@ -461,12 +461,18 @@ const Controller: React.FC<ControllerProps> = ({
             if (onSignInWithCognito) {
                 console.log('[Controller] Using TanStack Query for Cognito login');
                 const result: any = await onSignInWithCognito(email, password);
-                console.log('[Controller] Cognito login successful, calling onSignInSuccess');
-                // After successful login, call onSignInSuccess with the token
-                await onSignInSuccess({
-                    provider: 'cognito',
-                    providerToken: result.token
-                });
+                console.log('[Controller] Cognito login successful, result:', result);
+                
+                // signInWithCognito already saves to session and auth store, just redirect
+                const sessionItems = getStateSessionItems(cvSessionStoreRef.current);
+                setHasAccess(sessionItems.hasAccess);
+                setHasSession(sessionItems.hasSession);
+                
+                stopLoading();
+                
+                // Redirect to /user after successful login
+                console.log('[Controller] Redirecting to /user');
+                window.location.href = '/user';
             } else {
                 // Fallback to legacy AuthManager
                 console.log('[Controller] Using legacy AuthManager for Cognito login (fallback)');
@@ -482,7 +488,7 @@ const Controller: React.FC<ControllerProps> = ({
             }
         } catch (error: any) {
             console.error('[Controller] Cognito login error:', error);
-            flashDisplayError(error);
+            flashDisplayError(error.message || error);
             stopLoading();
         }
     }, [onSignInWithCognito, startLoading, stopLoading, flashDisplayError, onSignInSuccess]);

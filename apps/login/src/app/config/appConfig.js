@@ -34,18 +34,34 @@ export const I18N_BASE_URL = (() => {
         return '';
     }
     
+    // Priorizar variable de entorno si está definida
+    if (import.meta.env.VITE_I18N_BASE_URL) {
+        return import.meta.env.VITE_I18N_BASE_URL;
+    }
+    
     const origin = window.location.origin;
     const hostname = window.location.hostname;
     
-    // Detectar si estamos en desarrollo (localhost)
+    // Detectar si estamos en desarrollo/preview (localhost)
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
-    const isInShell = origin.includes('localhost:5000');
     
-    // En desarrollo, si estamos en shell, usar servidor de login
-    if (isLocalhost && isInShell) {
-        return 'http://localhost:5003';
+    // En localhost, siempre intentar cargar desde el servidor de login (5003)
+    // Esto funciona tanto en dev como en preview
+    if (isLocalhost) {
+        const isInShell = origin.includes('localhost:5000');
+        const isInLogin = origin.includes('localhost:5003');
+        
+        // Si ya estamos en el servidor de login, usar origin actual
+        if (isInLogin) {
+            return origin;
+        }
+        
+        // Si estamos en shell u otro puerto, usar servidor de login explícitamente
+        if (isInShell || true) {
+            return 'http://localhost:5003';
+        }
     }
     
-    // Por defecto, usar el origin actual
+    // Por defecto, usar el origin actual (producción)
     return origin;
 })();

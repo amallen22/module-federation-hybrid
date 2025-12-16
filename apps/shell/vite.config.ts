@@ -99,6 +99,11 @@ const federationPlugin = !isDevelopment ? federation({
       singleton: true,
       shareScope: 'default',
       requiredVersion: '^5.0.9',
+    },
+    '@tanstack/react-query': {
+      singleton: true,
+      shareScope: 'default',
+      requiredVersion: '^5.0.0',
     }
   }
 }) : null;

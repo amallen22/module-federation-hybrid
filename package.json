@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "pnpm --parallel --filter shell --filter product --filter ui --filter login dev",
     "dev:minimal": "pnpm --parallel --filter shell --filter product --filter ui --filter login dev",
-    "build:all": "pnpm --filter ui build && pnpm --filter product build && pnpm --filter shell build && pnpm --filter user build",
-    "preview:all": "pnpm --parallel --filter shell --filter product --filter ui --filter user preview",
+    "build:all": "pnpm --filter ui build && pnpm --filter product build && pnpm --filter shell build && pnpm --filter user build && pnpm --filter login build",
+    "preview:all": "pnpm --parallel --filter shell --filter product --filter ui --filter user --filter login preview",
     "dev:build-preview": "pnpm build:all && pnpm preview:all",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",

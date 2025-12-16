@@ -1,0 +1,1 @@
+Fixed - Correcciones críticas en login flow y traducciones

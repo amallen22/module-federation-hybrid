@@ -118,7 +118,7 @@ const copyI18nPlugin = () => {
     name: 'copy-i18n',
     configureServer(server) {
       // Middleware para servir archivos i18n en desarrollo desde src/app/i18n
-      server.middlewares.use('/dist/i18n', (req, res, next) => {
+      server.middlewares.use('/i18n', (req, res, next) => {
         // Configurar cabeceras CORS
         const origin = req.headers.origin;
         const allowedOrigins = ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'];
@@ -230,6 +230,16 @@ export default defineConfig({
           requiredVersion: '^18.3.1',
           import: false,
           shareScope: 'default'
+        },
+        '@tanstack/react-query': {
+          singleton: true,
+          shareScope: 'default',
+          requiredVersion: '^5.0.0'
+        },
+        'zustand': {
+          singleton: true,
+          shareScope: 'default',
+          requiredVersion: '^5.0.9'
         }
       }
     }),
@@ -340,6 +350,15 @@ export default defineConfig({
     force: true
   },
   server: {
+    port: 5003,
+    strictPort: true,
+    host: true,
+    cors: {
+      origin: ['http://localhost:5000', 'http://localhost:5001', 'http://localhost:5002', 'http://localhost:5003'],
+      credentials: true
+    }
+  },
+  preview: {
     port: 5003,
     strictPort: true,
     host: true,

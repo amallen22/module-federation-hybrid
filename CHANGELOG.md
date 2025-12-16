@@ -7,6 +7,35 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - Correcciones críticas en login flow y traducciones
+
+#### Problema 1: Hash routing en formulario de login
+
+- **SigningRedirection.jsx**: Añadido `dispatchEvent(new HashChangeEvent('hashchange'))` para forzar actualización del componente
+- **Controller.tsx**: Mejorado `onHashChange` con validación de rutas y logs de debug
+- **Controller.tsx**: Añadido efecto de sincronización entre `route` state y `location.hash`
+- **Estado**: Parcialmente resuelto (funciona en dev, requiere más investigación en build)
+
+#### Problema 2: Login exitoso no redirigía a /user
+
+- **Controller.tsx**: Modificado `handleCognitoLogin` para evitar doble llamada a `onSignInSuccess`
+- **Solución**: `signInWithCognito` ya guarda auth state, solo se necesita redirigir después
+- **Resultado**: ✅ Login con email/password ahora redirige correctamente a `/user`
+
+#### Problema 3: Traducciones mostraban "missing translation" en build
+
+- **api.json**: Cambiado path de `/dist/i18n/$1.json` a `/i18n/$1.json`
+- **vite.config.ts**: Actualizado middleware dev de `/dist/i18n` a `/i18n`
+- **vite.config.ts**: Añadida configuración `preview.cors` para permitir peticiones cross-origin desde shell
+- **appConfig.js**: Mejorada lógica de `I18N_BASE_URL` para detectar correctamente localhost en dev y preview
+- **Resultado**: ✅ Traducciones cargando correctamente en preview
+
+#### Build configuration fixes
+
+- **apps/shell**: Añadidas dependencias `@tanstack/react-query` y `zustand` como shared en Module Federation
+- **apps/login**: Añadidas dependencias `@tanstack/react-query` y `zustand` como shared en Module Federation
+- **Resultado**: ✅ `pnpm build:all` exitoso sin errores de dependencias
+
 ### Fixed - Problema de Hash Routing en apps/login
 
 - **Componente `SigningRedirection.jsx`**:

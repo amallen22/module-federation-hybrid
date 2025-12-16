@@ -72,6 +72,9 @@ importers:
       '@packages/query':
         specifier: workspace:*
         version: link:../../packages/query
+      '@tanstack/react-query':
+        specifier: ^5.62.13
+        version: 5.90.12(react@18.3.1)
       amazon-cognito-identity-js:
         specifier: ~2.0
         version: 2.0.30
@@ -114,6 +117,9 @@ importers:
       whatwg-fetch:
         specifier: 3.0.0
         version: 3.0.0
+      zustand:
+        specifier: ^5.0.9
+        version: 5.0.9(@types/react@18.3.23)(react@18.3.1)
     devDependencies:
       '@babel/core':
         specifier: ^7.26.0
@@ -224,6 +230,9 @@ importers:
 
   apps/shell:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.62.13
+        version: 5.90.12(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -233,6 +242,9 @@ importers:
       react-router-dom:
         specifier: ^6.30.1
         version: 6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zustand:
+        specifier: ^5.0.9
+        version: 5.0.9(@types/react@18.3.23)(react@18.3.1)
     devDependencies:
       '@originjs/vite-plugin-federation':
         specifier: ^1.4.1

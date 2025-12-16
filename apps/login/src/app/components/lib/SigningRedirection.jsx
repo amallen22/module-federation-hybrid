@@ -26,6 +26,8 @@ const SigningRedirection = ({ label, redirectionLabel, redirection, redirectionD
         // Si la redirección es un hash, usar window.location.hash para evitar recargas
         if (redirection.startsWith('#')) {
             window.location.hash = redirection;
+            // Disparar manualmente el evento hashchange para forzar la actualización
+            window.dispatchEvent(new HashChangeEvent('hashchange'));
         } else {
             window.location.href = redirection;
         }

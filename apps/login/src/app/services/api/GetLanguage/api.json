@@ -1,6 +1,6 @@
 {
     "method": "GET",
-    "path": "/dist/i18n/$1.json",
+    "path": "/i18n/$1.json",
     "urlParams": {
         "$1": "language"
     }
