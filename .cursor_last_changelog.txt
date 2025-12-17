@@ -1,1 +1,1 @@
-Added - Migration Plan App y mejoras en Shell
+Fixed - Ajustes finales en Migration Plan y Shell

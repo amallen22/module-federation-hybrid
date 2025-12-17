@@ -286,25 +286,6 @@ const Estimacion: FC = () => {
             </div>
           </div>
 
-          {/* Collaboration Points */}
-          <div className={styles.ganttRow} style={{ borderTop: '2px dashed #e5e7eb', paddingTop: '16px' }}>
-            <div className={styles.ganttDevLabel}>
-              <span className={styles.devIcon}>🤝</span>
-              <div>
-                <strong>Colaboración</strong>
-                <span className={styles.devFocus}>Code Reviews & Pair</span>
-              </div>
-            </div>
-            <div className={styles.ganttTimeline}>
-              <div className={styles.ganttCollaboration} style={{ gridColumn: '1 / 6' }}>
-                <div className={styles.collabPoint} style={{ left: '10%' }}>📝</div>
-                <div className={styles.collabPoint} style={{ left: '30%' }}>🔄</div>
-                <div className={styles.collabPoint} style={{ left: '50%' }}>🔍</div>
-                <div className={styles.collabPoint} style={{ left: '70%' }}>✅</div>
-                <div className={styles.collabPoint} style={{ left: '90%' }}>🚀</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className={styles.ganttLegend}>

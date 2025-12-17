@@ -7,6 +7,25 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - Ajustes finales en Migration Plan y Shell
+
+#### apps/migration-plan
+
+- **Estimacion.tsx**: Eliminado módulo visual de colaboración del diagrama de Gantt
+- **Estimacion.module.scss**: Añadido `display: flex`, `align-items: center`, `justify-content: center` a `.aiHighlight` para alineación horizontal
+- **Hitos.tsx**: Eliminado módulo completo de grid de estadísticas (Mes 1-2, Mes 3, Mes 4-5, Mayo)
+
+#### apps/shell
+
+- **App.tsx**: Añadido `maxWidth: '1260px'` y `margin: '0 auto'` al componente `HomePage` para centrado y ancho máximo
+
+#### Resultados
+
+- ✅ Diagrama de Gantt más limpio sin fila redundante de colaboración
+- ✅ Destacado de IA correctamente alineado horizontalmente
+- ✅ Grid de estadísticas eliminado para simplificar vista de Hitos
+- ✅ HomePage con mejor contenido centrado y legible
+
 ### Added - Migration Plan App y mejoras en Shell
 
 #### Nueva aplicación: apps/migration-plan
@@ -394,6 +413,25 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **`apps/login/src/app/components/Signing/SignUpButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
 
 ## [Unreleased]
+
+### Fixed - Ajustes finales en Migration Plan y Shell
+
+#### apps/migration-plan
+
+- **Estimacion.tsx**: Eliminado módulo visual de colaboración del diagrama de Gantt
+- **Estimacion.module.scss**: Añadido `display: flex`, `align-items: center`, `justify-content: center` a `.aiHighlight` para alineación horizontal
+- **Hitos.tsx**: Eliminado módulo completo de grid de estadísticas (Mes 1-2, Mes 3, Mes 4-5, Mayo)
+
+#### apps/shell
+
+- **App.tsx**: Añadido `maxWidth: '1260px'` y `margin: '0 auto'` al componente `HomePage` para centrado y ancho máximo
+
+#### Resultados
+
+- ✅ Diagrama de Gantt más limpio sin fila redundante de colaboración
+- ✅ Destacado de IA correctamente alineado horizontalmente
+- ✅ Grid de estadísticas eliminado para simplificar vista de Hitos
+- ✅ HomePage con mejor contenido centrado y legible
 
 ### Added - Migration Plan App y mejoras en Shell
 

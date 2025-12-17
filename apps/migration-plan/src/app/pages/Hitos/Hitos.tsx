@@ -99,28 +99,6 @@ const Hitos: FC = () => {
         </div>
       </PhaseCard>
 
-      <div className={styles.statsGrid}>
-        <div className={styles.stat}>
-          <span className={styles.statIcon}>✅</span>
-          <span className={styles.statValue}>Mes 1-2</span>
-          <span className={styles.statLabel}>En Progreso</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statIcon}>⏳</span>
-          <span className={styles.statValue}>Mes 3</span>
-          <span className={styles.statLabel}>Pendiente</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statIcon}>⏳</span>
-          <span className={styles.statValue}>Mes 4-5</span>
-          <span className={styles.statLabel}>Pendiente</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statIcon}>🎯</span>
-          <span className={styles.statValue}>Mayo</span>
-          <span className={styles.statLabel}>Meta Final</span>
-        </div>
-      </div>
     </div>
   );
 };
