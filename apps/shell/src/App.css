@@ -1,7 +1,8 @@
-#root {
+/* Estilos específicos del Shell - con mayor especificidad */
+.shell-app #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -10,16 +11,18 @@
   100% { transform: rotate(360deg); }
 }
 
-.logo {
+.shell-app .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
+
+.shell-app .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.react:hover {
+
+.shell-app .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
@@ -33,15 +36,15 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
+  .shell-app a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
-.card {
+.shell-app .card {
   padding: 2em;
 }
 
-.read-the-docs {
+.shell-app .read-the-docs {
   color: #888;
 }
