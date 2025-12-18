@@ -323,7 +323,7 @@ const ContextoGeneral: FC = () => {
 
       <PhaseCard 
         title="Objetivo Final" 
-        duration="12 meses"
+        duration="4-6 meses"
         icon="🎯"
       >
         <p>
@@ -349,13 +349,13 @@ const ContextoGeneral: FC = () => {
         </div>
         <div className={styles.stat}>
           <span className={styles.statIcon}>📅</span>
-          <span className={styles.statValue}>12</span>
+          <span className={styles.statValue}>6</span>
           <span className={styles.statLabel}>Meses Estimados</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statIcon}>👥</span>
           <span className={styles.statValue}>2</span>
-          <span className={styles.statLabel}>Developers</span>
+          <span className={styles.statLabel}>Developers + IA</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statIcon}>🎯</span>
