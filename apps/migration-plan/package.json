@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 5006"
+    "build:production": "vite build --mode production",
+    "preview": "vite preview --port 5006",
+    "deploy:s3": "aws s3 sync dist/ s3://$S3_BUCKET/ --delete --cache-control 'max-age=31536000,public' --exclude 'index.html' && aws s3 cp dist/index.html s3://$S3_BUCKET/index.html --cache-control 'max-age=0,no-cache,no-store,must-revalidate'",
+    "build:deploy": "pnpm build:production && pnpm deploy:s3"
   },
   "dependencies": {
     "react": "^18.3.1",

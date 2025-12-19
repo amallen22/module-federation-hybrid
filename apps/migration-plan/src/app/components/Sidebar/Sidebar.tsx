@@ -3,19 +3,16 @@ import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
 const Sidebar: FC = () => {
-  // Detectar si estamos en el shell (bajo /plan) o standalone
-  const isInShell = window.location.pathname.startsWith('/plan');
-  const basePath = isInShell ? '/plan' : '';
-  
+  // Para HashRouter, todas las rutas son relativas (sin base path)
   const menuItems = [
-    { path: `${basePath}/contexto`, label: 'Contexto General', icon: '📋' },
-    { path: `${basePath}/fase1`, label: 'Fase 1: Desbloqueo Stack', icon: '🚀' },
-    { path: `${basePath}/fase2`, label: 'Fase 2: Desacoplamiento', icon: '🔧' },
-    { path: `${basePath}/fase3`, label: 'Fase 3: Editor Refactoring', icon: '⚡' },
-    { path: `${basePath}/riesgos`, label: 'Riesgos y Mitigaciones', icon: '⚠️' },
-    { path: `${basePath}/estimacion`, label: 'Estimación de Tiempos', icon: '⏱️' },
-    { path: `${basePath}/hitos`, label: 'Hitos Clave', icon: '🎯' },
-    { path: `${basePath}/metricas`, label: 'Métricas de Éxito', icon: '📊' },
+    { path: '/plan/contexto', label: 'Contexto General', icon: '📋' },
+    { path: '/plan/fase1', label: 'Fase 1: Desbloqueo Stack', icon: '🚀' },
+    { path: '/plan/fase2', label: 'Fase 2: Desacoplamiento', icon: '🔧' },
+    { path: '/plan/fase3', label: 'Fase 3: Editor Refactoring', icon: '⚡' },
+    { path: '/plan/riesgos', label: 'Riesgos y Mitigaciones', icon: '⚠️' },
+    { path: '/plan/estimacion', label: 'Estimación de Tiempos', icon: '⏱️' },
+    { path: '/plan/hitos', label: 'Hitos Clave', icon: '🎯' },
+    { path: '/plan/metricas', label: 'Métricas de Éxito', icon: '📊' },
   ];
 
   return (

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import ContextoGeneral from './pages/ContextoGeneral/ContextoGeneral';
 import Fase1 from './pages/Fase1/Fase1';
@@ -30,12 +30,13 @@ export function MigrationPlanRoutes() {
   );
 }
 
-// Componente principal con BrowserRouter (para modo standalone)
+// Componente principal con HashRouter (para static hosting en S3)
+// HashRouter permite que la app funcione sin configuración de servidor
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MigrationPlanRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

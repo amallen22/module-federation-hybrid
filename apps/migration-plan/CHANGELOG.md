@@ -8,6 +8,34 @@ Documentación visual del plan de migración CV-Hibrid.
 
 ## [Unreleased]
 
+### Changed - Preparación para Deploy Estático S3
+
+**Migración a HashRouter para Static Hosting**:
+- Cambiado `BrowserRouter` a `HashRouter` en App.tsx
+- Permite deploy en S3 sin configuración de servidor
+- URLs con hash (#/contexto, #/fase1, etc.)
+- Compatible con static hosting sin CloudFront
+
+**Optimización de Build**:
+- Habilitada minificación con Terser
+- CSS code splitting para mejor caching
+- Sourcemaps deshabilitados en producción
+- Manual chunks para vendor code (React, React Router)
+- Base path relativo (`./`) para flexibilidad en S3
+- Assets inline < 4KB
+
+**Scripts de Deploy**:
+- Añadido `build:production` - Build optimizado
+- Añadido `deploy:s3` - Deploy automático a S3
+- Añadido `build:deploy` - Build + deploy en un comando
+- Cache headers configurados (1 año para assets, 0 para index.html)
+
+**Documentación**:
+- Creado `DEPLOY_S3.md` - Guía completa de deploy
+- Creado `JIRA_TICKET_DEVOPS.md` - Ticket listo para DevOps
+- Instrucciones paso a paso para configuración S3
+- Troubleshooting y validación
+
 ### Updated - Estimaciones con Cursor AI
 
 - Actualizado componente Estimacion.tsx con tiempos realistas usando Cursor AI

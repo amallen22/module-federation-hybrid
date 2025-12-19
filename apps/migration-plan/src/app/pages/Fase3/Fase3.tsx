@@ -8,7 +8,7 @@ const Fase3: FC = () => {
       <div className={styles.hero}>
         <h1 className={styles.title}>
           <span className={styles.emoji}>⚡</span>
-          Fase 3: Refactoring y Mejoras del Editor
+          Fase 3: Editor Refactoring y Optimización
         </h1>
         <p className={styles.subtitle}>
           Con Cursor AI: 8-10 semanas | Tradicional: 16-20 semanas
@@ -16,158 +16,183 @@ const Fase3: FC = () => {
       </div>
 
       <PhaseCard 
-        title="Análisis de cv-app-editor" 
-        duration="El más complejo"
-        icon="📊"
-      >
-        <h4>Complejidad</h4>
-        <ul>
-          <li><strong>Archivos:</strong> ~887 archivos (el más grande con diferencia)</li>
-          <li><strong>Líneas de código:</strong> ~50,000+ estimadas</li>
-          <li><strong>Componentes:</strong> ~200+ componentes React</li>
-          <li><strong>Estado:</strong> Redux con múltiples slices complejos</li>
-          <li><strong>Features:</strong> Editor WYSIWYG, drag & drop, templates, preview, export PDF</li>
-        </ul>
-
-        <h4>Desafíos Específicos</h4>
-        <ul>
-          <li>Lógica de negocio compleja (rendering de CV, templates)</li>
-          <li>Estado global extenso (documento, UI, history/undo-redo)</li>
-          <li>Drag & drop con @dnd-kit</li>
-          <li>Integración con canvas/PDF generation</li>
-          <li>Performance crítica</li>
-        </ul>
-      </PhaseCard>
-
-      <PhaseCard 
-        title="3.1 Migración Jest → Vitest" 
-        duration="1 semana con IA ⚡"
+        title="3.1 Testing Completo y Calidad"
+        duration="1.5-2 semanas con IA ⚡"
         icon="🧪"
-      >
-        <h4>Aceleración con Cursor AI</h4>
-        <ul>
-          <li>✨ Cursor convierte tests automáticamente (jest → vitest)</li>
-          <li>✨ Actualiza syntax y mocks al instante</li>
-          <li>✨ Dev valida y ajusta casos edge</li>
-          <li>⚡ 50% más rápido: 1 semana vs 2 tradicional</li>
-        </ul>
-
-        <h4>Tareas</h4>
-        <ul>
-          <li>Setup y configuración Vitest (1 día)</li>
-          <li>Migración automática de tests (2-3 días)</li>
-          <li>Validación y ajustes (1-2 días)</li>
-        </ul>
-      </PhaseCard>
-
-      <PhaseCard 
-        title="3.2 Setup y Preparación" 
-        duration="1 semana con IA ⚡"
-        icon="⚙️"
-      >
-        <ul>
-          <li>Crear estructura apps/editor</li>
-          <li>Configurar Vite + Module Federation</li>
-          <li>✨ Cursor acelera configuración inicial</li>
-          <li>Setup TanStack Query con DevTools</li>
-          <li>Análisis detallado de arquitectura legacy</li>
-        </ul>
-      </PhaseCard>
-
-      <PhaseCard 
-        title="3.3 Redux → Zustand + TanStack Query" 
-        duration="2 semanas con IA ⚡"
-        icon="🔄"
         status="pending"
       >
-        <h4>Aceleración con Cursor AI</h4>
+        <h4>Unit Tests con Vitest</h4>
         <ul>
-          <li>✨ Cursor analiza Redux stores y genera Zustand equivalente</li>
-          <li>✨ Identifica automáticamente qué va a TanStack Query vs Zustand</li>
-          <li>✨ Dev valida lógica de negocio compleja</li>
-          <li>⚡ 50% más rápido: 2 semanas vs 4 tradicional</li>
+          <li>✨ Cursor genera tests automáticamente para todos los componentes</li>
+          <li>✨ Cobertura completa de lógica de negocio</li>
+          <li>✨ Tests de integración para Zustand + TanStack Query</li>
+          <li>Target: 80%+ coverage en componentes críticos</li>
         </ul>
 
-        <h4>Separación de Responsabilidades</h4>
-        
-        <h4>TanStack Query (Server State):</h4>
+        <h4>E2E Tests con Playwright</h4>
         <ul>
-          <li>Cargar/guardar documentos</li>
-          <li>Fetch templates disponibles</li>
-          <li>User settings del servidor</li>
-          <li>Export a PDF (mutations)</li>
+          <li>Flujos críticos: login → dashboard → acciones principales</li>
+          <li>✨ Cursor genera scripts de E2E automáticamente</li>
+          <li>Testing cross-browser (Chrome, Firefox, Safari)</li>
+          <li>CI/CD integration con test reports</li>
         </ul>
 
-        <h4>Zustand (Client State):</h4>
+        <h4>Performance Testing</h4>
         <ul>
-          <li>Estado actual del editor (isDirty, modo edición)</li>
-          <li>UI state (sidebar, modal, panel seleccionado)</li>
-          <li>History/undo-redo stack</li>
-          <li>Drag & drop state temporal</li>
+          <li>Lighthouse scores &gt; 90</li>
+          <li>Core Web Vitals optimizados</li>
+          <li>Bundle size analysis</li>
+          <li>Memory leak detection</li>
         </ul>
       </PhaseCard>
 
       <PhaseCard 
-        title="3.4 Migración de Componentes con TDD" 
-        duration="3 semanas con IA ⚡"
-        icon="🛠️"
-      >
-        <h4>Aceleración con Cursor AI</h4>
-        <ul>
-          <li>✨ Cursor genera tests de caracterización automáticamente</li>
-          <li>✨ Convierte ~200 componentes class → functional</li>
-          <li>✨ Reemplaza MUI por componentes custom al instante</li>
-          <li>✨ Infiere tipos TypeScript automáticamente</li>
-          <li>⚡ 50% más rápido: 3 semanas vs 6 tradicional</li>
-        </ul>
-        <h4>Proceso por Componente</h4>
-        <ol>
-          <li>✨ Cursor genera tests para comportamiento actual</li>
-          <li>✨ Migra componente a TypeScript automáticamente</li>
-          <li>✨ Reemplaza MUI por packages/ui con prompts</li>
-          <li>✨ Refactoriza a functional components + hooks</li>
-          <li>Dev valida lógica crítica de negocio</li>
-          <li>Verificar tests pasan</li>
-          <li>Refactorizar y optimizar manualmente</li>
-        </ol>
-
-        <h4>Componentes Críticos (priorizar)</h4>
-        <ul>
-          <li>EditorCanvas (2 días con IA vs 1 semana tradicional)</li>
-          <li>SectionEditors (1 semana con IA vs 2 semanas)</li>
-          <li>Sidebar, TemplateSelector, PreviewPanel (días vs semanas)</li>
-          <li>ExportModal con PDF generation</li>
-        </ul>
-      </PhaseCard>
-
-      <PhaseCard 
-        title="3.5 Integración y Optimización" 
-        duration="1 semana con IA ⚡"
+        title="3.2 Optimización de Performance"
+        duration="1-1.5 semanas con IA ⚡"
         icon="🚀"
       >
-        <h4>Aceleración con Cursor AI</h4>
+        <h4>Code Splitting y Lazy Loading</h4>
         <ul>
-          <li>✨ Cursor identifica optimizaciones de bundle</li>
-          <li>✨ Sugiere code splitting y lazy loading</li>
-          <li>✨ Detecta problemas de performance automáticamente</li>
+          <li>✨ Cursor implementa lazy loading automáticamente</li>
+          <li>Route-based code splitting</li>
+          <li>Component lazy loading con React.lazy()</li>
+          <li>Dynamic imports para módulos pesados</li>
         </ul>
 
-        <h4>Tareas</h4>
+        <h4>Bundle Optimization</h4>
         <ul>
-          <li>Integrar editor con shell</li>
-          <li>Lazy loading de secciones pesadas</li>
-          <li>Code splitting agresivo</li>
-          <li>Optimización de bundle size</li>
-          <li>Performance profiling</li>
-          <li>Testing E2E completo</li>
+          <li>Tree shaking agresivo</li>
+          <li>Asset optimization (imágenes, fonts)</li>
+          <li>Compression GZIP/Brotli</li>
+          <li>CDN strategy para assets estáticos</li>
         </ul>
 
-        <h4>Métricas Objetivo</h4>
+        <h4>Runtime Performance</h4>
         <ul>
-          <li><strong>Test Coverage:</strong> &gt; 80%</li>
-          <li><strong>TypeScript Coverage:</strong> 100% (strict mode)</li>
-          <li><strong>Bundle Size:</strong> Reducir 30-40% vs legacy</li>
-          <li><strong>Performance:</strong> FCP &lt; 1.5s, TTI &lt; 3s</li>
+          <li>React.memo, useMemo, useCallback estratégicos</li>
+          <li>✨ Cursor detecta y optimiza re-renders automáticamente</li>
+          <li>TanStack Query cache optimization</li>
+          <li>Virtual scrolling para listas grandes</li>
+        </ul>
+      </PhaseCard>
+
+      <PhaseCard 
+        title="3.3 Refactoring Avanzado"
+        duration="2-3 semanas con IA ⚡"
+        icon="🔄"
+      >
+        <h4>Clean Architecture</h4>
+        <ul>
+          <li>Separación clara de concerns (UI, lógica, datos)</li>
+          <li>✨ Cursor refactoriza código legacy automáticamente</li>
+          <li>Custom hooks para lógica reutilizable</li>
+          <li>Composition over inheritance patterns</li>
+        </ul>
+
+        <h4>TypeScript Excellence</h4>
+        <ul>
+          <li>Strict mode habilitado en todos los proyectos</li>
+          <li>✨ Cursor añade tipos faltantes automáticamente</li>
+          <li>Generic types para máxima reusabilidad</li>
+          <li>Utility types avanzados</li>
+        </ul>
+
+        <h4>Error Boundaries y Error Handling</h4>
+        <ul>
+          <li>Error boundaries en todos los niveles</li>
+          <li>Graceful error handling en TanStack Query</li>
+          <li>User-friendly error messages</li>
+          <li>Error logging y monitoring</li>
+        </ul>
+      </PhaseCard>
+
+      <PhaseCard 
+        title="3.4 Documentación y DX"
+        duration="1-1.5 semanas con IA ⚡"
+        icon="📚"
+      >
+        <h4>Developer Experience</h4>
+        <ul>
+          <li>✨ Cursor genera documentación automáticamente</li>
+          <li>JSDoc completo en todos los componentes</li>
+          <li>README actualizado por proyecto</li>
+          <li>Scripts de desarrollo optimizados</li>
+        </ul>
+
+        <h4>Storybook Enhancement</h4>
+        <ul>
+          <li>Stories para todos los componentes</li>
+          <li>✨ Cursor genera stories automáticamente</li>
+          <li>Controls interactivos completos</li>
+          <li>Visual regression testing</li>
+        </ul>
+
+        <h4>Guías de Desarrollo</h4>
+        <ul>
+          <li>Contributing guidelines</li>
+          <li>Code review checklist</li>
+          <li>Troubleshooting guide</li>
+          <li>Architecture decision records</li>
+        </ul>
+      </PhaseCard>
+
+      <PhaseCard 
+        title="3.5 Security Audit y Hardening"
+        duration="1-1.5 semanas con IA ⚡"
+        icon="🔒"
+      >
+        <h4>Security Best Practices</h4>
+        <ul>
+          <li>Dependency vulnerability scanning</li>
+          <li>✨ Cursor implementa security headers automáticamente</li>
+          <li>CSP (Content Security Policy)</li>
+          <li>XSS protection</li>
+        </ul>
+
+        <h4>Data Protection</h4>
+        <ul>
+          <li>Input sanitization</li>
+          <li>SQL injection prevention</li>
+          <li>CORS configuration</li>
+          <li>Secure cookie handling</li>
+        </ul>
+
+        <h4>Compliance</h4>
+        <ul>
+          <li>GDPR compliance checks</li>
+          <li>Accessibility audit (WCAG 2.1 AA)</li>
+          <li>SEO optimization</li>
+          <li>Performance monitoring setup</li>
+        </ul>
+      </PhaseCard>
+
+      <PhaseCard 
+        title="3.6 Deployment y Go-Live"
+        duration="1-1.5 semanas con IA ⚡"
+        icon="🚀"
+      >
+        <h4>Production Deployment</h4>
+        <ul>
+          <li>CI/CD pipeline completo</li>
+          <li>Blue-green deployment strategy</li>
+          <li>Rollback procedures</li>
+          <li>Monitoring y alerting setup</li>
+        </ul>
+
+        <h4>Post-Launch Activities</h4>
+        <ul>
+          <li>Performance monitoring (24/7)</li>
+          <li>Error tracking y resolution</li>
+          <li>User feedback collection</li>
+          <li>Iterative improvements</li>
+        </ul>
+
+        <h4>Success Metrics</h4>
+        <ul>
+          <li>Zero downtime deployment</li>
+          <li>Lighthouse score &gt; 90</li>
+          <li>Test coverage &gt; 80%</li>
+          <li>User satisfaction &gt; 95%</li>
         </ul>
       </PhaseCard>
     </div>
@@ -175,5 +200,3 @@ const Fase3: FC = () => {
 };
 
 export default Fase3;
-
-

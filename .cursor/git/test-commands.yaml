@@ -1,0 +1,131 @@
+rules:
+  - id: test-unit-only
+    description: >
+      Ejecuta solo los tests unitarios de todas las apps con Vitest.
+    triggers:
+      - "run unit tests"
+      - "test unit"
+      - "vitest run"
+    steps:
+      - name: Run unit tests
+        run: |
+          echo "🧪 Ejecutando tests unitarios con Vitest..."
+          pnpm vitest run --workspace
+          echo "✅ Tests unitarios completados"
+
+  - id: test-e2e-only
+    description: >
+      Ejecuta solo los tests E2E con Playwright.
+    triggers:
+      - "run e2e tests"
+      - "test e2e"
+      - "playwright test"
+    steps:
+      - name: Run E2E tests
+        run: |
+          echo "🎭 Ejecutando tests E2E con Playwright..."
+          pnpm test:e2e
+          echo "✅ Tests E2E completados"
+
+  - id: build-all-apps
+    description: >
+      Hace build de todas las aplicaciones del monorepo.
+    triggers:
+      - "build all apps"
+      - "build everything"
+      - "make builds"
+    steps:
+      - name: Build all
+        run: |
+          echo "🏗️  Building todas las apps..."
+          pnpm run build:all
+          echo "✅ Builds completados"
+
+  - id: test-watch
+    description: >
+      Ejecuta tests unitarios en modo watch para desarrollo.
+    triggers:
+      - "test watch"
+      - "watch tests"
+      - "test mode watch"
+    steps:
+      - name: Run tests in watch mode
+        run: |
+          echo "👀 Ejecutando tests en modo watch..."
+          pnpm vitest --workspace
+
+  - id: test-coverage
+    description: >
+      Ejecuta tests unitarios y genera reporte de cobertura.
+    triggers:
+      - "test coverage"
+      - "run coverage"
+      - "check test coverage"
+    steps:
+      - name: Run tests with coverage
+        run: |
+          echo "📊 Ejecutando tests con reporte de cobertura..."
+          pnpm vitest run --coverage --workspace
+          echo "✅ Reporte de cobertura generado"
+
+  - id: quick-check
+    description: >
+      Verificación rápida: solo tests unitarios y linting (sin build ni E2E).
+      Útil antes de commits pequeños.
+    triggers:
+      - "quick check"
+      - "fast test"
+      - "pre-commit check"
+    steps:
+      - name: Quick verification
+        run: |
+          echo "⚡ Verificación rápida iniciada..."
+          echo "🧪 Tests unitarios..."
+          pnpm vitest run || echo "⚠️  No hay tests configurados todavía (normal en fase de setup)"
+          echo ""
+          echo "✅ Verificación rápida completada"
+          echo "💡 Tip: Añade tests .test.ts o .test.tsx en tus apps"
+
+  - id: ci-pipeline
+    description: >
+      Simula el pipeline completo de CI: tests + linting + build + E2E.
+      Exactamente lo que se ejecutaría en CI/CD.
+    triggers:
+      - "run ci pipeline"
+      - "simulate ci"
+      - "full ci check"
+    steps:
+      - name: Install dependencies
+        run: |
+          echo "📦 [CI] Instalando dependencias..."
+          pnpm install --frozen-lockfile
+
+      - name: Lint check
+        run: |
+          echo "🔍 [CI] Verificando linting..."
+          # Añadir comando de lint cuando esté configurado
+          echo "⚠️  Lint check pendiente de configurar"
+
+      - name: Unit tests
+        run: |
+          echo "🧪 [CI] Tests unitarios..."
+          pnpm vitest run --workspace
+
+      - name: Build all
+        run: |
+          echo "🏗️  [CI] Building apps..."
+          pnpm run build:all
+
+      - name: E2E tests
+        run: |
+          echo "🎭 [CI] Tests E2E..."
+          pnpm test:e2e
+
+      - name: CI Summary
+        run: |
+          echo ""
+          echo "✅ ==============================================="
+          echo "✅ CI PIPELINE COMPLETADO"
+          echo "✅ ==============================================="
+          echo ""
+

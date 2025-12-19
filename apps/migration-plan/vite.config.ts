@@ -52,10 +52,24 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    minify: false,
-    cssCodeSplit: false,
-    sourcemap: true
-  }
+    minify: 'esbuild', // Minificación con esbuild (más rápido, ya incluido en Vite)
+    cssCodeSplit: true, // Split CSS para mejor caching
+    sourcemap: false, // Sin sourcemaps en producción
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separar vendor chunks para mejor caching
+          'react-vendor': ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    },
+    // Optimización de assets
+    assetsInlineLimit: 4096, // Inline assets < 4kb
+    chunkSizeWarningLimit: 1000 // Warning si chunks > 1MB
+  },
+  // Base path para S3 (ajustar según necesidad)
+  base: './' // Rutas relativas para funcionar en cualquier path de S3
+
 });
 
 

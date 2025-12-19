@@ -132,9 +132,61 @@ function App() {
 - 🧲 Error logs Module
 
 
+### 📚 Documentación del Proyecto
+
+**Plan de Migración y Estimaciones**:
+- 📋 [Plan de Migración Completo](./plan_migracion.md) - Plan técnico detallado de todas las fases
+- 📊 [Estimaciones Actualizadas](./docs/estimaciones-actualizadas.md) - Análisis de tiempos y costes (con y sin IA)
+- 🤖 [Comparación Desarrollo IA vs Tradicional](./docs/comparacion-desarrollo-con-sin-ia.md) - Análisis visual comparativo
+- 🚀 [Guía de Inicio con Cursor AI](./docs/guia-inicio-cursor-ai.md) - Training y best practices para el equipo
+- 📄 [Resumen Ejecutivo para Stakeholders](./docs/resumen-ejecutivo-stakeholders.md) - Propuesta de 1 página
+
+**Otras Referencias**:
+- 🌍 [Soluciones de i18n](./docs/i18n-solutions.md)
+- 🎨 [Plan de Eliminación de MUI](./docs/plan-eliminar-mui.md)
+
+### ⚡ Desarrollo con Cursor AI (RECOMENDADO)
+
+**Timeline Acelerado**: 6 meses (vs 12 meses tradicional)  
+**Ahorro**: $90,000 + 10 meses de tiempo  
+**ROI**: 375x retorno de inversión
+
+**Hitos con IA**:
+- ✅ Enero 2025: UI Kit completo
+- 🎯 Mayo 2025: Apps principales en producción
+- 🎯 Agosto 2025: Editor migrado - **PROYECTO COMPLETO**
+
+Ver [comparación detallada](./docs/comparacion-desarrollo-con-sin-ia.md) para más información.
+
+### 🤖 Comandos de Cursor AI
+
+Hemos configurado comandos automatizados para facilitar el desarrollo:
+
+**Comandos principales**:
+- `test and build all` - Pipeline completo (tests + build + E2E)
+- `quick check` - Verificación rápida antes de commits
+- `run ci pipeline` - Simula CI/CD completo
+- `test watch` - Tests en modo watch para TDD
+
+**Ver documentación completa**:
+- 📚 [Guía completa de comandos](./.cursor/CURSOR_COMMANDS.md)
+- ⚡ [Quick Reference](./.cursor/QUICK_REFERENCE.md)
+
+**Scripts de pnpm**:
+```bash
+pnpm test              # Tests unitarios
+pnpm test:e2e          # Tests E2E
+pnpm build:all         # Build todas las apps
+pnpm ci                # Pipeline CI completo
+```
+
 ### 🎯 Próximos Pasos
 
-1. 🧩 Integrar app de CV
-1. 🔍 Testing E2E
-2. 📊 Monitorización
-3. 🚀 CI/CD Pipeline
+1. ✅ Aprobar desarrollo con Cursor AI (ver [propuesta](./docs/resumen-ejecutivo-stakeholders.md))
+2. 🤖 Adquirir licencias Cursor AI ($240 total)
+3. 🎓 Training del equipo (1 semana)
+4. 🚀 Iniciar Fase 1: UI Kit
+5. 🧪 Testing continuo con `test watch`
+6. 🔍 Testing E2E con Playwright
+7. 📊 Monitorización y métricas
+8. 🚀 CI/CD Pipeline optimizado
