@@ -11,10 +11,16 @@
     "build:all": "pnpm --filter ui build && pnpm --filter product build && pnpm --filter shell build && pnpm --filter user build && pnpm --filter login build",
     "preview:all": "pnpm --parallel --filter shell --filter product --filter ui --filter user --filter login preview",
     "dev:build-preview": "pnpm build:all && pnpm preview:all",
+    "test": "vitest run --workspace",
+    "test:watch": "vitest --workspace",
+    "test:coverage": "vitest run --coverage --workspace",
+    "test:unit": "vitest run --workspace",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug"
+    "test:e2e:debug": "playwright test --debug",
+    "test:all": "pnpm test:unit && pnpm test:e2e",
+    "ci": "pnpm install --frozen-lockfile && pnpm test:unit && pnpm build:all && pnpm test:e2e"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

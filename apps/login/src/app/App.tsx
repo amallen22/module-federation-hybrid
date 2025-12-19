@@ -1,6 +1,5 @@
 // Polyfills DEBEN ser el primer import (side-effect import)
 import React, { useEffect } from 'react';
-import values from 'object.values';
 import { analyticsClient } from '@npm_leadtech/cv-lib-app-analytics';
 import { getLogger, setupLog } from '@npm_leadtech/cv-lib-app-jsnlog';
 import { QueryProvider } from '@packages/query';
@@ -43,10 +42,6 @@ const App = () => {
             }
 
             SetupTranslations();
-
-            if (!Object.values) {
-                values.shim();
-            }
 
             trackAppInstalls();
         } catch (error) {

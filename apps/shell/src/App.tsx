@@ -17,6 +17,11 @@ const RemoteLogin = React.lazy(() => import('@apps/login/app/App.tsx'));
 // En producción, usar Module Federation: import('user/App')
 const RemoteUser = React.lazy(() => import('@apps/user/App.tsx'));
 
+// Migration Plan - Visualización del plan de migración (importar el export nombrado sin BrowserRouter)
+const RemoteMigrationPlan = React.lazy(() => 
+  import('@apps/migration-plan/app/App.tsx').then(module => ({ default: module.MigrationPlanRoutes }))
+);
+
 // Components for each route
 const HomePage = () => (
   <div>
@@ -33,8 +38,9 @@ const HomePage = () => (
         <li><strong>📦 Product:</strong> Módulo de gestión de productos</li>
         <li><strong>👤 User:</strong> Módulo de gestión de usuario (dashboard, perfil, documentos, suscripción)</li>
         <li><strong>🎨 UI Kit:</strong> Componentes compartidos y librería de diseño</li>
+        <li><strong>🗺️ Migration Plan:</strong> Visualización del plan de migración CV Legacy → CV-Hibrid</li>
       </ul>
-      <p>Navega a /login, /signin, /signup, /product o /user para acceder a los módulos.</p>
+      <p>Navega a /login, /signin, /signup, /product, /user o /plan para acceder a los módulos.</p>
     </div>
     <div style={{ backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px 0' }}>
       <Suspense fallback={<div>Loading Button...</div>}>
@@ -59,6 +65,7 @@ const HomePage = () => (
         <li>✅ Product: Disponible en puerto 5001</li>
         <li>✅ Login: Disponible en puerto 5003</li>
         <li>✅ User: Disponible en puerto 5004</li>
+        <li>✅ Migration Plan: Disponible en puerto 5006</li>
       </ul>
     </div>
   </div>
@@ -128,6 +135,40 @@ const UserPage = () => (
   </ErrorBoundary>
 );
 
+const MigrationPlanPage = () => (
+  <ErrorBoundary
+    fallback={
+      <div style={{ padding: '20px' }}>
+        <h2>⚠️ Error al cargar Migration Plan</h2>
+        <p>Por favor, verifica que el servidor de migration-plan esté corriendo en el puerto 5006.</p>
+      </div>
+    }
+  >
+    <Suspense fallback={
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '400px',
+        flexDirection: 'column',
+        gap: '10px'
+      }}>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '4px solid #f3f3f3',
+          borderTop: '4px solid #007bff',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+        <p>Cargando Migration Plan...</p>
+      </div>
+    }>
+      <RemoteMigrationPlan />
+    </Suspense>
+  </ErrorBoundary>
+);
+
 const Navigation = () => {
   const location = useLocation();
   
@@ -135,22 +176,29 @@ const Navigation = () => {
   
   return (
     <nav style={{
-      padding: '10px 0',
-      marginBottom: '30px',
-      borderBottom: '2px solid #e0e0e0'
+      paddingBottom: '9px',
+      paddingTop: '9px',
+      paddingRight: '20px',
+      marginBottom: '26px',
+      borderBottom: '2px solid #e0e0e0',
+      backgroundColor: 'rgba(30, 59, 139, 1)',
+      height: '100%',
+      lineHeight: 'inherit'
     }}>
       <div style={{
         display: 'flex',
-        gap: '20px',
-        flexWrap: 'wrap'
+        gap: '17px',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end'
       }}>
         <Link 
           to="/"
           style={{
-            padding: '10px 20px',
-            backgroundColor: isActive('/') ? '#007bff' : '#f8f9fa',
-            color: isActive('/') ? 'white' : '#333',
-            border: '1px solid #ccc',
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: isActive('/') ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '5px',
             textDecoration: 'none',
             display: 'inline-block'
@@ -161,10 +209,11 @@ const Navigation = () => {
         <Link 
           to="/signin"
           style={{
-            padding: '10px 20px',
-            backgroundColor: (isActive('/login') || isActive('/signin') || isActive('/signup')) ? '#007bff' : '#f8f9fa',
-            color: (isActive('/login') || isActive('/signin') || isActive('/signup')) ? 'white' : '#333',
-            border: '1px solid #ccc',
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: (isActive('/login') || isActive('/signin') || isActive('/signup')) ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '5px',
             textDecoration: 'none',
             display: 'inline-block'
@@ -175,10 +224,11 @@ const Navigation = () => {
         <Link 
           to="/product"
           style={{
-            padding: '10px 20px',
-            backgroundColor: isActive('/product') ? '#007bff' : '#f8f9fa',
-            color: isActive('/product') ? 'white' : '#333',
-            border: '1px solid #ccc',
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: isActive('/product') ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '5px',
             textDecoration: 'none',
             display: 'inline-block'
@@ -189,10 +239,11 @@ const Navigation = () => {
         <Link 
           to="/user"
           style={{
-            padding: '10px 20px',
-            backgroundColor: isActive('/user') || location.pathname.startsWith('/user/') ? '#007bff' : '#f8f9fa',
-            color: isActive('/user') || location.pathname.startsWith('/user/') ? 'white' : '#333',
-            border: '1px solid #ccc',
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: isActive('/user') || location.pathname.startsWith('/user/') ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '5px',
             textDecoration: 'none',
             display: 'inline-block'
@@ -203,16 +254,32 @@ const Navigation = () => {
         <Link 
           to="/ui"
           style={{
-            padding: '10px 20px',
-            backgroundColor: isActive('/ui') ? '#007bff' : '#f8f9fa',
-            color: isActive('/ui') ? 'white' : '#333',
-            border: '1px solid #ccc',
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: isActive('/ui') ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '5px',
             textDecoration: 'none',
             display: 'inline-block'
           }}
         >
           🎨 UI Kit
+        </Link>
+        <Link 
+          to="/plan"
+          style={{
+            padding: '9px 17px',
+            fontSize: '0.85em',
+            backgroundColor: isActive('/plan') || location.pathname.startsWith('/plan/') ? '#007bff' : 'transparent',
+            color: 'white',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            display: 'inline-block'
+          }}
+        >
+          🗺️ Plan
         </Link>
       </div>
     </nav>
@@ -221,14 +288,7 @@ const Navigation = () => {
 
 function App() {
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '30px', textAlign: 'center' }}>
-        <h1>CV Hibrid - Micro Frontend Platform</h1>
-        <p style={{ color: '#666', fontSize: '14px' }}>
-          Shell Application running on localhost:5000
-        </p>
-      </header>
-      
+    <div className="shell-app">
       <Navigation />
       
       <main>
@@ -240,6 +300,7 @@ function App() {
           <Route path="/product" element={<ProductPage />} />
           <Route path="/user/*" element={<UserPage />} />
           <Route path="/ui" element={<UIKitPage />} />
+          <Route path="/plan/*" element={<MigrationPlanPage />} />
         </Routes>
       </main>
     </div>

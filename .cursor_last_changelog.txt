@@ -1,1 +1,1 @@
-Fixed - Correcciones críticas en login flow y traducciones
+Fixed - Ajustes finales en Migration Plan y Shell

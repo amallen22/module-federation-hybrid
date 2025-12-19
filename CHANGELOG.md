@@ -7,6 +7,70 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - Ajustes finales en Migration Plan y Shell
+
+#### apps/migration-plan
+
+- **Estimacion.tsx**: Eliminado módulo visual de colaboración del diagrama de Gantt
+- **Estimacion.module.scss**: Añadido `display: flex`, `align-items: center`, `justify-content: center` a `.aiHighlight` para alineación horizontal
+- **Hitos.tsx**: Eliminado módulo completo de grid de estadísticas (Mes 1-2, Mes 3, Mes 4-5, Mayo)
+
+#### apps/shell
+
+- **App.tsx**: Añadido `maxWidth: '1260px'` y `margin: '0 auto'` al componente `HomePage` para centrado y ancho máximo
+
+#### Resultados
+
+- ✅ Diagrama de Gantt más limpio sin fila redundante de colaboración
+- ✅ Destacado de IA correctamente alineado horizontalmente
+- ✅ Grid de estadísticas eliminado para simplificar vista de Hitos
+- ✅ HomePage con mejor contenido centrado y legible
+
+### Added - Migration Plan App y mejoras en Shell
+
+#### Nueva aplicación: apps/migration-plan
+
+- **Aplicación completa** para visualizar el plan de migración CV Legacy → CV-Hibrid
+- **Navegación por fases**: Contexto General, Fases 1-3, Riesgos, Estimación, Hitos y Métricas
+- **Sidebar interactivo**: Con menú de navegación persistente y diseño consistente
+- **Componentes colapsables**: PhaseCard con transiciones suaves y chevron rotatorio
+- **Secciones detalladas**: Node.js, React, Testing y Despliegues con información desplegable
+- **Diagrama de Gantt**: Visualización de trabajo paralelo para 2 desarrolladores
+- **Timeline acelerado**: Estimación de 5 meses con Cursor AI
+- **Integrado en shell**: Accesible desde `/plan` con Module Federation
+- **Puerto**: 5006
+
+#### Mejoras en apps/shell
+
+- **Estilos aislados**: Encapsulados con clase `.shell-app` para evitar interferencias
+- **index.css**: Eliminados estilos globales agresivos, solo estilos específicos del shell
+- **App.css**: Añadido prefijo `.shell-app` a todos los selectores
+- **Navegación mejorada**:
+  - Fondo azul `rgba(30, 59, 139, 1)` alineado con sidebar de migration-plan
+  - Reducción de 15% en tamaño (padding, gap, font-size)
+  - Alineación a la derecha con `justifyContent: 'flex-end'`
+  - Tipografía blanca para mejor contraste
+  - Width 100% y height 100% para ocupar todo el espacio
+  - Padding ajustado: top/bottom 9px, right 20px
+- **vite.config.ts**: Añadido alias `@apps/migration-plan` y remote en Module Federation
+
+#### Correcciones en apps/migration-plan
+
+- **App.tsx**: Export nombrado `MigrationPlanRoutes` sin BrowserRouter para evitar conflictos
+- **Routing**: Rutas relativas para funcionar correctamente como nested routes bajo `/plan/*`
+- **Sidebar**:
+  - Rutas dinámicas que detectan contexto (shell vs standalone)
+  - Fondo transparente en `.nav`
+  - Color blanco explícito en `.label` para mejor visibilidad
+  - Iconos alineados verticalmente con `flex-shrink: 0`
+
+#### Resultados
+
+- ✅ Shell no interfiere con estilos de apps remotas (login, user, migration-plan)
+- ✅ Navigation visualmente coherente con el resto del sistema
+- ✅ Migration Plan funciona correctamente desde shell y standalone
+- ✅ Mejor mantenibilidad y escalabilidad del código
+
 ### Fixed - Correcciones críticas en login flow y traducciones
 
 #### Problema 1: Hash routing en formulario de login
@@ -349,6 +413,70 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **`apps/login/src/app/components/Signing/SignUpButton.jsx`**: Actualizado import para usar `.jsx` explícitamente
 
 ## [Unreleased]
+
+### Fixed - Ajustes finales en Migration Plan y Shell
+
+#### apps/migration-plan
+
+- **Estimacion.tsx**: Eliminado módulo visual de colaboración del diagrama de Gantt
+- **Estimacion.module.scss**: Añadido `display: flex`, `align-items: center`, `justify-content: center` a `.aiHighlight` para alineación horizontal
+- **Hitos.tsx**: Eliminado módulo completo de grid de estadísticas (Mes 1-2, Mes 3, Mes 4-5, Mayo)
+
+#### apps/shell
+
+- **App.tsx**: Añadido `maxWidth: '1260px'` y `margin: '0 auto'` al componente `HomePage` para centrado y ancho máximo
+
+#### Resultados
+
+- ✅ Diagrama de Gantt más limpio sin fila redundante de colaboración
+- ✅ Destacado de IA correctamente alineado horizontalmente
+- ✅ Grid de estadísticas eliminado para simplificar vista de Hitos
+- ✅ HomePage con mejor contenido centrado y legible
+
+### Added - Migration Plan App y mejoras en Shell
+
+#### Nueva aplicación: apps/migration-plan
+
+- **Aplicación completa** para visualizar el plan de migración CV Legacy → CV-Hibrid
+- **Navegación por fases**: Contexto General, Fases 1-3, Riesgos, Estimación, Hitos y Métricas
+- **Sidebar interactivo**: Con menú de navegación persistente y diseño consistente
+- **Componentes colapsables**: PhaseCard con transiciones suaves y chevron rotatorio
+- **Secciones detalladas**: Node.js, React, Testing y Despliegues con información desplegable
+- **Diagrama de Gantt**: Visualización de trabajo paralelo para 2 desarrolladores
+- **Timeline acelerado**: Estimación de 5 meses con Cursor AI
+- **Integrado en shell**: Accesible desde `/plan` con Module Federation
+- **Puerto**: 5006
+
+#### Mejoras en apps/shell
+
+- **Estilos aislados**: Encapsulados con clase `.shell-app` para evitar interferencias
+- **index.css**: Eliminados estilos globales agresivos, solo estilos específicos del shell
+- **App.css**: Añadido prefijo `.shell-app` a todos los selectores
+- **Navegación mejorada**:
+  - Fondo azul `rgba(30, 59, 139, 1)` alineado con sidebar de migration-plan
+  - Reducción de 15% en tamaño (padding, gap, font-size)
+  - Alineación a la derecha con `justifyContent: 'flex-end'`
+  - Tipografía blanca para mejor contraste
+  - Width 100% y height 100% para ocupar todo el espacio
+  - Padding ajustado: top/bottom 9px, right 20px
+- **vite.config.ts**: Añadido alias `@apps/migration-plan` y remote en Module Federation
+
+#### Correcciones en apps/migration-plan
+
+- **App.tsx**: Export nombrado `MigrationPlanRoutes` sin BrowserRouter para evitar conflictos
+- **Routing**: Rutas relativas para funcionar correctamente como nested routes bajo `/plan/*`
+- **Sidebar**:
+  - Rutas dinámicas que detectan contexto (shell vs standalone)
+  - Fondo transparente en `.nav`
+  - Color blanco explícito en `.label` para mejor visibilidad
+  - Iconos alineados verticalmente con `flex-shrink: 0`
+
+#### Resultados
+
+- ✅ Shell no interfiere con estilos de apps remotas (login, user, migration-plan)
+- ✅ Navigation visualmente coherente con el resto del sistema
+- ✅ Migration Plan funciona correctamente desde shell y standalone
+- ✅ Mejor mantenibilidad y escalabilidad del código
 
 ### Fixed - apps/login
 

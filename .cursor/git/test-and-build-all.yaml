@@ -1,0 +1,44 @@
+rules:
+  - id: test-and-build-all
+    description: >
+      Ejecuta tests unitarios con Vitest, tests E2E con Playwright y build de todas las apps.
+      Útil antes de hacer commits importantes o deploys.
+    triggers:
+      - "test and build all"
+      - "run all tests and build"
+      - "full test suite"
+      - "test everything"
+    steps:
+      - name: Install dependencies
+        run: |
+          echo "📦 Verificando dependencias..."
+          pnpm install
+
+      - name: Run unit tests (Vitest)
+        run: |
+          echo "🧪 Ejecutando tests unitarios con Vitest..."
+          pnpm vitest run --workspace
+
+      - name: Build all apps
+        run: |
+          echo "🏗️  Building todas las apps..."
+          pnpm run build:all
+
+      - name: Run E2E tests (Playwright)
+        run: |
+          echo "🎭 Ejecutando tests E2E con Playwright..."
+          pnpm test:e2e
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "✅ ==============================================="
+          echo "✅ TODOS LOS TESTS Y BUILDS COMPLETADOS"
+          echo "✅ ==============================================="
+          echo "✅ Tests unitarios (Vitest): PASSED"
+          echo "✅ Builds (todas las apps): SUCCESS"
+          echo "✅ Tests E2E (Playwright): PASSED"
+          echo "✅ ==============================================="
+          echo ""
+
+

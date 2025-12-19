@@ -1,0 +1,29 @@
+{
+  "name": "@cv-hibrid/migration-plan",
+  "version": "1.0.0",
+  "description": "Migration Plan Visualization App",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:production": "vite build --mode production",
+    "preview": "vite preview --port 5006",
+    "deploy:s3": "aws s3 sync dist/ s3://$S3_BUCKET/ --delete --cache-control 'max-age=31536000,public' --exclude 'index.html' && aws s3 cp dist/index.html s3://$S3_BUCKET/index.html --cache-control 'max-age=0,no-cache,no-store,must-revalidate'",
+    "build:deploy": "pnpm build:production && pnpm deploy:s3"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1"
+  },
+  "devDependencies": {
+    "@module-federation/vite": "^1.0.11",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sass": "^1.83.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.0.7"
+  }
+}
+

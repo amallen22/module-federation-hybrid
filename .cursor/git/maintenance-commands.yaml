@@ -1,0 +1,102 @@
+rules:
+  - id: clean-project
+    description: >
+      Limpia node_modules, dist, y archivos de cache del proyecto.
+      Útil cuando hay problemas de dependencias o builds corruptos.
+    triggers:
+      - "clean project"
+      - "reset project"
+      - "clean all"
+    steps:
+      - name: Clean confirmation
+        run: |
+          echo "🧹 Limpiando proyecto..."
+          echo "Esto eliminará:"
+          echo "  - node_modules"
+          echo "  - dist folders"
+          echo "  - .cache folders"
+          echo ""
+
+      - name: Remove node_modules
+        run: |
+          echo "📦 Eliminando node_modules..."
+          find . -name "node_modules" -type d -prune -exec rm -rf {} +
+
+      - name: Remove dist folders
+        run: |
+          echo "🗑️  Eliminando carpetas dist..."
+          find . -name "dist" -type d -prune -exec rm -rf {} +
+
+      - name: Remove cache
+        run: |
+          echo "🗑️  Eliminando cache..."
+          find . -name ".cache" -type d -prune -exec rm -rf {} +
+          find . -name ".vite" -type d -prune -exec rm -rf {} +
+
+      - name: Reinstall
+        run: |
+          echo "📦 Reinstalando dependencias..."
+          pnpm install
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "✅ Proyecto limpio y dependencias reinstaladas"
+          echo "✅ Puedes ejecutar 'pnpm dev' para continuar"
+
+  - id: dev-all
+    description: >
+      Inicia todos los servidores de desarrollo en paralelo.
+    triggers:
+      - "start dev"
+      - "run dev servers"
+      - "dev all"
+    steps:
+      - name: Start development servers
+        run: |
+          echo "🚀 Iniciando servidores de desarrollo..."
+          pnpm dev
+
+  - id: stop-all
+    description: >
+      Detiene todos los procesos de Node/Vite que puedan estar corriendo.
+    triggers:
+      - "stop all"
+      - "kill dev servers"
+      - "stop servers"
+    steps:
+      - name: Kill Node processes
+        run: |
+          echo "🛑 Deteniendo procesos..."
+          pkill -f "vite" || echo "No hay procesos Vite corriendo"
+          pkill -f "node.*dev" || echo "No hay procesos Node dev corriendo"
+          echo "✅ Procesos detenidos"
+
+  - id: update-deps
+    description: >
+      Actualiza todas las dependencias a sus últimas versiones.
+      CUIDADO: Puede introducir breaking changes.
+    triggers:
+      - "update dependencies"
+      - "upgrade deps"
+      - "update packages"
+    steps:
+      - name: Update dependencies
+        run: |
+          echo "⬆️  Actualizando dependencias..."
+          echo "⚠️  ADVERTENCIA: Esto puede introducir breaking changes"
+          pnpm update --latest --recursive
+
+      - name: Run tests after update
+        run: |
+          echo "🧪 Ejecutando tests para verificar..."
+          pnpm test
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "✅ Dependencias actualizadas"
+          echo "⚠️  Revisa los cambios y verifica que todo funcione"
+          echo "📝 Considera actualizar package.json con las nuevas versiones"
+
+
