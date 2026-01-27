@@ -1,1 +1,1 @@
-Fixed - Ajustes finales en Migration Plan y Shell
+Added - Docker Staging Environment para Testing

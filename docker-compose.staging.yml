@@ -1,0 +1,109 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Nginx Reverse Proxy
+  # ============================================
+  nginx:
+    image: nginx:alpine
+    container_name: cv-hibrid-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./apps/shell/dist:/usr/share/nginx/html/shell:ro
+      - ./apps/login/dist:/usr/share/nginx/html/login:ro
+      - ./apps/product/dist:/usr/share/nginx/html/product:ro
+      - ./apps/user/dist:/usr/share/nginx/html/user:ro
+      - ./packages/ui/dist:/usr/share/nginx/html/ui:ro
+      - ./apps/migration-plan/dist:/usr/share/nginx/html/migration-plan:ro
+    networks:
+      - cv-network
+    depends_on:
+      - shell
+      - login
+      - product
+      - user
+      - ui
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ============================================
+  # Shell (Host Application) - Puerto 5000
+  # ============================================
+  shell:
+    image: node:20-alpine
+    container_name: cv-hibrid-shell
+    working_dir: /app
+    command: sh -c "echo 'Shell build completado - servido por Nginx'"
+    volumes:
+      - ./apps/shell/dist:/app/dist:ro
+    networks:
+      - cv-network
+
+  # ============================================
+  # Login Microfrontend - Puerto 5003
+  # ============================================
+  login:
+    image: node:20-alpine
+    container_name: cv-hibrid-login
+    working_dir: /app
+    command: sh -c "echo 'Login build completado - servido por Nginx'"
+    volumes:
+      - ./apps/login/dist:/app/dist:ro
+    networks:
+      - cv-network
+
+  # ============================================
+  # Product Microfrontend - Puerto 5001
+  # ============================================
+  product:
+    image: node:20-alpine
+    container_name: cv-hibrid-product
+    working_dir: /app
+    command: sh -c "echo 'Product build completado - servido por Nginx'"
+    volumes:
+      - ./apps/product/dist:/app/dist:ro
+    networks:
+      - cv-network
+
+  # ============================================
+  # User Microfrontend - Puerto 5004
+  # ============================================
+  user:
+    image: node:20-alpine
+    container_name: cv-hibrid-user
+    working_dir: /app
+    command: sh -c "echo 'User build completado - servido por Nginx'"
+    volumes:
+      - ./apps/user/dist:/app/dist:ro
+    networks:
+      - cv-network
+
+  # ============================================
+  # UI Package (Shared Components) - Puerto 5002
+  # ============================================
+  ui:
+    image: node:20-alpine
+    container_name: cv-hibrid-ui
+    working_dir: /app
+    command: sh -c "echo 'UI build completado - servido por Nginx'"
+    volumes:
+      - ./packages/ui/dist:/app/dist:ro
+    networks:
+      - cv-network
+
+networks:
+  cv-network:
+    driver: bridge
+
+# ============================================
+# Volumes para persistencia (opcional)
+# ============================================
+volumes:
+  node_modules:

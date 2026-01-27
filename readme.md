@@ -63,10 +63,17 @@ federation({
 
 ### 🎯 Puertos y Servicios
 
-**Development**
+**Development (pnpm dev)**
 - 🏠 Shell: :5000
 - 🛍️ Product: :5001
 - 🎨 UI Kit: :5002
+- 🔐 Login: :5003
+- 👤 User: :5004
+- 📋 Migration Plan: :5006
+
+**Docker Staging** (testing pre-deploy)
+- 🐳 Todos los servicios: http://localhost:8080
+- 📚 [Ver guía completa](./DOCKER_STAGING_README.md)
 
 **Características**
 - 🔄 Hot Reload
@@ -141,6 +148,10 @@ function App() {
 - 🚀 [Guía de Inicio con Cursor AI](./docs/guia-inicio-cursor-ai.md) - Training y best practices para el equipo
 - 📄 [Resumen Ejecutivo para Stakeholders](./docs/resumen-ejecutivo-stakeholders.md) - Propuesta de 1 página
 
+**Docker y Deployment**:
+- 🐳 [Entorno Docker Staging](./DOCKER_STAGING_README.md) - Testing/staging local
+- 📖 [Guía Completa Docker](./docs/docker-staging-guide.md) - Documentación exhaustiva
+
 **Otras Referencias**:
 - 🌍 [Soluciones de i18n](./docs/i18n-solutions.md)
 - 🎨 [Plan de Eliminación de MUI](./docs/plan-eliminar-mui.md)
@@ -174,10 +185,24 @@ Hemos configurado comandos automatizados para facilitar el desarrollo:
 
 **Scripts de pnpm**:
 ```bash
+# Desarrollo
+pnpm dev               # Dev servers (todos)
+pnpm dev:minimal       # Dev servers (mínimos)
+
+# Testing
 pnpm test              # Tests unitarios
 pnpm test:e2e          # Tests E2E
+pnpm test:coverage     # Coverage report
+
+# Build
 pnpm build:all         # Build todas las apps
 pnpm ci                # Pipeline CI completo
+
+# Docker Staging (via Makefile)
+make docker-setup      # Setup completo
+make docker-start      # Iniciar staging
+make docker-stop       # Detener staging
+make docker-logs       # Ver logs
 ```
 
 ### 🎯 Próximos Pasos

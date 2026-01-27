@@ -26,3 +26,10 @@ dist-ssr
 # Playwright
 playwright-report/
 test-results/
+
+# Docker
+.docker/
+*.env.docker
+
+# Module Federation temp
+.__mf__*

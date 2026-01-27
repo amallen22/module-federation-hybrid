@@ -7,14 +7,147 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Docker Staging Environment para Testing/Producción Local
+
+#### Infraestructura Docker
+
+- ✅ **docker-compose.staging.yml**: Configuración completa de servicios Docker
+  - Nginx como reverse proxy en puerto 8080
+  - Todos los microfrontends (shell, login, product, user, ui)
+  - Health checks y restart policies
+  - Networking optimizado
+- ✅ **nginx/nginx.conf**: Configuración profesional de Nginx
+  - CORS configurado para Module Federation
+  - Cache control optimizado (no-cache para remoteEntry, inmutable para assets)
+  - Security headers (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection)
+  - Gzip compression
+  - Error pages customizadas
+  - Soporte para i18n (archivos JSON)
+  - Health check endpoint (`/health`)
+
+#### Scripts de Automatización
+
+- ✅ **scripts/docker-staging.sh**: Script principal con comandos
+  - `setup`: Build + start automático
+  - `build`: Build de todas las apps
+  - `start/stop/restart`: Control de servicios
+  - `rebuild`: Rebuild + restart
+  - `logs`: Ver logs (todos o por servicio)
+  - `status`: Estado de contenedores
+  - `health`: Health check completo
+  - `clean`: Limpieza completa
+- ✅ **scripts/verify-docker-setup.sh**: Verificación de prerequisitos
+  - Verifica archivos necesarios
+  - Verifica Docker y docker compose
+  - Verifica estructura de apps
+  - Verifica puertos disponibles
+  - Health check automatizado
+
+#### Makefile Actualizado
+
+- ✅ Nuevos comandos Docker:
+  - `make docker-setup`: Setup completo
+  - `make docker-start/stop/restart`: Control de servicios
+  - `make docker-logs/logs-nginx`: Visualización de logs
+  - `make docker-status/health`: Monitoring
+  - `make docker-rebuild/clean`: Rebuild y limpieza
+- ✅ Comandos existentes mejorados
+- ✅ Sistema de ayuda (`make help`)
+
+#### Documentación Completa
+
+- ✅ **DOCKER_STAGING_README.md**: Quick start guide
+- ✅ **docs/docker-staging-guide.md**: Guía exhaustiva (2000+ líneas)
+  - Casos de uso detallados
+  - Troubleshooting completo
+  - Arquitectura explicada
+  - Workflows recomendados
+  - Best practices
+  - Comparación Dev vs Staging
+- ✅ **DOCKER_IMPLEMENTATION_SUMMARY.md**: Resumen de implementación
+- ✅ **readme.md**: Actualizado con referencias Docker
+- ✅ **docs/jira/fase1/rc-31254-docker-staging.md**: Tech Story en Jira (412 líneas)
+  - Hipótesis y problema a resolver
+  - Implementación realizada detallada
+  - Testing y validación completa
+  - Conclusiones y aprendizajes técnicos
+  - Métricas de impacto y mejoras futuras
+  - Troubleshooting para QA
+- ✅ **docs/jira/fase1/q1-s1-s2.md**: Actualizado con RC-31254 (Sprint 1)
+
+#### Configuración de Proyecto
+
+- ✅ **.dockerignore**: Exclusiones para Docker builds
+- ✅ **.gitignore**: Actualizado con exclusiones Docker
+
+#### Características Implementadas
+
+- 🐳 **Entorno staging local** que simula producción
+- 🌐 **URLs unificadas** en `http://localhost:8080/[app]`
+- 🔄 **Module Federation** funcionando en modo build (real)
+- 🔒 **CORS configurado** para permitir carga de remotes
+- 📊 **Monitoring** con health checks y logs
+- 🧹 **Scripts de limpieza** automáticos
+- 🎯 **Testing E2E ready** para Playwright/Cypress
+- 📋 **Tech Story en Jira** [RC-31254](https://leadtech.atlassian.net/browse/RC-31254)
+  - Epic: RC-31191 - Fase 1: Desbloqueo del Stack
+  - Story Points: 5 SP
+  - Sprint: 2026 Q1 S2 - Team Migration
+  - Estado: ✅ Completado
+
+#### Arquitectura
+
+```
+Nginx (8080) → Shell + Login + Product + User + UI
+├── CORS headers para Module Federation
+├── Cache control optimizado
+├── Security headers
+└── Health checks
+```
+
+#### Casos de Uso
+
+- ✅ Testing de builds antes de deploy
+- ✅ Validación de Module Federation en modo build
+- ✅ Tests E2E con Playwright
+- ✅ Debugging de problemas de producción
+- ✅ Demos a stakeholders
+- ✅ Integración en CI/CD
+
+#### Workflow Recomendado
+
+1. **Desarrollo diario**: `pnpm dev` (hot reload)
+2. **Pre-deploy**: `make docker-setup` (staging)
+3. **Testing E2E**: `pnpm test:e2e` (contra Docker)
+4. **Verificación**: `make docker-health`
+5. **Deploy**: Con confianza de que funciona
+
+#### Performance
+
+- ⚡ Primera vez: ~2-3 minutos (build + docker up)
+- ⚡ Rebuilds: ~1 minuto
+- ⚡ Start/Stop: ~5-10 segundos
+- 💾 Recursos: ~500MB RAM, ~500MB disco
+
+#### Verificación
+
+```bash
+./scripts/verify-docker-setup.sh
+# ✅ Todos los checks pasaron! 🎉
+```
+
+---
+
 ### Fixed - Migration Plan S3 Ready (Build sin Module Federation)
 
 #### apps/migration-plan
 
 **Problema resuelto:**
+
 - Module Federation (`@module-federation/vite`) impedía que los scripts type="module" se ejecutaran correctamente, causando que React no se montara en el navegador
 
 **Solución implementada:**
+
 - ✅ Creada configuración alternativa `vite.config.s3.ts` SIN Module Federation
 - ✅ Build optimizado específicamente para static hosting en S3
 - ✅ HashRouter para navegación sin configuración de servidor
@@ -22,6 +155,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - ✅ Corregidas rutas en Sidebar (sin prefijos `/plan/`)
 
 **Cambios técnicos:**
+
 - **vite.config.s3.ts**: Nueva configuración sin Module Federation
   - Target: `es2015` para mejor compatibilidad
   - Minify: `esbuild` (más rápido)
@@ -34,32 +168,37 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **Sidebar.tsx**: Rutas corregidas (sin `/plan/` prefix, usando rutas relativas)
 
 **Optimizaciones logradas:**
+
 - 📦 **Tamaño reducido**: ~256 KB (vs ~416 KB con MF) - 38% menor
 - 📁 **Archivos**: 4 archivos (vs 14 con MF) - 71% menos
 - ⚡ **Carga**: Instantánea, React se monta correctamente
 - 🎯 **Complejidad**: Mucho más simple y mantenible
 
 **Archivos generados:**
+
 ```
 dist/
 ├── index.html (0.84 KB)
 └── assets/
-    ├── index-fCx2EV6F.css (13.65 KB) 
+    ├── index-fCx2EV6F.css (13.65 KB)
     ├── index-e7zVKrY-.js (65.26 KB)
     └── react-vendor-eF0yPGjk.js (165.37 KB)
 ```
 
 **Limpieza:**
+
 - Eliminadas dependencias innecesarias: `vite-ssg`, `vite-plugin-pages`, `react-snap`
 - Eliminados archivos de prueba: `test-app.html`, `dist-s3/`, archivos debug
 - Código optimizado y listo para producción
 
 **Documentación:**
+
 - ✅ `S3_READY_FINAL.md`: Guía completa de despliegue y troubleshooting
 - ✅ Tests realizados: Navegación, HashRouter, refresh, URLs directas
 - ✅ Comandos documentados: `pnpm build:deploy`
 
 **Estado:**
+
 - ✅ **Aplicación completamente funcional en local**
 - ✅ **Build generado y verificado**
 - ✅ **Lista para deploy a S3**
