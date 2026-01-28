@@ -7,6 +7,17 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed - Docker Staging Configuration
+
+#### Bugfixes Post-Implementación RC-31268/RC-31269
+
+- 🔧 **docker-compose.staging.yml**: Corregida estructura YAML (volumes al final)
+- 🔧 **Puertos**: HTTP en 8080 para evitar conflicto con puerto 80 del sistema
+- 🔧 **DNS**: Limpiada entrada duplicada en `/etc/hosts` (172.16.1.14 → 127.0.0.1)
+- ✅ **Verificado**: `https://local.resumecoach.com` funcionando correctamente
+
+**Referencia**: Ajustes post-deployment RC-31268 + RC-31269
+
 ### Added - SSL Setup Custom Domain Docker Staging (RC-31268)
 
 #### Implementación SSL (Part 1/2)
