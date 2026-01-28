@@ -31,5 +31,13 @@ test-results/
 .docker/
 *.env.docker
 
+# SSL Certificates (local development)
+nginx/certs/*.pem
+nginx/certs/*.key
+!nginx/certs/.gitkeep
+
+# /etc/hosts backups
+*.hosts.backup.*
+
 # Module Federation temp
 .__mf__*
