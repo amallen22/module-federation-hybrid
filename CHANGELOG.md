@@ -7,6 +7,35 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - SSL Setup Custom Domain Docker Staging (RC-31268)
+
+#### Implementación SSL (Part 1/2)
+- ✅ **Certificados SSL**: Script `generate-certs.sh` para certificados locales con mkcert
+- ✅ **DNS Local**: Script `setup-hosts.sh` para configurar `/etc/hosts`
+- ✅ **Nginx SSL**: Configurado TLS 1.2/1.3 + HSTS + security headers
+- ✅ **Docker Compose**: Puertos 80/443 expuestos, volumen certificados SSL
+- ✅ **HTTP Redirect**: Server block automático HTTP → HTTPS
+- ✅ **Documentación**: Tech stories RC-31268 y RC-31269 + propuesta técnica
+
+#### URLs Actualizadas
+- ✅ **Dominio custom**: `https://local.resumecoach.com` (con SSL válido)
+- ✅ **Alternativa**: `http://localhost:8080` (sin SSL, legacy)
+
+#### Archivos Creados/Modificados
+- **Scripts**: `scripts/generate-certs.sh`, `scripts/setup-hosts.sh`
+- **Nginx**: `nginx/nginx.conf` (SSL config + HTTP/HTTPS servers)
+- **Docker**: `docker-compose.staging.yml` (puertos, volumen certs)
+- **Git**: `.gitignore` (excluir certificados), `nginx/certs/.gitkeep`
+- **Docs**: `docs/propuesta-custom-domain-docker-staging.md`, `docs/jira/fase1/rc-31268-ssl-setup-part1.md`, `docs/jira/fase1/rc-31269-automation-docs-part2.md`
+
+#### Próximos Pasos (RC-31269)
+- ⏳ Automatización completa con Makefile
+- ⏳ Scripts de verificación automática
+- ⏳ Documentación exhaustiva y troubleshooting guide
+
+**Tech Story**: [RC-31268](https://leadtech.atlassian.net/browse/RC-31268)  
+**Epic**: [RC-31191](https://leadtech.atlassian.net/browse/RC-31191) - Fase 1: Desbloqueo Stack
+
 ### Added - Docker Staging Environment para Testing/Producción Local
 
 #### Infraestructura Docker
