@@ -2,6 +2,7 @@
 
 # ==============================================
 # Quick Test - Verifica que Docker Staging funciona
+# Incluye verificación SSL para custom domain
 # ==============================================
 
 set -e
@@ -14,7 +15,14 @@ NC='\033[0m'
 
 print_success() { echo -e "${GREEN}✅ $1${NC}"; }
 print_error() { echo -e "${RED}❌ $1${NC}"; }
+print_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
 print_info() { echo -e "${BLUE}ℹ️  $1${NC}"; }
+
+# Parse arguments
+SSL_CHECK=false
+if [[ "$1" == "--ssl" ]]; then
+    SSL_CHECK=true
+fi
 
 echo -e "${BLUE}🧪 Verificando configuración de Docker Staging...${NC}"
 echo ""
@@ -134,24 +142,106 @@ check_port() {
 }
 
 check_port 8080
+check_port 80
+check_port 443
 
 echo ""
+
+# 8. Verificación SSL (solo si --ssl flag)
+if [ "$SSL_CHECK" = true ]; then
+    print_info "8. Verificando configuración SSL..."
+    echo ""
+    
+    # mkcert instalado
+    if command -v mkcert &> /dev/null; then
+        print_success "mkcert instalado: $(mkcert -version | head -n 1)"
+    else
+        print_error "mkcert NO instalado"
+        echo "   Instalar:"
+        echo "   • macOS: ${BLUE}brew install mkcert${NC}"
+        echo "   • Linux: Ver https://github.com/FiloSottile/mkcert"
+        all_exist=false
+    fi
+    
+    # Certificados generados
+    if [ -f "nginx/certs/local.resumecoach.com+1.pem" ] && [ -f "nginx/certs/local.resumecoach.com+1-key.pem" ]; then
+        print_success "Certificados SSL encontrados"
+        print_info "Ubicación: nginx/certs/"
+    else
+        print_error "Certificados SSL NO encontrados"
+        echo "   Ejecutar: ${BLUE}./scripts/generate-certs.sh${NC}"
+        all_exist=false
+    fi
+    
+    # /etc/hosts configurado
+    if grep -q "127.0.0.1.*local.resumecoach.com" /etc/hosts 2>/dev/null; then
+        print_success "/etc/hosts configurado"
+        print_info "Entrada: $(grep '127.0.0.1.*local.resumecoach.com' /etc/hosts)"
+    else
+        print_error "/etc/hosts NO configurado"
+        echo "   Ejecutar: ${BLUE}sudo ./scripts/setup-hosts.sh${NC}"
+        all_exist=false
+    fi
+    
+    # DNS resuelve
+    if ping -c 1 local.resumecoach.com &> /dev/null; then
+        print_success "DNS resuelve correctamente"
+        local RESOLVED_IP=$(ping -c 1 local.resumecoach.com | head -n 1 | grep -oP '\(\K[^\)]+' || echo "desconocida")
+        print_info "local.resumecoach.com → $RESOLVED_IP"
+    else
+        print_warning "DNS no resuelve (puede tardar unos segundos después de configurar /etc/hosts)"
+        echo "   Si el problema persiste, flush DNS cache:"
+        echo "   • macOS: ${BLUE}sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder${NC}"
+        echo "   • Linux: ${BLUE}sudo systemd-resolve --flush-caches${NC}"
+    fi
+    
+    echo ""
+fi
+
 echo "========================================"
 
 if [ "$all_exist" = true ]; then
     print_success "Todos los checks pasaron! 🎉"
     echo ""
     print_info "Próximos pasos:"
-    echo "  1. Build de las apps:"
-    echo "     ${GREEN}make build${NC} o ${GREEN}pnpm build:all${NC}"
-    echo ""
-    echo "  2. Iniciar Docker Staging:"
-    echo "     ${GREEN}make docker-setup${NC}"
-    echo ""
-    echo "  3. Abrir en navegador:"
-    echo "     ${GREEN}http://localhost:8080${NC}"
+    
+    if [ "$SSL_CHECK" = true ]; then
+        echo "  1. Build de las apps:"
+        echo "     ${GREEN}make build${NC} o ${GREEN}pnpm build:all${NC}"
+        echo ""
+        echo "  2. Iniciar Docker Staging (SSL):"
+        echo "     ${GREEN}make docker-setup${NC}"
+        echo ""
+        echo "  3. Abrir en navegador:"
+        echo "     ${GREEN}https://local.resumecoach.com${NC}"
+        echo ""
+        print_info "Verificar candado SSL verde en navegador"
+    else
+        echo "  1. Build de las apps:"
+        echo "     ${GREEN}make build${NC} o ${GREEN}pnpm build:all${NC}"
+        echo ""
+        echo "  2. Iniciar Docker Staging:"
+        echo "     ${GREEN}make docker-setup${NC}"
+        echo ""
+        echo "  3. Opción 1 - Custom Domain (SSL):"
+        echo "     ${GREEN}https://local.resumecoach.com${NC}"
+        echo "     Requiere setup SSL: ${BLUE}./scripts/generate-certs.sh && sudo ./scripts/setup-hosts.sh${NC}"
+        echo ""
+        echo "  4. Opción 2 - Localhost (sin SSL):"
+        echo "     ${GREEN}http://localhost:8080${NC}"
+        echo ""
+        print_info "Para verificar SSL: ${BLUE}./scripts/verify-docker-setup.sh --ssl${NC}"
+    fi
     echo ""
 else
     print_error "Algunos checks fallaron. Por favor revisa los errores arriba."
+    
+    if [ "$SSL_CHECK" = true ]; then
+        echo ""
+        print_info "Para más ayuda con SSL:"
+        echo "  • 📖 docs/jira/fase1/rc-31268-ssl-setup-part1.md"
+        echo "  • 📖 docs/propuesta-custom-domain-docker-staging.md"
+    fi
+    
     exit 1
 fi

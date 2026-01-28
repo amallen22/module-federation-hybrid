@@ -10,6 +10,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Added - SSL Setup Custom Domain Docker Staging (RC-31268)
 
 #### Implementación SSL (Part 1/2)
+
 - ✅ **Certificados SSL**: Script `generate-certs.sh` para certificados locales con mkcert
 - ✅ **DNS Local**: Script `setup-hosts.sh` para configurar `/etc/hosts`
 - ✅ **Nginx SSL**: Configurado TLS 1.2/1.3 + HSTS + security headers
@@ -18,10 +19,12 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - ✅ **Documentación**: Tech stories RC-31268 y RC-31269 + propuesta técnica
 
 #### URLs Actualizadas
+
 - ✅ **Dominio custom**: `https://local.resumecoach.com` (con SSL válido)
 - ✅ **Alternativa**: `http://localhost:8080` (sin SSL, legacy)
 
 #### Archivos Creados/Modificados
+
 - **Scripts**: `scripts/generate-certs.sh`, `scripts/setup-hosts.sh`
 - **Nginx**: `nginx/nginx.conf` (SSL config + HTTP/HTTPS servers)
 - **Docker**: `docker-compose.staging.yml` (puertos, volumen certs)
@@ -29,6 +32,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **Docs**: `docs/propuesta-custom-domain-docker-staging.md`, `docs/jira/fase1/rc-31268-ssl-setup-part1.md`, `docs/jira/fase1/rc-31269-automation-docs-part2.md`
 
 #### Próximos Pasos (RC-31269)
+
 - ⏳ Automatización completa con Makefile
 - ⏳ Scripts de verificación automática
 - ⏳ Documentación exhaustiva y troubleshooting guide

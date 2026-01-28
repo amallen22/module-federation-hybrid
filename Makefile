@@ -83,6 +83,24 @@ docker-setup: ## Setup completo del entorno Docker staging (build + start)
 	@echo "$(BLUE)🐳 Setup completo de Docker staging...$(NC)"
 	./scripts/docker-staging.sh setup
 
+docker-setup-ssl: docker-certs docker-hosts docker-setup ## Setup completo con SSL (certificados + DNS + Docker)
+	@echo "$(GREEN)✅ Docker Staging con SSL configurado$(NC)"
+	@echo ""
+	@echo "$(BLUE)🌐 Abrir: https://local.resumecoach.com$(NC)"
+	@echo ""
+
+docker-certs: ## Generar certificados SSL (mkcert)
+	@echo "$(BLUE)🔐 Generando certificados SSL...$(NC)"
+	@./scripts/generate-certs.sh
+
+docker-hosts: ## Configurar /etc/hosts
+	@echo "$(BLUE)🌐 Configurando /etc/hosts...$(NC)"
+	@sudo ./scripts/setup-hosts.sh
+
+docker-verify-ssl: ## Verificar configuración SSL
+	@echo "$(BLUE)🔍 Verificando configuración SSL...$(NC)"
+	@./scripts/verify-docker-setup.sh --ssl
+
 docker-build: ## Build de todas las apps para Docker
 	@echo "$(BLUE)🔨 Building apps para Docker...$(NC)"
 	./scripts/docker-staging.sh build
@@ -186,13 +204,24 @@ urls: ## Mostrar URLs disponibles
 	@echo "  • User:           http://localhost:5004"
 	@echo "  • Migration Plan: http://localhost:5006"
 	@echo ""
-	@echo "$(GREEN)Docker Staging (make docker-start):$(NC)"
+	@echo "$(GREEN)Docker Staging - Custom Domain (SSL):$(NC)"
+	@echo "  • Shell:          https://local.resumecoach.com/"
+	@echo "  • Login:          https://local.resumecoach.com/login"
+	@echo "  • Product:        https://local.resumecoach.com/product"
+	@echo "  • User:           https://local.resumecoach.com/user"
+	@echo "  • UI:             https://local.resumecoach.com/ui"
+	@echo "  • Migration Plan: https://local.resumecoach.com/migration-plan"
+	@echo ""
+	@echo "$(YELLOW)Docker Staging - Legacy (sin SSL):$(NC)"
 	@echo "  • Shell:          http://localhost:8080/"
 	@echo "  • Login:          http://localhost:8080/login"
 	@echo "  • Product:        http://localhost:8080/product"
 	@echo "  • User:           http://localhost:8080/user"
 	@echo "  • UI:             http://localhost:8080/ui"
 	@echo "  • Migration Plan: http://localhost:8080/migration-plan"
+	@echo ""
+	@echo "$(BLUE)Para usar custom domain SSL:$(NC)"
+	@echo "  make docker-setup-ssl"
 	@echo ""
 
 # ============================================
