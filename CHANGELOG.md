@@ -7,6 +7,29 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Changed - Tech Stories Documentation (cv-ui-kit)
+
+#### Actualización de Referencias a Librería UI
+
+- 🔄 **RC-31340, RC-31341, RC-31342**: Actualizadas referencias de `packages/ui` → `@npm_leadtech/cv-ui-kit`
+- 📦 **Decisión Arquitectónica**: Librería de componentes UI estará en repositorio externo de Bitbucket
+- 🔗 **cv-ui-kit**: https://bitbucket.org/grupoblidoo/cv-ui-kit/src/master/
+- 📝 **Detalles**:
+  - Package npm: `@npm_leadtech/cv-ui-kit` (v14.9.2)
+  - Vite 6 + React 18.3 + TypeScript 5.8
+  - Storybook para documentación de componentes
+  - 40+ componentes UI (Button, Card, Textfield, Dialog, etc.)
+  - CSS tokens con CSS Variables
+  - Versionado semántico independiente
+
+**Archivos Actualizados**:
+
+- `docs/jira/fase1/rc-31340-user-integration.md`
+- `docs/jira/fase1/rc-31341-figma-tokens.md`
+- `docs/jira/fase1/rc-31342-login-real.md`
+
+**Referencia**: Decisión de arquitectura - UI Kit como librería externa
+
 ### Added - Tech Stories Documentation (Fase 1)
 
 #### Documentación Jira - Sprint Q1 S2

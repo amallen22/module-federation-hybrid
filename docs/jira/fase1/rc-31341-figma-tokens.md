@@ -47,15 +47,15 @@ Implementar y probar los Design Tokens de Figma (colores, tipografías, espaciad
 - App objetivo: `cv-micro/apps/user/` (post RC-31340)
 - Source: Figma Foundations (archivo de diseño del equipo)
 - Tool: Figma Tokens plugin / Style Dictionary
-- Output: `packages/tokens/` con JSON/CSS/TS
+- Output: Integración en `@npm_leadtech/cv-ui-kit` (repositorio externo)
 
 **Incluye**:
 - Exportar tokens de Figma (colores, typography, spacing, etc.)
-- Crear package `@cv/tokens` en el monorepo
-- Configurar Style Dictionary para transformaciones
-- Integrar tokens en User app (CSS Variables / Styled Components)
+- Integrar tokens en cv-ui-kit existente (o proponer estructura si no tiene)
+- Configurar Style Dictionary para transformaciones (si no existe)
+- Validar tokens en User app usando `@npm_leadtech/cv-ui-kit`
 - Validar visualmente User app con tokens aplicados
-- Documentar proceso de sincronización Figma → código
+- Documentar proceso de sincronización Figma → cv-ui-kit → apps
 
 ---
 
@@ -66,16 +66,17 @@ Implementar y probar los Design Tokens de Figma (colores, tipografías, espaciad
 - [ ] Estructura semántica (primitives → semantic → component-specific)
 - [ ] Tokens organizados por categorías
 
-### AC2: Package `@cv/tokens` Creado
-- [ ] Package en `packages/tokens/` con estructura estándar
-- [ ] `package.json` configurado
-- [ ] Style Dictionary configurado (`config.json`)
-- [ ] Build genera múltiples formatos (CSS, SCSS, JS, TS)
+### AC2: Tokens Integrados en cv-ui-kit
+- [ ] Tokens integrados en `@npm_leadtech/cv-ui-kit` (repositorio Bitbucket)
+- [ ] `package.json` de cv-ui-kit actualizado (nueva versión)
+- [ ] Style Dictionary configurado en cv-ui-kit (si no existe)
+- [ ] Build genera múltiples formatos (CSS, SCSS, JS, TS) desde tokens
+- [ ] `@npm_leadtech/cv-ui-kit/styles` incluye tokens CSS Variables
 
-### AC3: Tokens Integrados en User App
-- [ ] User app importa `@cv/tokens`
+### AC3: User App Usa Tokens desde cv-ui-kit
+- [ ] User app importa `@npm_leadtech/cv-ui-kit` (última versión con tokens)
 - [ ] CSS Variables aplicadas globalmente (`:root { --color-primary: ...; }`)
-- [ ] Componentes usan tokens en lugar de valores hardcodeados
+- [ ] Componentes de cv-ui-kit usan tokens en lugar de valores hardcodeados
 - [ ] Theming funcional (light/dark mode si aplica)
 
 ### AC4: Validación Visual Completa
@@ -86,11 +87,12 @@ Implementar y probar los Design Tokens de Figma (colores, tipografías, espaciad
 - [ ] Shadows y radii aplicados correctamente
 
 ### AC5: Documentación y Proceso
-- [ ] Documentación en `packages/tokens/README.md`
+- [ ] Documentación en `cv-ui-kit/README.md` actualizada (sección tokens)
 - [ ] Guía: Cómo exportar tokens de Figma
-- [ ] Guía: Cómo usar tokens en código
-- [ ] CI/CD: Build tokens automático
-- [ ] Storybook: Documentación de tokens (opcional)
+- [ ] Guía: Cómo integrar tokens en cv-ui-kit
+- [ ] Guía: Cómo usar tokens desde apps consumidoras
+- [ ] CI/CD en cv-ui-kit: Build tokens automático
+- [ ] Proceso de release: bump version cuando cambian tokens
 
 ### AC6: Testing
 - [ ] Visual regression tests (Chromatic / Percy)
@@ -113,26 +115,38 @@ Implementar y probar los Design Tokens de Figma (colores, tipografías, espaciad
 4. Guardar en packages/tokens/src/foundations.json
 ```
 
-#### 2. Build Tokens
+#### 2. Build Tokens (en cv-ui-kit)
 ```bash
-cd packages/tokens
+cd /home/amallen/www/cv/cv-environment-local/workspace/cv-ui-kit
+# Copiar tokens exportados a src/styles/tokens/ (o estructura adecuada)
+# Si no existe Style Dictionary, configurarlo
 pnpm install
-pnpm build  # Genera CSS, SCSS, JS, TS
-ls -la dist/  # Verificar outputs
+pnpm build  # Genera dist/ con tokens integrados
 ```
 
 #### 3. Integrar en User App
 ```typescript
 // apps/user/src/main.tsx
-import '@cv/tokens/css/variables.css';
+import '@npm_leadtech/cv-ui-kit/styles'; // Ya incluye tokens
 
 // apps/user/src/components/UserProfile.tsx
-const ProfileCard = styled.div`
+import { Card, Button } from '@npm_leadtech/cv-ui-kit';
+
+// Los componentes de cv-ui-kit ya usan tokens internamente
+const ProfileCard = () => (
+  <Card>
+    <Button variant="primary">Save Profile</Button>
+  </Card>
+);
+```
+
+**Nota**: Si User app tiene componentes custom, pueden usar las CSS Variables expuestas por cv-ui-kit:
+```css
+.custom-component {
   background: var(--color-background-primary);
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-`;
+}
 ```
 
 #### 4. Validación Visual
@@ -172,14 +186,14 @@ test('Color contrast meets WCAG AA', async ({ page }) => {
 ### Checklist de Validación
 
 - [ ] Tokens exportados de Figma
-- [ ] Package `@cv/tokens` funcional
-- [ ] Style Dictionary configurado
-- [ ] Build genera múltiples formatos
-- [ ] User app usa tokens (0 valores hardcodeados)
+- [ ] Tokens integrados en `@npm_leadtech/cv-ui-kit`
+- [ ] Style Dictionary configurado (si no existía)
+- [ ] Build de cv-ui-kit genera CSS con tokens
+- [ ] User app usa `@npm_leadtech/cv-ui-kit` (versión con tokens)
 - [ ] Visual fidelity: User app === Figma
 - [ ] Accessibility: WCAG AA compliance
-- [ ] Documentación completa
-- [ ] CI/CD integrado
+- [ ] Documentación completa (en cv-ui-kit + guía integración)
+- [ ] Nueva versión de cv-ui-kit publicada
 
 ---
 
@@ -188,9 +202,10 @@ test('Color contrast meets WCAG AA', async ({ page }) => {
 ### ✅ Resultados Esperados
 
 1. **✅ Theming strategy validada**: Lista para escalar a otras apps
-2. **✅ Design-Dev sync**: Proceso claro de Figma → código
-3. **✅ Consistency garantizada**: Design system funcionando
+2. **✅ Design-Dev sync**: Proceso claro Figma → cv-ui-kit → apps
+3. **✅ Consistency garantizada**: Design system funcionando con tokens
 4. **✅ Accessibility baseline**: Contrast ratios correctos desde el inicio
+5. **✅ cv-ui-kit versionado**: Tokens como parte de releases del UI Kit
 
 ### 🎓 Aprendizajes Técnicos Proyectados
 
@@ -230,18 +245,21 @@ test('Color contrast meets WCAG AA', async ({ page }) => {
 }
 ```
 
-#### 3. TypeScript Types para Tokens
+#### 3. TypeScript Types para Tokens (en cv-ui-kit)
 ```typescript
+// cv-ui-kit/src/types/tokens.ts
 // Auto-generated from tokens
 export type ColorToken = 
   | 'color-background-primary'
   | 'color-background-secondary'
   | 'color-text-primary';
 
-// Usage con type safety
-const Button = styled.button<{ variant: ColorToken }>`
-  background: var(--${props => props.variant});
-`;
+// Usage en componentes de cv-ui-kit con type safety
+import { ColorToken } from './types/tokens';
+
+interface ButtonProps {
+  bgColor?: ColorToken;
+}
 ```
 
 ### 🔧 Decisiones de Diseño
@@ -253,6 +271,8 @@ const Button = styled.button<{ variant: ColorToken }>`
 | **Semantic layering** | Facilita cambios globales sin tocar componentes |
 | **Visual regression tests** | Detectar regressions automáticamente |
 | **User app como guinea pig** | Menos riesgo que probar en Editor directamente |
+| **Tokens en cv-ui-kit** | Librería externa, versionada independientemente |
+| **Tokens como parte del release** | Bump version de cv-ui-kit cuando cambian tokens |
 
 ---
 
@@ -261,12 +281,12 @@ const Button = styled.button<{ variant: ColorToken }>`
 ### Prioridad Alta 🔴
 - [ ] Dark mode completo
 - [ ] Tokens para animaciones/transitions
-- [ ] Figma → código auto-sync (GitHub Actions)
+- [ ] Figma → cv-ui-kit auto-sync (GitHub Actions en cv-ui-kit repo)
 
 ### Prioridad Media 🟡
-- [ ] Storybook con documentación de tokens
-- [ ] Themed components library en `@cv/ui`
+- [ ] Storybook en cv-ui-kit con documentación de tokens
 - [ ] A11y tokens (focus states, keyboard navigation)
+- [ ] Automatic token updates: Figma webhook → cv-ui-kit PR
 
 ### Prioridad Baja 🟢
 - [ ] Multi-brand theming (white-label support)
@@ -289,9 +309,13 @@ const Button = styled.button<{ variant: ColorToken }>`
 
 ### Herramientas
 - **Figma**: Design source
-- **Style Dictionary**: Token transformer
+- **Style Dictionary**: Token transformer (si no existe en cv-ui-kit)
 - **Chromatic**: Visual regression testing
 - **axe DevTools**: Accessibility testing
+
+### Repositorios
+- **cv-ui-kit**: https://bitbucket.org/grupoblidoo/cv-ui-kit/src/master/
+- **User app**: `cv-micro/apps/user/` (consumidor de cv-ui-kit)
 
 ---
 
@@ -308,10 +332,11 @@ const Button = styled.button<{ variant: ColorToken }>`
 | Tarea | Story Points | Tiempo Estimado |
 |-------|--------------|-----------------|
 | Exportar tokens de Figma | 0.5 SP | ~30 min |
-| Setup package `@cv/tokens` + Style Dictionary | 1.5 SP | ~1.5 horas |
-| Integrar tokens en User app | 1.5 SP | ~1.5 horas |
-| Validación visual + fixes | 1 SP | ~1 hora |
-| Documentación + CI/CD | 0.5 SP | ~30 min |
+| Integrar tokens en cv-ui-kit + Style Dictionary (si no existe) | 2 SP | ~2 horas |
+| Build cv-ui-kit + publicar nueva versión | 0.5 SP | ~30 min |
+| Actualizar User app a nueva versión cv-ui-kit | 1 SP | ~1 hora |
+| Validación visual + fixes | 0.5 SP | ~30 min |
+| Documentación (cv-ui-kit + proceso) | 0.5 SP | ~30 min |
 | **TOTAL** | **5 SP** | **~4-5 horas** |
 
 ---
@@ -334,8 +359,9 @@ const Button = styled.button<{ variant: ColorToken }>`
 | Aspecto | Estado |
 |---------|--------|
 | **Tokens Exportados** | ⏳ Pendiente |
-| **Package `@cv/tokens`** | ⏳ Pendiente |
-| **Integración User App** | ⏳ Pendiente |
+| **Integración en cv-ui-kit** | ⏳ Pendiente |
+| **Nueva versión cv-ui-kit** | ⏳ Pendiente |
+| **User App Actualizada** | ⏳ Pendiente |
 | **Validación Visual** | ⏳ Pendiente |
 | **Documentación** | ⏳ Pendiente |
 | **Testing** | ⏳ Pendiente |

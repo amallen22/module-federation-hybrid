@@ -54,7 +54,7 @@ Migrar la aplicación `cv-app-user` desde su repositorio legacy de Bitbucket al 
 - Actualizar dependencias: React 18.3+, TypeScript 5+
 - Migrar Redux → Zustand (state management)
 - Migrar llamadas API → TanStack Query hooks
-- Adaptar Material-UI → UI Kit propio (`packages/ui`)
+- Adaptar Material-UI → `@npm_leadtech/cv-ui-kit` (librería externa)
 - Configurar exports de Module Federation
 - Integración con Shell (rutas, navegación, auth)
 
@@ -72,7 +72,7 @@ Migrar la aplicación `cv-app-user` desde su repositorio legacy de Bitbucket al 
 - [ ] Migración JS → TypeScript (mínimo 80% tipado)
 - [ ] Redux → Zustand implementado
 - [ ] API calls → TanStack Query hooks
-- [ ] Material-UI → UI Kit propio (componentes críticos refactorizados)
+- [ ] Material-UI → `@npm_leadtech/cv-ui-kit` (componentes críticos refactorizados)
 - [ ] Vite 6 configurado con Module Federation
 
 ### AC3: Module Federation Configurado
@@ -178,7 +178,7 @@ test('Flujo completo User App', async ({ page }) => {
 - [ ] TypeScript > 80%
 - [ ] Zustand reemplazó Redux
 - [ ] TanStack Query implementado
-- [ ] UI Kit reemplazó Material-UI (componentes críticos)
+- [ ] `@npm_leadtech/cv-ui-kit` reemplazó Material-UI (componentes críticos)
 - [ ] Module Federation configurado
 - [ ] Shell carga User dinámicamente
 - [ ] Auth flow funcionando
@@ -230,14 +230,17 @@ const { data: user, isLoading } = useQuery({
 });
 ```
 
-#### 3. Material-UI → UI Kit
+#### 3. Material-UI → cv-ui-kit
 ```typescript
 // ❌ Material-UI (legacy)
 import { Button } from '@mui/material';
 
-// ✅ UI Kit (nuevo)
-import { Button } from '@cv/ui';
+// ✅ cv-ui-kit (nuevo)
+import { Button } from '@npm_leadtech/cv-ui-kit';
+import '@npm_leadtech/cv-ui-kit/styles';
 ```
+
+**Nota**: `@npm_leadtech/cv-ui-kit` es un paquete externo mantenido en su propio repositorio de Bitbucket (`cv-ui-kit`), no parte del monorepo `cv-micro`.
 
 ### 🔧 Decisiones de Diseño
 
@@ -247,7 +250,8 @@ import { Button } from '@cv/ui';
 | **80% TypeScript mínimo** | Balance migración rápida vs type safety |
 | **Zustand sobre Redux** | Menos boilerplate, mejor DX |
 | **TanStack Query** | Caching, retry, optimistic updates out-of-the-box |
-| **UI Kit progresivo** | No bloquear migración, refactorizar componentes críticos primero |
+| **cv-ui-kit progresivo** | No bloquear migración, refactorizar componentes críticos primero |
+| **cv-ui-kit como dependencia externa** | Librería en repo separado de Bitbucket, versionada independientemente |
 
 ---
 
@@ -255,13 +259,13 @@ import { Button } from '@cv/ui';
 
 ### Prioridad Alta 🔴
 - [ ] Completar TypeScript al 100%
-- [ ] Refactorizar todos los componentes a UI Kit
+- [ ] Refactorizar todos los componentes a `@npm_leadtech/cv-ui-kit`
 - [ ] E2E tests completos (coverage > 80%)
 
 ### Prioridad Media 🟡
 - [ ] Performance optimization (lazy loading, code splitting)
 - [ ] Accessibility audit (axe DevTools)
-- [ ] Storybook para componentes User
+- [ ] Contribuir componentes nuevos a `cv-ui-kit` si es necesario
 
 ---
 
@@ -280,6 +284,7 @@ import { Button } from '@cv/ui';
 ### Repos
 - **Legacy**: https://bitbucket.org/grupoblidoo/cv-app-user/src/master/
 - **Nuevo**: `cv-micro/apps/user/` (post RC-31339)
+- **UI Kit**: https://bitbucket.org/grupoblidoo/cv-ui-kit/src/master/ (librería externa)
 
 ---
 

@@ -56,6 +56,7 @@ Eliminar la aplicación Login mock actual de `cv-micro/apps/login/` y reemplazar
 - Configurar Module Federation
 - Integración con Shell y User apps
 - Migrar lógica de autenticación (Cognito, JWT, etc.)
+- Usar `@npm_leadtech/cv-ui-kit` para componentes UI
 
 ---
 
@@ -76,7 +77,7 @@ Eliminar la aplicación Login mock actual de `cv-micro/apps/login/` y reemplazar
 - [ ] Migración JS → TypeScript (100% tipado)
 - [ ] Redux → Zustand (state management)
 - [ ] Llamadas API → TanStack Query hooks
-- [ ] Material-UI → UI Kit propio (`packages/ui`)
+- [ ] Material-UI → `@npm_leadtech/cv-ui-kit` (componentes UI)
 - [ ] Vite 6 configurado con Module Federation
 
 ### AC4: Module Federation Configurado
@@ -316,6 +317,28 @@ apiClient.interceptors.response.use(
 );
 ```
 
+#### 5. UI Components con cv-ui-kit
+
+```typescript
+// apps/login/src/components/LoginForm.tsx
+import { Button, Textfield, Card } from '@npm_leadtech/cv-ui-kit';
+import '@npm_leadtech/cv-ui-kit/styles';
+
+export const LoginForm = () => {
+  const { login } = useAuthStore();
+  
+  return (
+    <Card>
+      <Textfield placeholder="Email" type="email" />
+      <Textfield placeholder="Password" type="password" />
+      <Button variant="primary" onClick={handleLogin}>
+        Login
+      </Button>
+    </Card>
+  );
+};
+```
+
 ### 🔧 Decisiones de Diseño
 
 | Decisión | Justificación |
@@ -325,6 +348,7 @@ apiClient.interceptors.response.use(
 | **JWT + Refresh token** | Security best practice, sessions largas sin comprometer seguridad |
 | **Cognito** | Ya está integrado en legacy, evita cambiar auth provider |
 | **Protected routes HOC** | Patrón reusable para User, Shop, Payment, Editor |
+| **cv-ui-kit para UI** | Librería externa, componentes consistentes y versionados |
 
 ---
 
@@ -362,6 +386,7 @@ apiClient.interceptors.response.use(
 ### Repos
 - **Legacy**: `/home/amallen/www/cv/cv-environment-local/workspace/cv-app-login`
 - **Nuevo**: `cv-micro/apps/login/` (post RC-31339)
+- **UI Kit**: https://bitbucket.org/grupoblidoo/cv-ui-kit/src/master/ (librería externa)
 
 ---
 
