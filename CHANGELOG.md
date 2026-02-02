@@ -7,6 +7,40 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Tech Stories Documentation (Fase 1)
+
+#### Documentación Jira - Sprint Q1 S2
+
+- 📋 **RC-31339**: Migración Repositorio GitHub → Bitbucket (cv-micro) - 3 SP
+- 🧑 **RC-31340**: Integración cv-app-user en Module Federation - 8 SP
+- 🎨 **RC-31341**: Validación Figma Design Tokens en User App - 5 SP
+- 🔐 **RC-31342**: Migración y Refactorización cv-app-login Real - 8 SP
+
+#### Archivos Creados
+
+- `docs/jira/fase1/rc-31339-repo-migration.md`
+- `docs/jira/fase1/rc-31340-user-integration.md`
+- `docs/jira/fase1/rc-31341-figma-tokens.md`
+- `docs/jira/fase1/rc-31342-login-real.md`
+
+#### Estructura de Documentación
+
+Cada tech story incluye:
+
+- Hipótesis y problema a resolver
+- Descripción completa de implementación
+- Acceptance Criteria detallados
+- Testing (manual, E2E, edge cases)
+- Conclusiones y aprendizajes técnicos proyectados
+- Mejoras futuras priorizadas
+- Referencias internas y externas
+- Desglose de Story Points (Northstar Framework)
+- Dependencias y bloqueos
+
+**Total Fase 1**: 24 SP pendientes (RC-31339, RC-31340, RC-31341, RC-31342)
+
+**Referencia**: Epic RC-31191 - Fase 1: Desbloqueo del Stack Tecnológico
+
 ### Fixed - Docker Staging Configuration
 
 #### Bugfixes Post-Implementación RC-31268/RC-31269
